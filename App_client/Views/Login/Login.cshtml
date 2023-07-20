@@ -1,0 +1,30 @@
+﻿@model App_Shared.ViewModels.LoginUser
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+
+<h4>LoginUser</h4>
+<hr />
+<form asp-controller="Login" asp-action="Login">
+    <div class="form">
+        <label>Username:</label>
+        <input type="text" class="form-control" asp-for="Username" />
+    </div>
+    <div class="form">
+        <label>Password:</label>
+        <input type="password" class="form-control" asp-for="Password" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
