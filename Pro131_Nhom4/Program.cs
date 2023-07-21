@@ -8,7 +8,11 @@ using Pro131_Nhom4.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddScoped<IBillService,BillServices>();
+builder.Services.AddScoped<IBillDetailsService, BillDetailsServices>();
+builder.Services.AddScoped<IVoucherService, VoucherServices>();
+builder.Services.AddScoped<IBillStatusServices, BillStatusServices>();
+builder.Services.AddScoped<ICartDetailsService, CartDetailsService>();
 builder.Services.AddScoped<IRegisterService, RegisterServices>();
 builder.Services.AddScoped<ILoginService, LoginServices>();
 builder.Services.AddIdentity<User, Role>()
