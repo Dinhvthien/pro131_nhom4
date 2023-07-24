@@ -22,4 +22,9 @@
     <ProjectReference Include="..\App_Shared\App_Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+  </ItemGroup>
+
 </Project>
