@@ -12,7 +12,7 @@ namespace Pro131_Nhom4.Services
         {
             _context = new Mydb();
         }
-        public async Task<bool> CreateSize(Size address)
+        public async Task<bool> CreateSize(Sizes address)
         {
             if (address == null) return false;
             await _context.Sizes.AddAsync(address);
@@ -36,22 +36,22 @@ namespace Pro131_Nhom4.Services
             }
         }
 
-        public async Task<List<Size>> GetAllSize()
+        public async Task<List<Sizes>> GetAllSize()
         {
             return await _context.Sizes.ToListAsync();
         }
 
-        public async Task<Size> GetSizeById(Guid id)
+        public async Task<Sizes> GetSizeById(Guid id)
         {
             return await _context.Sizes.AsQueryable().Where(p => p.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<List<Size>> GetSizeByName(string name)
+        public async Task<List<Sizes>> GetSizeByName(string name)
         {
             return await _context.Sizes.AsQueryable().Where(p => p.Name.ToLower().Contains(name.ToLower())).ToListAsync();
         }
 
-        public async Task<bool> UpdateSize(Size address)
+        public async Task<bool> UpdateSize(Sizes address)
         {
             try
             {

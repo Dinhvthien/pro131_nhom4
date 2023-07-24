@@ -12,7 +12,7 @@ namespace Pro131_Nhom4.Services
         {
             _context = new Mydb();
         }
-        public async Task<bool> CreateColor(Color color)
+        public async Task<bool> CreateColor(Colors color)
         {
             if (color == null) return false;
             await _context.Colors.AddAsync(color);
@@ -35,22 +35,22 @@ namespace Pro131_Nhom4.Services
             }
         }
 
-        public async Task<List<Color>> GetAllColor()
+        public async Task<List<Colors>> GetAllColor()
         {
             return await _context.Colors.ToListAsync();
         }
 
-        public async Task<Color> GetColorById(Guid id)
+        public async Task<Colors> GetColorById(Guid id)
         {
             return await _context.Colors.AsQueryable().Where(p => p.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<List<Color>> GetColorByName(string name)
+        public async Task<List<Colors>> GetColorByName(string name)
         {
             return await _context.Colors.AsQueryable().Where(p => p.Name.ToLower().Contains(name.ToLower())).ToListAsync();
         }
 
-        public async Task<bool> UpdateColor(Color color)
+        public async Task<bool> UpdateColor(Colors color)
         {
             try
             {

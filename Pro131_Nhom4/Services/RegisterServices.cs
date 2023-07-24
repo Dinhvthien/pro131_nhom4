@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Pro131_Nhom4.Data;
 using Pro131_Nhom4.IService;
+using System.ComponentModel.DataAnnotations;
 
 namespace Pro131_Nhom4.Services
 {
@@ -50,10 +51,28 @@ namespace Pro131_Nhom4.Services
             // Create an identity user
             User identityUser = new()
             {
-                Id = Guid.NewGuid(),
+
+        //                public DateTime DateOfBirth { get; set; }
+        //public int Gender { get; set; }
+        //[MaxLength(10)]
+        //[RegularExpression(@"\d*[0-9]\d*", ErrorMessage = "The field PhoneNumber only has input number")]
+
+        //public double Point { get; set; }
+        //public string Address { get; set; }
+        //public int Status { get; set; }
+        Id = Guid.NewGuid(),
                 UserName = registerUser.Username,
-                Email = registerUser.Email
-            };
+                Email = registerUser.Email,
+                RankID = Guid.Parse("6cf63c26-eb83-4986-8977-bbd1399273ba"),
+                Point = 1,
+                Status = 1,
+                DateOfBirth = Convert.ToDateTime(registerUser.DateOfBirth),
+                Gender =Convert.ToInt32(registerUser.Gender),
+                PhoneNumber = registerUser.PhoneNumber,
+                RoleId = Guid.Parse("c2a7276a-0bdd-42c3-a102-f949246d7821"),
+                Address = registerUser.Address,
+
+            };  
 
             // Check if roles is exists or not
             if (await _roleManager.RoleExistsAsync(role))

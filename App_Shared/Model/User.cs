@@ -1,4 +1,4 @@
-﻿using App_Shared.Model;
+﻿    using App_Shared.Model;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
@@ -19,6 +19,7 @@ namespace Pro131_Nhom4.Data
         public Guid RoleId { get; set; }
         [ForeignKey("RankID")]
         public Guid RankID { get; set; }
+
         public virtual ICollection<Bill>? Bills { get; set; }
         public virtual ICollection<FavoriteProducts>? FavoriteProducts { get; set; }
         public virtual Rank? Rank { get; set; }

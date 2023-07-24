@@ -20,7 +20,7 @@ namespace App_Shared.ViewModels
         public string Description { get; set; }
         public Guid ColorID { get; set; }
         public Guid SizeID { get; set; }
-        public Color? Color { get; set; }
-        public Size? Size { get; set; }
+        public Colors? Color { get; set; }
+        public Sizes? Size { get; set; }
     }
 }

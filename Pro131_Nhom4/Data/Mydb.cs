@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
+using System.Drawing;
 using System.Reflection.Emit;
 using System.Security.Principal;
+
 
 namespace Pro131_Nhom4.Data
 {
@@ -25,12 +27,12 @@ namespace Pro131_Nhom4.Data
         public DbSet<BillDetails> Billdetails { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartDetails> Cartdetails { get; set; }
-        public DbSet<Color> Colors { get; set; }
+        public DbSet<Colors> Colors { get; set; }
         public DbSet<FavoriteProducts> FavoriteProducts { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Rank> Ranks { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<Size> Sizes { get; set; }
+        public DbSet<Sizes> Sizes { get; set; }
         public DbSet<Voucher> Vouchers { get; set; }
         public DbSet<BillStatus> BillStatuses { get; set; }
         public DbSet<Payment> Payments { get; set; }
@@ -49,9 +51,17 @@ namespace Pro131_Nhom4.Data
         private void CreateRoles(ModelBuilder builder)
         {
             builder.Entity<Role>().HasData(
-                    new Role() { Name = "Admin", NormalizedName = "ADMIN",Id = Guid.NewGuid() },
+                    new Role() { Name = "Admin", NormalizedName = "ADMIN", Id = Guid.NewGuid() },
                     new Role() { Name = "User", NormalizedName = "USER", Id = Guid.NewGuid() }
                 );
+            builder.Entity<Rank>().HasData(
+                    new Rank() { Name = "Sắt", Point = 1 , Id = Guid.NewGuid()},
+                    new Rank() { Name = "Đồng", Point = 100, Id = Guid.NewGuid() },
+                    new Rank() { Name = "Bạc", Point = 500, Id = Guid.NewGuid() },
+                    new Rank() { Name = "Vàng", Point = 1000, Id = Guid.NewGuid() },
+                    new Rank() { Name = "Kim Cương", Point = 3000, Id = Guid.NewGuid() },
+                    new Rank() { Name = "Thách đấu", Point = 10000, Id = Guid.NewGuid() }
+                    );
         }
    
     }

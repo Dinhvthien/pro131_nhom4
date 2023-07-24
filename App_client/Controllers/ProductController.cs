@@ -26,23 +26,17 @@ namespace App_client.Controllers
         public async Task<IActionResult> Search(string search)
         {
             var user = SessionServices.GetAccountFromSession(HttpContext.Session, "User");
-            if (user.Status != 404)
-            {
-                ViewBag.RoleId = user.RoleId;
-            }
+    
             return View("Index", await _services.GetAll<ProductView>($"https://localhost:7149/api/showlist/{search}"));
         }
         public async Task<IActionResult> Details(Guid id)
         {
             var user = SessionServices.GetAccountFromSession(HttpContext.Session, "User");
-            if (user.Status != 404)
-            {
-                ViewBag.RoleId = user.RoleId;
-            }
+
             var result = await _services.GetAllById<Product>($"https://localhost:7256/api/showlist/{id}");
             var name = await _services.GetAll<ProductView>($"https://localhost:7256/api/showlist/{result.Name}");
-            List<Color> color = new List<Color>();
-            List<Size> size = new List<Size>();
+            List<Colors> color = new List<Colors>();
+            List<Sizes> size = new List<Sizes>();
             foreach (var item in name)
             {
                 bool a = false;
@@ -88,19 +82,16 @@ namespace App_client.Controllers
         public async Task<IActionResult> Create()//Mở form
         {
             var user = SessionServices.GetAccountFromSession(HttpContext.Session, "User");
-            if (user.Status != 404)
-            {
-                ViewBag.RoleId = user.RoleId;
-            }
-            var allColor = await _services.GetAll<Color>("https://localhost:7256/api/color");
-            List<Color> color = new List<Color>();
+
+            var allColor = await _services.GetAll<Colors>("https://localhost:7256/api/color");
+            List<Colors> color = new List<Colors>();
             foreach (var item in allColor)
             {
                 color.Add(item);
             }
             ViewData["color"] = color;
-            var allSize = await _services.GetAll<Size>("https://localhost:7256/api/size");
-            List<Size> size = new List<Size>();
+            var allSize = await _services.GetAll<Sizes>("https://localhost:7256/api/size");
+            List<Sizes> size = new List<Sizes>();
             foreach (var item in allSize)
             {
                 size.Add(item);
@@ -112,10 +103,7 @@ namespace App_client.Controllers
         public async Task<IActionResult> Create(Product product, IFormFile imageFile)
         {
             var user = SessionServices.GetAccountFromSession(HttpContext.Session, "User");
-            if (user.Status != 404)
-            {
-                ViewBag.RoleId = user.RoleId;
-            }
+      
             product.Status = 0;
             product.Likes = 0;
             if (imageFile != null && imageFile.Length > 0)//Kiểm tra đường dẫn phù hợp
@@ -135,19 +123,16 @@ namespace App_client.Controllers
         public async Task<IActionResult> Edit(Guid id)//Mở form
         {
             var user = SessionServices.GetAccountFromSession(HttpContext.Session, "User");
-            if (user.Status != 404)
-            {
-                ViewBag.RoleId = user.RoleId;
-            }
-            var allColor = await _services.GetAll<Color>("https://localhost:7256/api/color");
-            List<Color> color = new List<Color>();
+
+            var allColor = await _services.GetAll<Colors>("https://localhost:7256/api/color");
+            List<Colors> color = new List<Colors>();
             foreach (var item in allColor)
             {
                 color.Add(item);
             }
             ViewData["color"] = color;
-            var allSize = await _services.GetAll<Size>("https://localhost:7256/api/size");
-            List<Size> size = new List<Size>();
+            var allSize = await _services.GetAll<Sizes>("https://localhost:7256/api/size");
+            List<Sizes> size = new List<Sizes>();
             foreach (var item in allSize)
             {
                 size.Add(item);
@@ -159,10 +144,7 @@ namespace App_client.Controllers
         public async Task<IActionResult> Edit(ProductView product, IFormFile imageFile)
         {
             var user = SessionServices.GetAccountFromSession(HttpContext.Session, "User");
-            if (user.Status != 404)
-            {
-                ViewBag.RoleId = user.RoleId;
-            }
+
             if (imageFile != null && imageFile.Length > 0)//Kiểm tra đường dẫn phù hợp
             {
                 //thực hiện sao chép ảnh đó vào wwwroot
@@ -179,10 +161,7 @@ namespace App_client.Controllers
         public async Task<IActionResult> DeleteProduct(Guid id)
         {
             var user = SessionServices.GetAccountFromSession(HttpContext.Session, "User");
-            if (user.Status != 404)
-            {
-                ViewBag.RoleId = user.RoleId;
-            }
+ 
             await _services.DeleteAll<Product>($"https://localhost:7256/api/showlist/{id}");
             return RedirectToAction("Index");
         }
@@ -190,10 +169,6 @@ namespace App_client.Controllers
         public async Task<IActionResult> Like(Guid id)
         {
             var user = SessionServices.GetAccountFromSession(HttpContext.Session, "User");
-            if (user.Status != 404)
-            {
-                ViewBag.RoleId = user.RoleId;
-            }
             HttpClient httpClient = new HttpClient(); // tạo ra để callApi
             var request = new HttpRequestMessage(HttpMethod.Options, $"https://localhost:7256/api/favoriteProducts/{user.Id}/{id}");
             await httpClient.SendAsync(request);

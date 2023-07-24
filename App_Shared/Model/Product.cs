@@ -29,7 +29,7 @@ namespace App_Shared.Model
         public virtual ICollection<BillDetails>? BillDetails { get; set; }
         public virtual ICollection<CartDetails>? CartDetails { get; set; }
         public virtual ICollection<FavoriteProducts>? FavoriteProducts { get; set; }
-        public virtual Color? Color { get; set; }
-        public virtual Size? Size { get; set; }
+        public virtual Colors? Color { get; set; }
+        public virtual Sizes? Size { get; set; }
     }
 }

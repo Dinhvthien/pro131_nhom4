@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace App_Shared.Model
 {
-    public class Size
+    public class Colors
     {
         [Key]
         public Guid Id { get; set; }

@@ -10,6 +10,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IRegisterService, RegisterServices>();
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ILoginService, LoginServices>();
 builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<Mydb>()/*.AddDefaultTokenProviders()*/; 
