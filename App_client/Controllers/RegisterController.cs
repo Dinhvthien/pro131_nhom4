@@ -13,7 +13,7 @@ namespace App_client.Controllers
             _httpClient = httpClient;
         }
         [HttpGet]
-        public IActionResult Register()
+        public IActionResult Register() 
         {
             return View();
         }
@@ -30,12 +30,11 @@ namespace App_client.Controllers
             // Add role to queryString
             role = "User";
             var queryString = $"?role={role}";
-            ////https://localhost:7149/api/Register?role=User
-            // Send request POST to register API
+    
             var response = await _httpClient.PostAsync($"https://localhost:7149/api/Register{queryString}", stringContent);
 
             ViewBag.Message = await response.Content.ReadAsStringAsync();
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index","Home");    
         }
     }
 }

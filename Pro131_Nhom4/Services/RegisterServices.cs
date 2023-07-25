@@ -71,7 +71,6 @@ namespace Pro131_Nhom4.Services
                 PhoneNumber = registerUser.PhoneNumber,
                 RoleId = Guid.Parse("c2a7276a-0bdd-42c3-a102-f949246d7821"),
                 Address = registerUser.Address,
-
             };  
 
             // Check if roles is exists or not
