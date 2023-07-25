@@ -21,6 +21,10 @@ namespace Pro131_Nhom4.Data
         public Mydb()
         {
         }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-VVKT5NE\\SQLEXPRESS;Initial Catalog=1311;Integrated Security=True;TrustServerCertificate=True;");
+        }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Bill> Bills { get; set; }
