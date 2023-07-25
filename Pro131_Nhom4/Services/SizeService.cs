@@ -1,7 +1,9 @@
 ﻿using App_Shared.Model;
+using App_Shared.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Pro131_Nhom4.Data;
 using Pro131_Nhom4.IService;
+using System.Drawing;
 
 namespace Pro131_Nhom4.Services
 {
@@ -12,10 +14,16 @@ namespace Pro131_Nhom4.Services
         {
             _context = new Mydb();
         }
-        public async Task<bool> CreateSize(Sizes address)
+        public async Task<bool> CreateSize(CreateSize address)
         {
             if (address == null) return false;
-            await _context.Sizes.AddAsync(address);
+            Sizes size = new Sizes() { 
+            Id = address.Id,
+            Name = address.Name,
+            Status = address.Status,
+            Products = null
+            };
+            await _context.Sizes.AddAsync(size);
             await _context.SaveChangesAsync();
             return true;
         }
@@ -51,7 +59,7 @@ namespace Pro131_Nhom4.Services
             return await _context.Sizes.AsQueryable().Where(p => p.Name.ToLower().Contains(name.ToLower())).ToListAsync();
         }
 
-        public async Task<bool> UpdateSize(Sizes address)
+        public async Task<bool> UpdateSize(UpdateSize address)
         {
             try
             {
