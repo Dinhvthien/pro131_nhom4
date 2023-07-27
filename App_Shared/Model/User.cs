@@ -25,4 +25,5 @@ namespace Pro131_Nhom4.Data
         public virtual Rank? Rank { get; set; }
         public virtual Cart? Cart { get; set; }
     }
+
 }
