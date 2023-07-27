@@ -17,6 +17,7 @@ builder.Services.AddScoped<IRegisterService, RegisterServices>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ILoginService, LoginServices>();
 builder.Services.AddScoped<ISizeService, SizeService>();
+builder.Services.AddScoped<ICRUDFavoriteProductService, CRUDFavoriteProductService>();
 builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<Mydb>()/*.AddDefaultTokenProviders()*/; 
 builder.Services.AddAuthentication(options =>
