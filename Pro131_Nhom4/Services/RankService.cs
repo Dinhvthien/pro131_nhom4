@@ -1,4 +1,5 @@
 ﻿using App_Shared.Model;
+using App_Shared.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Pro131_Nhom4.Data;
 using Pro131_Nhom4.IService;
@@ -12,10 +13,17 @@ namespace Pro131_Nhom4.Services
         {
             _context = new Mydb();
         }
-        public async Task<bool> CreateRank(Rank address)
+        public async Task<bool> CreateRank(CreateRank createRank)
         {
-            if (address == null) return false;
-            await _context.Ranks.AddAsync(address);
+            if (createRank == null) return false;
+            Rank rank = new Rank()
+            {
+                Id = createRank.Id,
+                Name = createRank.Name,
+                Point = createRank.Point,
+                User = null
+            };
+            await _context.Ranks.AddAsync(rank);
             await _context.SaveChangesAsync();
             return true;
         }
@@ -50,13 +58,13 @@ namespace Pro131_Nhom4.Services
             return await _context.Ranks.AsQueryable().Where(p => p.Name.ToLower().Contains(name.ToLower())).ToListAsync();
         }
 
-        public async Task<bool> UpdateRank(Rank address)
+        public async Task<bool> UpdateRank(UpdateRank updateRank)
         {
             try
             {
-                var n = _context.Ranks.Find(address.Id);
-                n.Name = address.Name;
-                n.Point = address.Point;
+                var n = _context.Ranks.Find(updateRank.Id);
+                n.Name = updateRank.Name;
+                n.Point = updateRank.Point;
                 _context.Update(n);
                 await _context.SaveChangesAsync();
                 return true;

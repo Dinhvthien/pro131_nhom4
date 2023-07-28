@@ -1,7 +1,9 @@
 ﻿using App_Shared.Model;
+using App_Shared.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Pro131_Nhom4.Data;
 using Pro131_Nhom4.IService;
+using System.Net;
 
 namespace Pro131_Nhom4.Services
 {
@@ -12,9 +14,16 @@ namespace Pro131_Nhom4.Services
         {
             _context = new Mydb();
         }
-        public async Task<bool> CreateColor(Colors color)
+        public async Task<bool> CreateColor(CreateColor createcolor)
         {
-            if (color == null) return false;
+            if (createcolor == null) return false;
+            Colors color = new Colors()
+            {
+                Id = createcolor.Id,
+                Name = createcolor.Name,
+                Status = createcolor.Status,
+                Products = null
+            };
             await _context.Colors.AddAsync(color);
             await _context.SaveChangesAsync();
             return true;
@@ -50,7 +59,7 @@ namespace Pro131_Nhom4.Services
             return await _context.Colors.AsQueryable().Where(p => p.Name.ToLower().Contains(name.ToLower())).ToListAsync();
         }
 
-        public async Task<bool> UpdateColor(Colors color)
+        public async Task<bool> UpdateColor(UpdateColor color)
         {
             try
             {
