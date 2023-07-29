@@ -12,7 +12,7 @@ using Pro131_Nhom4.Data;
 namespace Pro131_Nhom4.Migrations
 {
     [DbContext(typeof(Mydb))]
-    [Migration("20230721113039_131")]
+    [Migration("20230729185548_131")]
     partial class _131
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,8 +49,8 @@ namespace Pro131_Nhom4.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<Guid>("StatusID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("VoucherID")
                         .HasColumnType("uniqueidentifier");
@@ -150,7 +150,7 @@ namespace Pro131_Nhom4.Migrations
                     b.ToTable("Cartdetails");
                 });
 
-            modelBuilder.Entity("App_Shared.Model.Color", b =>
+            modelBuilder.Entity("App_Shared.Model.Colors", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -269,9 +269,47 @@ namespace Pro131_Nhom4.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ranks");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("7a35b65c-c482-408b-b6b4-7bee2bf7e03e"),
+                            Name = "Sắt",
+                            Point = 1.0
+                        },
+                        new
+                        {
+                            Id = new Guid("3af1e05c-ce81-4cbf-91fe-748dfcb6e1bc"),
+                            Name = "Đồng",
+                            Point = 100.0
+                        },
+                        new
+                        {
+                            Id = new Guid("c858951c-0e2c-46fc-887d-6d968c9e6839"),
+                            Name = "Bạc",
+                            Point = 500.0
+                        },
+                        new
+                        {
+                            Id = new Guid("2837bb5a-8704-47b1-b35c-8790cdf4fce6"),
+                            Name = "Vàng",
+                            Point = 1000.0
+                        },
+                        new
+                        {
+                            Id = new Guid("6006d978-cc23-43fe-8c21-1a0832ac1ef1"),
+                            Name = "Kim Cương",
+                            Point = 3000.0
+                        },
+                        new
+                        {
+                            Id = new Guid("dc7670b7-4494-49af-932c-f7056f5f4b37"),
+                            Name = "Thách đấu",
+                            Point = 10000.0
+                        });
                 });
 
-            modelBuilder.Entity("App_Shared.Model.Size", b =>
+            modelBuilder.Entity("App_Shared.Model.Sizes", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -449,15 +487,15 @@ namespace Pro131_Nhom4.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1c62ee86-c3d0-4e71-ab54-3a78963099e8"),
-                            ConcurrencyStamp = "5eaf345f-3d6b-4420-9327-f4b2a7ff2718",
+                            Id = new Guid("894681bf-2b38-439b-95a9-b1f99cf12c81"),
+                            ConcurrencyStamp = "646ff389-85f7-45e3-98e9-ae47e1a0c289",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("c2a7276a-0bdd-42c3-a102-f949246d7821"),
-                            ConcurrencyStamp = "e52ee425-3095-48d7-97fb-890865081b1d",
+                            Id = new Guid("654ad899-b858-4b64-b24a-d357279742be"),
+                            ConcurrencyStamp = "fe98b2a4-1ee9-4879-b4f6-97334164a08f",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -652,13 +690,13 @@ namespace Pro131_Nhom4.Migrations
 
             modelBuilder.Entity("App_Shared.Model.Product", b =>
                 {
-                    b.HasOne("App_Shared.Model.Color", "Color")
+                    b.HasOne("App_Shared.Model.Colors", "Color")
                         .WithMany("Products")
                         .HasForeignKey("ColorID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("App_Shared.Model.Size", "Size")
+                    b.HasOne("App_Shared.Model.Sizes", "Size")
                         .WithMany("Products")
                         .HasForeignKey("SizeID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -746,7 +784,7 @@ namespace Pro131_Nhom4.Migrations
                     b.Navigation("CartDetails");
                 });
 
-            modelBuilder.Entity("App_Shared.Model.Color", b =>
+            modelBuilder.Entity("App_Shared.Model.Colors", b =>
                 {
                     b.Navigation("Products");
                 });
@@ -770,7 +808,7 @@ namespace Pro131_Nhom4.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("App_Shared.Model.Size", b =>
+            modelBuilder.Entity("App_Shared.Model.Sizes", b =>
                 {
                     b.Navigation("Products");
                 });

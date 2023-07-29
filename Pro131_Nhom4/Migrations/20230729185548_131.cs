@@ -286,7 +286,7 @@ namespace Pro131_Nhom4.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
+                    StatusID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     VoucherID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AccountID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -418,12 +418,24 @@ namespace Pro131_Nhom4.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("1c62ee86-c3d0-4e71-ab54-3a78963099e8"), "5eaf345f-3d6b-4420-9327-f4b2a7ff2718", "Admin", "ADMIN" });
+                values: new object[,]
+                {
+                    { new Guid("654ad899-b858-4b64-b24a-d357279742be"), "fe98b2a4-1ee9-4879-b4f6-97334164a08f", "User", "USER" },
+                    { new Guid("894681bf-2b38-439b-95a9-b1f99cf12c81"), "646ff389-85f7-45e3-98e9-ae47e1a0c289", "Admin", "ADMIN" }
+                });
 
             migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("c2a7276a-0bdd-42c3-a102-f949246d7821"), "e52ee425-3095-48d7-97fb-890865081b1d", "User", "USER" });
+                table: "Ranks",
+                columns: new[] { "Id", "Name", "Point" },
+                values: new object[,]
+                {
+                    { new Guid("2837bb5a-8704-47b1-b35c-8790cdf4fce6"), "Vàng", 1000.0 },
+                    { new Guid("3af1e05c-ce81-4cbf-91fe-748dfcb6e1bc"), "Đồng", 100.0 },
+                    { new Guid("6006d978-cc23-43fe-8c21-1a0832ac1ef1"), "Kim Cương", 3000.0 },
+                    { new Guid("7a35b65c-c482-408b-b6b4-7bee2bf7e03e"), "Sắt", 1.0 },
+                    { new Guid("c858951c-0e2c-46fc-887d-6d968c9e6839"), "Bạc", 500.0 },
+                    { new Guid("dc7670b7-4494-49af-932c-f7056f5f4b37"), "Thách đấu", 10000.0 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

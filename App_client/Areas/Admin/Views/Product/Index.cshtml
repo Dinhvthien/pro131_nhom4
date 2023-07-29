@@ -1,0 +1,94 @@
+﻿@using App_Shared.Model
+@model IEnumerable<App_Shared.ViewModels.ProductView>
+
+@{
+    ViewData["Title"] = "Index";
+    
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+         
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AvailableQuantity)
+            </th>
+           @* <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Manufacturer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Likes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+          @*  <th>
+                @Html.DisplayNameFor(model => model.ColorID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SizeID)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+      
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AvailableQuantity)
+            </td>
+         @*   <td>
+                @Html.DisplayFor(modelItem => item.ImageUrl)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Manufacturer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Likes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+       @*     <td>
+                @Html.DisplayFor(modelItem => item.ColorID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SizeID)
+            </td>*@
+            <td>
+                    @Html.ActionLink("Edit", "Edit","Product", new {  id=item.Id }) |
+                @Html.ActionLink("Details", "Details","Product", new {  id=item.Id }) |
+                    @Html.ActionLink("Delete","DeleteProduct","Product", new { id=item.Id})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
