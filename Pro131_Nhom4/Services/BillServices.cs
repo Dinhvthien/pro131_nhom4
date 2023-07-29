@@ -122,7 +122,7 @@ namespace Pro131_Nhom4.Services
                 var up = _context.Bills.Find(address.Bill.Id);
                 up.Price = address.Bill.Price;
                 up.CreateDate = address.Bill.CreateDate;
-                up.Status = address.Bill.Status;
+                up.StatusID = address.Bill.StatusID;
                 //up.Voucher = address.Bill.Voucher;
                 _context.Bills.Update(up);
                 await _context.SaveChangesAsync();
