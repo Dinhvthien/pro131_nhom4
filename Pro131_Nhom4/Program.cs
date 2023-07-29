@@ -9,6 +9,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IBillService,BillServices>();
+builder.Services.AddScoped<IColorService, ColorServices>();
+builder.Services.AddScoped<IRankService, RankService>();
 builder.Services.AddScoped<IBillDetailsService, BillDetailsServices>();
 builder.Services.AddScoped<IVoucherService, VoucherServices>();
 builder.Services.AddScoped<IBillStatusServices, BillStatusServices>();
@@ -39,6 +41,8 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+//builder.Services.AddDbContext<Mydb>(options =>
+//    options.UseSqlServer("MyCS"));
 // Add services to the container.
 builder.Services.AddDbContext<Mydb>(options =>
 {
