@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Pro131_Nhom4.IService;
 using App_Shared.Model;
 using Pro131_Nhom4.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Pro131_Nhom4.Controllers
 {
@@ -25,6 +26,7 @@ namespace Pro131_Nhom4.Controllers
             _productService = productService;
             _cartDetailsService = cartDetailsService;
         }
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> ShowListBill()
         {
@@ -38,6 +40,8 @@ namespace Pro131_Nhom4.Controllers
             string formattedJson = parsedJson.ToString(Formatting.Indented);
             return Ok(formattedJson);
         }
+
+
       
     }
 }

@@ -23,7 +23,7 @@ namespace Pro131_Nhom4.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-P8UA93V\\SQLEXPRESS;Initial Catalog=1311;Integrated Security=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-VVKT5NE\\SQLEXPRESS;Initial Catalog=1311;Integrated Security=True;TrustServerCertificate=True;");
         }
 
         public DbSet<User> Users { get; set; }

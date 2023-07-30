@@ -1,5 +1,6 @@
 ﻿using App_Shared.Model;
 using App_Shared.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Pro131_Nhom4.IService;
@@ -15,7 +16,7 @@ namespace Pro131_Nhom4.Controllers
         {
             _productService = productService;
         }
-
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> ShowListProduct()
         {
@@ -42,12 +43,18 @@ namespace Pro131_Nhom4.Controllers
             var product = await _productService.GetProductByName(name);
             return Ok(product);
         }
+
+
+
         [HttpPost]
         public async Task<ActionResult<Product>> CreateProduct(Product product)
         {
             await _productService.CreateProduct(product);
             return Ok(product);
         }
+
+
+
         [HttpPut("{id}")]
         public async Task<ActionResult<ProductView>> UpdateProduct(ProductView product)
         {
