@@ -63,13 +63,13 @@ namespace Pro131_Nhom4.Services
         Id = Guid.NewGuid(),
                 UserName = registerUser.Username,
                 Email = registerUser.Email,
-                RankID = Guid.Parse("6cf63c26-eb83-4986-8977-bbd1399273ba"),
+                RankID = Guid.Parse("7a35b65c-c482-408b-b6b4-7bee2bf7e03e"),
                 Point = 1,
                 Status = 1,
                 DateOfBirth = Convert.ToDateTime(registerUser.DateOfBirth),
                 Gender =Convert.ToInt32(registerUser.Gender),
                 PhoneNumber = registerUser.PhoneNumber,
-                RoleId = Guid.Parse("c2a7276a-0bdd-42c3-a102-f949246d7821"),
+                RoleId = Guid.Parse("654ad899-b858-4b64-b24a-d357279742be"),
                 Address = registerUser.Address,
             };  
 

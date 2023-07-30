@@ -1,4 +1,6 @@
 ﻿using App_client.Models;
+using App_client.Services;
+using App_Shared.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -12,10 +14,12 @@ namespace App_client.Controllers
         {
             _logger = logger;
         }
-
-        public IActionResult Index()
+        TServices _services = new TServices();
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var product = await _services.GetAll<ProductView>("https://localhost:7149/api/showlist");
+            var p = product.GroupBy(p => new { p.Name, p.ColorID }).Select(g => g.First()).ToList();
+            return View(p);
         }
 
         public IActionResult Privacy()

@@ -1,96 +1,95 @@
 ﻿@model IEnumerable<App_Shared.ViewModels.ProductView>
 
 @{
-    ViewData["Title"] = "Index";
-    var roleid = ViewBag.RoleId;
+	ViewData["Title"] = "Index";
+	var roleid = ViewBag.RoleId;
 }
 
-<h1>Index</h1>
+<div class="row mb-5 mt-5">
+	<div class="col-md-9 order-2">
+		<div class="row mb-5">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AvailableQuantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Manufacturer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Likes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ColorID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SizeID)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AvailableQuantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Manufacturer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Likes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ColorID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SizeID)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+			@foreach (var item in Model)
+			{
+
+				<div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+					<div class="block-4 text-center border">
+						<figure class="block-4-image">
+							<a asp-controller="Product" asp-action="Details" asp-route-id="@item.Id"><img src="@item.ImageUrl" alt="Image placeholder" class="img-fluid"></a>
+						</figure>
+						<div class="block-4-text p-4">
+							<h3><a asp-controller="Product" asp-action="Details" asp-route-id="@item.Id">@item.Name</a></h3>
+							<p class="mb-0">@item.Description</p>
+							<p class="text-primary font-weight-bold">$@item.Price</p>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+		<div class="row" data-aos="fade-up">
+			<div class="col-md-12 text-center">
+				<div class="site-block-27">
+					<ul>
+						<li><a href="#">&lt;</a></li>
+						<li class="active"><span>1</span></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+						<li><a href="#">&gt;</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-3 order-1 mb-5 mb-md-0">
+		<div class="border p-4 rounded mb-4">
+			<h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
+			<ul class="list-unstyled mb-0">
+				<li class="mb-1"><a href="#" class="d-flex"><span>Men</span> <span class="text-black ml-auto">(2,220)</span></a></li>
+				<li class="mb-1"><a href="#" class="d-flex"><span>Women</span> <span class="text-black ml-auto">(2,550)</span></a></li>
+				<li class="mb-1"><a href="#" class="d-flex"><span>Children</span> <span class="text-black ml-auto">(2,124)</span></a></li>
+			</ul>
+		</div>
+
+		<div class="border p-4 rounded mb-4">
+			<div class="mb-4">
+				<h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
+				<div id="slider-range" class="border-primary"></div>
+				<input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white" disabled="" />
+			</div>
+
+			<div class="mb-4">
+				<h3 class="mb-3 h6 text-uppercase text-black d-block">Size</h3>
+				<label for="s_sm" class="d-flex">
+					<input type="checkbox" id="s_sm" class="mr-2 mt-1"> <span class="text-black">Small (2,319)</span>
+				</label>
+				<label for="s_md" class="d-flex">
+					<input type="checkbox" id="s_md" class="mr-2 mt-1"> <span class="text-black">Medium (1,282)</span>
+				</label>
+				<label for="s_lg" class="d-flex">
+					<input type="checkbox" id="s_lg" class="mr-2 mt-1"> <span class="text-black">Large (1,392)</span>
+				</label>
+			</div>
+
+			<div class="mb-4">
+				<h3 class="mb-3 h6 text-uppercase text-black d-block">Color</h3>
+				<a href="#" class="d-flex color-item align-items-center">
+					<span class="bg-danger color d-inline-block rounded-circle mr-2"></span> <span class="text-black">Red (2,429)</span>
+				</a>
+				<a href="#" class="d-flex color-item align-items-center">
+					<span class="bg-success color d-inline-block rounded-circle mr-2"></span> <span class="text-black">Green (2,298)</span>
+				</a>
+				<a href="#" class="d-flex color-item align-items-center">
+					<span class="bg-info color d-inline-block rounded-circle mr-2"></span> <span class="text-black">Blue (1,075)</span>
+				</a>
+				<a href="#" class="d-flex color-item align-items-center">
+					<span class="bg-primary color d-inline-block rounded-circle mr-2"></span> <span class="text-black">Purple (1,075)</span>
+				</a>
+			</div>
+
+		</div>
+	</div>
+</div>
+
