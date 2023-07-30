@@ -59,7 +59,7 @@ namespace Pro131_Nhom4.Data
                     new Role() { Name = "User", NormalizedName = "USER", Id = Guid.NewGuid() }
                 );
             builder.Entity<Rank>().HasData(
-                    new Rank() { Name = "Sắt", Point = 1 , Id = Guid.NewGuid()},
+                    new Rank() { Name = "Sắt", Point = 0 , Id = Guid.NewGuid()},
                     new Rank() { Name = "Đồng", Point = 100, Id = Guid.NewGuid() },
                     new Rank() { Name = "Bạc", Point = 500, Id = Guid.NewGuid() },
                     new Rank() { Name = "Vàng", Point = 1000, Id = Guid.NewGuid() },

@@ -12,7 +12,7 @@ using Pro131_Nhom4.Data;
 namespace Pro131_Nhom4.Migrations
 {
     [DbContext(typeof(Mydb))]
-    [Migration("20230729185548_131")]
+    [Migration("20230730164941_131")]
     partial class _131
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,7 +43,7 @@ namespace Pro131_Nhom4.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("PaymentId")
+                    b.Property<Guid>("PayMentID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("Price")
@@ -61,7 +61,7 @@ namespace Pro131_Nhom4.Migrations
 
                     b.HasIndex("BillStatusIdStt");
 
-                    b.HasIndex("PaymentId");
+                    b.HasIndex("PayMentID");
 
                     b.HasIndex("VoucherID");
 
@@ -273,37 +273,37 @@ namespace Pro131_Nhom4.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7a35b65c-c482-408b-b6b4-7bee2bf7e03e"),
+                            Id = new Guid("f2e3c6d8-39ea-436f-b9c3-8a744ccdf9de"),
                             Name = "Sắt",
-                            Point = 1.0
+                            Point = 0.0
                         },
                         new
                         {
-                            Id = new Guid("3af1e05c-ce81-4cbf-91fe-748dfcb6e1bc"),
+                            Id = new Guid("1feccee8-d17f-48d4-8de0-e6334d8337aa"),
                             Name = "Đồng",
                             Point = 100.0
                         },
                         new
                         {
-                            Id = new Guid("c858951c-0e2c-46fc-887d-6d968c9e6839"),
+                            Id = new Guid("c233851c-d322-4ee3-8bc7-1cfeca0820b2"),
                             Name = "Bạc",
                             Point = 500.0
                         },
                         new
                         {
-                            Id = new Guid("2837bb5a-8704-47b1-b35c-8790cdf4fce6"),
+                            Id = new Guid("29528be2-192a-4423-8411-51d96389faa7"),
                             Name = "Vàng",
                             Point = 1000.0
                         },
                         new
                         {
-                            Id = new Guid("6006d978-cc23-43fe-8c21-1a0832ac1ef1"),
+                            Id = new Guid("9fa18d51-e0e5-4f56-ae2d-79344fd09ca2"),
                             Name = "Kim Cương",
                             Point = 3000.0
                         },
                         new
                         {
-                            Id = new Guid("dc7670b7-4494-49af-932c-f7056f5f4b37"),
+                            Id = new Guid("68776531-c9b9-42a7-a348-b72117a5141c"),
                             Name = "Thách đấu",
                             Point = 10000.0
                         });
@@ -487,15 +487,15 @@ namespace Pro131_Nhom4.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("894681bf-2b38-439b-95a9-b1f99cf12c81"),
-                            ConcurrencyStamp = "646ff389-85f7-45e3-98e9-ae47e1a0c289",
+                            Id = new Guid("80f77119-8d3b-4617-b653-e29bdddd11ca"),
+                            ConcurrencyStamp = "d40645c9-4ce8-483b-90c0-08a2fe874816",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("654ad899-b858-4b64-b24a-d357279742be"),
-                            ConcurrencyStamp = "fe98b2a4-1ee9-4879-b4f6-97334164a08f",
+                            Id = new Guid("9202604f-5d4a-4e5a-9fb9-b5f26f729628"),
+                            ConcurrencyStamp = "78fb2db8-28e1-4fa6-b1dd-31f20353161b",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -607,7 +607,9 @@ namespace Pro131_Nhom4.Migrations
 
                     b.HasOne("App_Shared.Model.Payment", "Payment")
                         .WithMany("Bills")
-                        .HasForeignKey("PaymentId");
+                        .HasForeignKey("PayMentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("App_Shared.Model.Voucher", "Voucher")
                         .WithMany("Bills")
