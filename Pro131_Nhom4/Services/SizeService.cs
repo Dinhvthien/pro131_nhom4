@@ -18,10 +18,10 @@ namespace Pro131_Nhom4.Services
         {
             if (address == null) return false;
             Sizes size = new Sizes() { 
-            Id = address.Id,
+            Id = Guid.NewGuid(),
             Name = address.Name,
-            Status = address.Status,
-            Products = null
+            Status = address.Status
+            //Products = null
             };
             await _context.Sizes.AddAsync(size);
             await _context.SaveChangesAsync();
@@ -44,19 +44,47 @@ namespace Pro131_Nhom4.Services
             }
         }
 
-        public async Task<List<Sizes>> GetAllSize()
+        public async Task<List<ViewSize>> GetAllSize()
         {
-            return await _context.Sizes.ToListAsync();
+            List<ViewSize> lst = await
+              (from a in _context.Sizes
+               select new ViewSize()
+               {
+                   Id = a.Id,
+                   Name = a.Name,
+                   Status = a.Status,                  
+               }).ToListAsync();
+            return lst;
         }
 
-        public async Task<Sizes> GetSizeById(Guid id)
+        public async Task<ViewSize> GetSizeById(Guid id)
         {
-            return await _context.Sizes.AsQueryable().Where(p => p.Id == id).FirstOrDefaultAsync();
+            ViewSize lst = new ViewSize();
+            lst = await
+
+              (from a in _context.Sizes 
+               where a.Id == id
+               select new ViewSize()
+               {
+                   Id = a.Id,
+                   Name = a.Name,
+                   Status = a.Status,
+               }).FirstAsync();
+            return lst;
         }
 
-        public async Task<List<Sizes>> GetSizeByName(string name)
+        public async Task<List<ViewSize>> GetSizeByName(string name)
         {
-            return await _context.Sizes.AsQueryable().Where(p => p.Name.ToLower().Contains(name.ToLower())).ToListAsync();
+            List<ViewSize> lst = await
+              (from a in _context.Sizes where a.Name == name
+               select new ViewSize()
+               {
+                   //Id = a.Id,
+                   Name = a.Name,
+
+                   Status = a.Status,
+               }).ToListAsync();
+            return lst;
         }
 
         public async Task<bool> UpdateSize(UpdateSize address)

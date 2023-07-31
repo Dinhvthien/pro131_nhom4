@@ -8,8 +8,8 @@ namespace Pro131_Nhom4.IService
         public Task<bool> CreateSize(CreateSize createSize);
         public Task<bool> UpdateSize(UpdateSize address);
         public Task<bool> DeleteSize(Guid id);
-        public Task<Sizes> GetSizeById(Guid id);
-        public Task<List<Sizes>> GetSizeByName(string name);
-        public Task<List<Sizes>> GetAllSize();
+        public Task<ViewSize> GetSizeById(Guid id);
+        public Task<List<ViewSize>> GetSizeByName(string name);
+        public Task<List<ViewSize>> GetAllSize();
     }
 }

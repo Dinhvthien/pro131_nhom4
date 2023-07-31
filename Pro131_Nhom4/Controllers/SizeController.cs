@@ -6,7 +6,7 @@ using Pro131_Nhom4.Services;
 
 namespace Pro131_Nhom4.Controllers
 {
-    [Route("api/showsize")]
+    [Route("api/[controller]")]
     [ApiController]
     public class SizeController : Controller
     {
@@ -18,40 +18,50 @@ namespace Pro131_Nhom4.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllSize()
+		[Route("Get-All")]
+		public async Task<IActionResult> GetAllSize()
         {
             var size = await _SizeService.GetAllSize();
             return Ok(size);
         }
 
-        [HttpGet("{id:Guid}")]
-        public async Task<IActionResult> GetSizeById([FromRoute] Guid id)
+        //[HttpGet("{id:Guid}")]
+        [HttpGet]
+        [Route("GetById/{id}")]
+        public async Task<IActionResult> GetSizeById(Guid id)
         {
             var size = await _SizeService.GetSizeById(id);
             return Ok(size);
         }
 
-        [HttpGet("{name}")]
-        public async Task<IActionResult> GetSizeByName([FromRoute] string name)
+        //[HttpGet("{name}")]
+        [HttpPost]
+        [Route("GetByName/{name}")]
+        public async Task<IActionResult> GetSizeByName(string name)
         {
             var size = await _SizeService.GetSizeByName(name);
             return Ok(size);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSize([FromForm]CreateSize sizes)
+		[Route("CreateSize")]
+		public async Task<IActionResult> CreateSize(CreateSize sizes)
         {
             await _SizeService.CreateSize(sizes);
             return Ok(sizes);
         }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateSize([FromForm]UpdateSize size)
+        //[HttpPut]
+        [HttpPost]
+        [Route("Update/{id}")]
+		public async Task<IActionResult> UpdateSize(UpdateSize size)
         {
              await _SizeService.UpdateSize(size);
             return Ok(size);
         }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSize([FromRoute] Guid id)
+        //[HttpDelete("{id}")]
+        [HttpGet]
+        [Route("Delete/{id}")]
+        public async Task<IActionResult> DeleteSize(Guid id)
         {
             var size = await _SizeService.DeleteSize(id);
             if (size )

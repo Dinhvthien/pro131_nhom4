@@ -53,5 +53,37 @@ namespace App_client.Services
             await httpClient.DeleteAsync(apiUrl);
             return true;
         }
+
+        public async Task<T> GetById_DungBM<T>(string url, Guid id)
+        {
+
+            HttpClient httpClient = new HttpClient();
+            var response = await httpClient.GetAsync(url + id);
+            string TResponse = await response.Content.ReadAsStringAsync();
+            T model = JsonConvert.DeserializeObject<T>(TResponse);
+            return model;
+        }
+
+        public async Task<T> Update_DungBM<T>(string url, T model, Guid id)
+        {
+            HttpClient client = new HttpClient();
+            var content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            var response = await client.PostAsync(url + id.ToString(), content);
+            string result = await response.Content.ReadAsStringAsync();
+            return model;
+        }
+        public async Task<int> Delete_DungBM<T>(string urlGetById, string urlRemove, Guid id)
+        {
+            T model = await GetById_DungBM<T>(urlGetById, id);
+            HttpClient client = new HttpClient();
+            var content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            var response = await client.GetAsync(urlRemove + id);
+            string result = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+            {
+                return 0;
+            }
+            return 1;
+        }
     }
 }
