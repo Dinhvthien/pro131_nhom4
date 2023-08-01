@@ -6,6 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Newtonsoft.Json;
+using Pro131_Nhom4.Data;
 
 namespace App_client.Controllers
 {
@@ -44,13 +45,24 @@ namespace App_client.Controllers
 
                 var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
                 identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, jwt.Claims.FirstOrDefault(u => u.Type == ClaimTypes.NameIdentifier).Value));
-                identity.AddClaim(new Claim(ClaimTypes.Role, jwt.Claims.FirstOrDefault(u => u.Type == ClaimTypes.Role).Value));
+                 identity.AddClaim(new Claim(ClaimTypes.Role, jwt.Claims.FirstOrDefault(u => u.Type == ClaimTypes.Role).Value));
                 var principal = new ClaimsPrincipal(identity);
 
                 await HttpContext.SignInAsync(principal);
-
-                var check = User.Identity.IsAuthenticated;
-                return RedirectToAction("Index", "Home");
+                var role = identity.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Role)?.Value;
+                //var check = User.Identity.IsAuthenticated;
+               // string userRole = jwt.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Role)?.Value;
+                if (role == "Admin")
+                {
+                    return RedirectToAction("Index", "Admin","Admin");
+                }
+                else if(role == "User")
+                {
+                    return RedirectToAction("Index", "Product");
+                } else
+                {
+                     return RedirectToAction("Register", "Register");
+                }               
             }
             else
             {
