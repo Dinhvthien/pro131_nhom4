@@ -44,7 +44,7 @@ namespace Pro131_Nhom4.Controllers
 
         [HttpPost]
 
-        public async Task<ActionResult<BillController>> CreateBill(List<CartDetails> cartDetails, string Adress)
+        public async Task<ActionResult<Bill>> CreateBill(List<CartDetails> cartDetails, string Adress)
         {
             Guid accountId = Guid.NewGuid();
             double price = 0;
@@ -55,7 +55,7 @@ namespace Pro131_Nhom4.Controllers
                 accountId = item.AccountID;
             }
             // Tạo một hóa đơn mới
-            BillController bill = new Bill()
+            Bill bill = new Bill()
             {
                 Id = Guid.NewGuid(),
                 CreateDate = DateTime.Now,
@@ -80,7 +80,7 @@ namespace Pro131_Nhom4.Controllers
                 // Tạo chi tiết hóa đơn mới
                 BillDetails billDetail = new BillDetails()
                 {
-                    BillID = bill.,
+                    BillID = bill.Id,
                     ProductID = product.Result.Id,
                     Quantity = item.Quantity,
                     Prices = product.Result.Price * item.Quantity,
