@@ -5,10 +5,11 @@ using Pro131_Nhom4.IService;
 using App_Shared.Model;
 using App_Shared.ViewModels;
 using Pro131_Nhom4.Services;
+using System.Net.WebSockets;
 
 namespace Pro131_Nhom4.Controllers
 {
-    [Route("api/favoriteproducts")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CRUDFavoritePrController : Controller
     {
@@ -19,13 +20,22 @@ namespace Pro131_Nhom4.Controllers
             _ICRUDFavoriteProductService = ICRUDFavoriteProductService;
         }
 
+        [HttpGet]
+        [Route("GetAll")]
+        public async Task<IActionResult> GetAllFavoriteProducts()
+        {
+            var result = await _ICRUDFavoriteProductService.GetAllFavoriteProduct();
+            return Ok(result);
+        }
         [HttpPost]
+        [Route("Create")]
         public async Task<IActionResult> CreateFavoritePR([FromForm] CreateFavoriteProducts createfavoriteproducts)
         {
             await _ICRUDFavoriteProductService.CreateFavoriteProduct(createfavoriteproducts);
             return Ok(createfavoriteproducts);
         }
-        [HttpDelete("{idacc},{idproduct}")]
+        [HttpDelete]
+        [Route("Delete/{idacc},{idproduct}")]
         public async Task<IActionResult> DeleteFavoriteProduct([FromRoute] Guid idacc , Guid idproduct)
         {
             var deleteFavoritePR = await _ICRUDFavoriteProductService.DeleteFavoriteProduct(idacc,idproduct);

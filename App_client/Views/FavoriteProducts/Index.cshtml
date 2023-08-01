@@ -1,0 +1,95 @@
+﻿@model IEnumerable<App_Shared.ViewModels.ViewFavoriteProduct>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NameProduct)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PriceProduct)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AvailableQuantityProduct)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrlProduct)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ManufacturerProduct)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusProduct)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LikesProduct)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescriptionProduct)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameProduct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PriceProduct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AvailableQuantityProduct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageUrlProduct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ManufacturerProduct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusProduct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LikesProduct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescriptionProduct)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

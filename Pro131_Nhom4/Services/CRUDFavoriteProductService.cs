@@ -1,9 +1,11 @@
 ﻿using App_Shared.Model;
 using App_Shared.ViewModels;
 using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using Pro131_Nhom4.Data;
 using Pro131_Nhom4.IService;
 using System.Net;
+using System.Net.WebSockets;
 
 namespace Pro131_Nhom4.Services
 {
@@ -45,6 +47,29 @@ namespace Pro131_Nhom4.Services
 
                 return false;
             }
+        }
+
+        public async Task<List<ViewFavoriteProduct>> GetAllFavoriteProduct()
+        {
+            List<ViewFavoriteProduct> lst = await
+              (from a in _context.FavoriteProducts
+               join b in _context.Products on a.ProductID equals b.Id
+               join c in _context.Users on a.AccountID equals c.Id
+               select new ViewFavoriteProduct()
+               {
+                   AccountID = a.AccountID,
+                   ProductID =a.ProductID,
+                   Description = a.Description,
+                   NameProduct = b.Name,
+                   AvailableQuantityProduct = b.AvailableQuantity,
+                   DescriptionProduct = b.Description,
+                   ImageUrlProduct = b.ImageUrl,
+                   LikesProduct = b.Likes,
+                   ManufacturerProduct = b.Manufacturer,
+                   PriceProduct = b.Price,
+                   StatusProduct = b.Status
+               }).ToListAsync();
+            return lst;
         }
     }
 }
