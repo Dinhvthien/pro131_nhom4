@@ -16,7 +16,9 @@ namespace App_Shared.Model
         public Guid Id { get; set; }
         public double Price { get; set; }
         public DateTime CreateDate { get; set; }
-        [ForeignKey("IdStt")]
+        [ForeignKey("PayMentID")]
+        public Guid PayMentID { get; set; }
+        [ForeignKey("StatusID")]
         public Guid StatusID { get; set; }
         [ForeignKey("VoucherID")]
         public Guid? VoucherID { get; set; }

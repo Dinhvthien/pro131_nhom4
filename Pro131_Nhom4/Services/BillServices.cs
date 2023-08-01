@@ -43,8 +43,8 @@ namespace Pro131_Nhom4.Services
                 from a in _context.Bills
                 join b in _context.Vouchers on a.VoucherID equals b.Id
                 join c in _context.Users on a.AccountID equals c.Id
-                join d in _context.Payments on a.Id equals d.Id
-                join e in _context.BillStatuses on a.Id equals e.IdStt
+                join d in _context.Payments on a.PayMentID equals d.Id
+                join e in _context.BillStatuses on a.StatusID equals e.IdStt
 
                 select new BillView()
                 {
