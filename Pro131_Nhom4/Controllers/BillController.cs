@@ -54,7 +54,8 @@ namespace Pro131_Nhom4.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Bill>> CreateBill(List<CartDetails> cartDetails)
+
+        public async Task<ActionResult<Bill>> CreateBill(List<CartDetails> cartDetails, string Adress)
         {
             Guid accountId = Guid.NewGuid();
             double price = 0;
@@ -72,7 +73,7 @@ namespace Pro131_Nhom4.Controllers
                 StatusID = Guid.Parse("69bf7125-0780-4b06-b4b4-88f2cb4f9924"),
                 VoucherID = Guid.Parse("730ade9a-25bd-4ad6-5c5f-08db911eda27"),
                 PayMentID = Guid.Parse("b10bfbec-4e71-4732-9956-08db911dd6c0"),
-                Address = "Nam Dinh",
+                Address = Adress,
 
                 Price = price,
                 AccountID = accountId,
