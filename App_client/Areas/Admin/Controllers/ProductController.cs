@@ -81,16 +81,16 @@ namespace App_client.Areas.Admin.Controllers
         public async Task<IActionResult> Create()//Mở form
         {
 
-            var allColor = await _services.GetAll<Colors>("https://localhost:7149/api/Color");
+            //var allColor = await _services.GetAll<Colors>("https://localhost:7149/api/Color");
             List<Colors> color = new List<Colors>();
-            foreach (var item in allColor)
+            foreach (var item in color)
             {
                 color.Add(item);
             }
             ViewData["color"] = color;
-            var allSize = await _services.GetAll<Sizes>("https://localhost:7149/api/showsize");
+            //var allSize = await _services.GetAll<Sizes>("https://localhost:7149/api/showsize");
             List<Sizes> size = new List<Sizes>();
-            foreach (var item in allSize)
+            foreach (var item in size)
             {
                 size.Add(item);
             }
