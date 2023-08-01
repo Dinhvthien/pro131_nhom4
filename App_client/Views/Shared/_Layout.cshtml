@@ -77,38 +77,23 @@
 				<div class="container">
 					<ul class="site-menu js-clone-nav d-none d-md-block">
 						<li class="has-children">
-							<a asp-controller="Home" asp-action="Index">Home</a>
+							<a asp-controller="Home" asp-action="Index">Trang chủ</a>
 							<ul class="dropdown">
 								<li><a href="#">Women</a></li>
-								<li><a href="#">Children</a></li>
+								<li><a href="#">Children</a></li>	
 								<li><a href="#">Men</a></li>
 							</ul>
 						</li>
-						<li class="has-children">
-							<a asp-area="Admin" asp-controller="Admin" asp-action="Index">Test cu oi</a>
-							<ul class="dropdown">
-								<li><a href="#">Menu One</a></li>
-								<li><a href="#">Menu Two</a></li>
-								<li><a href="#">Menu Three</a></li>
-							</ul>
-						</li>
 						<li class="active"><a asp-controller="Product" asp-action="Index">Shop</a></li>
-						<li><a href="#">Catalogue</a></li>
-						<li><a href="#">New Arrivals</a></li>
-						<li><a href="contact.html">Contact</a></li>
+						<li><a href="#">Nam</a></li>
+						<li><a href="#">Trẻ con</a></li>
+						<li><a href="#">Nữ</a></li>
+						<li><a href="contact.html">Sản phẩm yêu thích</a></li>
+						<li><a href="contact.html">Sản phẩm giảm giá</a></li>
 					</ul>
 				</div>
 			</nav>
 		</header>
-
-		<div>
-			<ul class="site-menu js-clone-nav d-none d-md-block">
-				<li class="has-children">
-					<a asp-controller="Size" asp-action="Index">test ALL Size</a>					
-				</li>
-			</ul>
-		</div>
-			
 		<div>
 			<main role="main" class="pb-3">
 				@RenderBody()

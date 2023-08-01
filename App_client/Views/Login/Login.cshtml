@@ -1,9 +1,56 @@
 ﻿@model App_Shared.ViewModels.LoginUser
 
 @{
-    ViewData["Title"] = "Login";
+	ViewData["Title"] = "Login";
 }
+<section class="vh-100">
+	<div class="container-fluid h-custom mt-3">
+		<h3 style="text-align:center">Đăng Nhập</h3>
+	<div class="container-fluid h-custom mt-3">
+			<div class="row d-flex justify-content-center align-items-center h-150 mt-3">
+		
+			<div class="col-md-6 col-lg-3 col-xl-2" style="margin-left:200px">
+				<img src="https://i.pinimg.com/474x/1f/95/ac/1f95ac8296d898f68220fd70d8d28aa8.jpg"
+					 class="img-fluid" alt="Sample image">
+			</div>
+			<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+				
+				<form asp-controller="Login" asp-action="Login" method="post">
+					<!-- Email input -->
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+					<div class="form-group">
+						<label class="control-label">Người dùng</label>
+						<input asp-for="Username" class="form-control" />
+						<span asp-validation-for="Username" class="text-danger"></span>
+					</div>
 
+					<!-- Password input -->
+					<div class="form-group">
+						<label class="control-label">Mật khẩu</label>
+						<input type="password" asp-for="Password" class="form-control" />
+						<span asp-validation-for="Password" class="text-danger"></span>
+					</div>
+					<div class="d-flex justify-content-between align-items-center">
+						<a href="#!" class="text-body">Forgot password?</a>
+					</div>
+
+					<div class="text-center text-lg-start mt-4 pt-2">
+						<button type="submit" class="btn btn-primary btn-lg"
+								style="padding-left: 2.5rem; padding-right: 2.5rem;">
+							Login
+						</button>
+						<p class="small fw-bold mt-2 pt-1 mb-0">
+							Don't have an account? <a asp-controller="Register" asp-action="Register"
+													  class="link-danger">Register</a>
+						</p>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+@*
 <h1 style="text-align:center">Login</h1>
 <div class="row">
          <div class="col-3"></div>
@@ -13,7 +60,7 @@
             <div class="form-group">
                 <label asp-for="Username" class="control-label"></label>
                 <input asp-for="Username" class="form-control" />
-                <span asp-validation-for="Username" class="text-danger"></span>
+
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
@@ -31,7 +78,9 @@
 <div style="text-align:center">
     <a asp-controller="Register" asp-action="Register">Register</a>
 </div>
-
+*@
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
 }

@@ -23,7 +23,7 @@ namespace Pro131_Nhom4.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-P8UA93V\\SQLEXPRESS;Initial Catalog=1311;Integrated Security=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-VVKT5NE\\SQLEXPRESS;Initial Catalog=1311;Integrated Security=True;TrustServerCertificate=True;");
         }
 
         public DbSet<User> Users { get; set; }
@@ -56,10 +56,10 @@ namespace Pro131_Nhom4.Data
         {
             builder.Entity<Role>().HasData(
                     new Role() { Name = "Admin", NormalizedName = "ADMIN", Id = Guid.NewGuid() },
-                    new Role() { Name = "User", NormalizedName = "USER", Id = Guid.NewGuid() }
+                    new Role() { Name = "User", NormalizedName = "USER", Id = Guid.Parse("b108d866-eb13-46e3-b3d2-ecae4fbfe873") }
                 );
             builder.Entity<Rank>().HasData(
-                    new Rank() { Name = "Sắt", Point = 1 , Id = Guid.NewGuid()},
+                    new Rank() { Name = "Sắt", Point = 1 , Id = Guid.Parse("02f4cf23-3b1d-49dd-b89c-598185786e79") },
                     new Rank() { Name = "Đồng", Point = 100, Id = Guid.NewGuid() },
                     new Rank() { Name = "Bạc", Point = 500, Id = Guid.NewGuid() },
                     new Rank() { Name = "Vàng", Point = 1000, Id = Guid.NewGuid() },
