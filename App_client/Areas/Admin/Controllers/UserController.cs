@@ -14,7 +14,7 @@ namespace App_client.Areas.Admin.Controllers
 		TServices _services = new TServices();
 		public async Task<IActionResult> Index()
 		{
-
+			
 			var identity = HttpContext.User.Identity as ClaimsIdentity;
 
 			if (identity != null)

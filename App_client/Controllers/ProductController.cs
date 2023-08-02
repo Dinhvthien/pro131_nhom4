@@ -20,7 +20,7 @@ namespace App_client.Controllers
                   }
               }*/
             var product = await _services.GetAll<ProductView>("https://localhost:7149/api/showlist");
-            var p = product.GroupBy(p => new { p.Name, p.ColorID }).Select(g => g.First()).ToList();
+            var p = product.GroupBy(p => new { p.Name}).Select(g => g.First()).ToList();
             return View(p);
         }
         public async Task<IActionResult> Search(string search)
