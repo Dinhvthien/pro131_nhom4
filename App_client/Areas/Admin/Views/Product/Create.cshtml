@@ -1,80 +1,95 @@
-﻿@model App_Shared.ViewModels.ProductView
+﻿@using App_Shared.Model
+@model App_Shared.ViewModels.ProductView
 
 @{
-    ViewData["Title"] = "Create";
-    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+	ViewData["Title"] = "Create";
+	var color = (ViewData["color"] as List<Colors>);
+	var size = (ViewData["size"] as List<Sizes>);
+	Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Create</h1>
-
-<h4>ProductView</h4>
+<h3 style="margin-top:50px">Tạo sản phẩm</h3>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-area="Admin" asp-controller="Product" asp-action="Create" method="post" >
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AvailableQuantity" class="control-label"></label>
-                <input asp-for="AvailableQuantity" class="form-control" />
-                <span asp-validation-for="AvailableQuantity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Manufacturer" class="control-label"></label>
-                <input asp-for="Manufacturer" class="form-control" />
-                <span asp-validation-for="Manufacturer" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Likes" class="control-label"></label>
-                <input asp-for="Likes" class="form-control" />
-                <span asp-validation-for="Likes" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ColorID" class="control-label"></label>
-                <input asp-for="ColorID" class="form-control" />
-                <span asp-validation-for="ColorID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SizeID" class="control-label"></label>
-                <input asp-for="SizeID" class="form-control" />
-                <span asp-validation-for="SizeID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+	<div class="col-md-4"></div>
+	<div class="col-md-4">
+		<form asp-area="Admin" asp-controller="Product" asp-action="Create" enctype="multipart/form-data" method="post">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label class="control-label">Tên sản phẩm</label>
+				<input asp-for="Name" class="form-control" />
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Giá</label>
+				<input asp-for="Price" class="form-control" />
+				<span asp-validation-for="Price" class="text-danger"></span>
+			</div>
+			<div class="form-group" style="display:none">
+				<label asp-for="Status" class="control-label"></label>
+				<input asp-for="Status" value="1" class="form-control" />				
+			</div>
+			<div class="form-group" style="display:none">
+				<label asp-for="Likes" class="control-label"></label>
+				<input asp-for="Likes" value="0" class="form-control" />
+				<span asp-validation-for="Likes" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Số lượng sản phẩm</label>
+				<input asp-for="AvailableQuantity" class="form-control" />
+				<span asp-validation-for="AvailableQuantity" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label  class="control-label">Hình ảnh sản phẩm</label>
+				<input type="file" name="imageFile" class="form-control" accept="image/*" />
+				<span asp-validation-for="ImageUrl" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Nhà sản xuất</label>
+				<input asp-for="Manufacturer" class="form-control" />
+				<span asp-validation-for="Manufacturer" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Mô tả sản phẩm</label>
+				<input asp-for="Description" class="form-control" />
+				<span asp-validation-for="Description" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label  class="control-label">Chọn màu cho sản phẩm</label>
+				<select asp-for="ColorID" class="form-control">
+					<option value="">Select a color</option>
+					@foreach (var item in color)
+					{
+						<option value="@item.Id">@item.Name</option>
+					}
+				</select>
+				<span asp-validation-for="ColorID" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Chọn kich cỡ cho sản phẩm</label>
+				<select asp-for="SizeID" class="form-control">
+					<option value="">Select a Size</option>
+					@foreach (var item in size)
+					{	
+						<option value="@item.Id">@item.Name</option>
+					}
+				</select>
+				<span asp-validation-for="SizeID" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Create" class="btn btn-primary" />
+			</div>
+		</form>
+	</div>
+	<div class="col-md-4"></div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+	<a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
 }

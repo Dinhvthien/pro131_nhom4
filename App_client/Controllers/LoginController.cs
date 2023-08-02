@@ -60,7 +60,7 @@ namespace App_client.Controllers
 				else if(role == "User")
                 {
                     return RedirectToAction("Index", "Product");
-                } else
+                }else
                 {
                      return RedirectToAction("Register", "Register");
                 }               
