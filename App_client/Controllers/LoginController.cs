@@ -54,9 +54,10 @@ namespace App_client.Controllers
                // string userRole = jwt.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Role)?.Value;
                 if (role == "Admin")
                 {
-                    return RedirectToAction("Index", "Admin","Admin");
-                }
-                else if(role == "User")
+					return RedirectToAction("Index", "Admin", new { area = "Admin" });
+
+				}
+				else if(role == "User")
                 {
                     return RedirectToAction("Index", "Product");
                 } else
