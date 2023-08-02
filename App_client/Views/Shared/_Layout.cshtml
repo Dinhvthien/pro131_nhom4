@@ -58,6 +58,16 @@
 								</div>
 							</div>
 						}
+						@if (User.IsInRole("Admin"))
+						{
+							<div class="col-6 col-md-4 order-3 order-md-3 text-right">
+								<div class="site-top-icons">
+									<ul>
+										<li><a asp-area="Admin" asp-controller="Admin" asp-action="Index">Quay về</a></li>
+									</ul>
+								</div>
+							</div>
+						}
 						else
 						{
 							<div class="col-6 col-md-4 order-3 order-md-3 text-right">
