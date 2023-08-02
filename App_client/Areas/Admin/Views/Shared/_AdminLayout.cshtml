@@ -150,7 +150,7 @@
 							<a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i> Messages</a>
 							<a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2"></i> Activity</a>
 							<a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i> FAQ</a>
-							<a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</a>
+							<a class="dropdown-item" asp-area="" asp-controller="Login" asp-action="Logout"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</a>
 						</div>
 					</li>
 				</ul>
@@ -354,12 +354,14 @@
 								<li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Voucher</a></li>
 								<li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Người dùng</a></li>
 								<li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Cấp độ</a></li>
+								<li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="User" asp-action="Index">Sản phẩm</a></li>
+
 							</ul>
 						</div>
 					</li>		
 					<li class="nav-item nav-category">pages</li>
 					<li class="nav-item">
-						<a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+						<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
 							<i class="menu-icon mdi mdi-account-circle-outline"></i>
 							<span class="menu-title">Trang của người dùng</span>
 							<i class="menu-arrow"></i>
