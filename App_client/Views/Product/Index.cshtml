@@ -3,6 +3,12 @@
 @{
 	ViewData["Title"] = "Index";
 	var roleid = ViewBag.RoleId;
+	List<string>
+			imageExtensions = new List<string>
+				()
+							   {
+		".png", ".jpg", ".jpeg", ".gif", ".tiff", ".pdf"
+							   };
 }
 
 <div class="container">
@@ -16,7 +22,10 @@
 				<div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
 					<div class="block-4 text-center border">
 						<figure class="block-4-image">
-							<a asp-controller="Product" asp-action="Details" asp-route-id="@item.Id"><img src="@item.ImageUrl" alt="Image placeholder" class="img-fluid"></a>
+								@{
+									string extension = System.IO.Path.GetExtension(item.ImageUrl);
+								}
+								<a asp-controller="Product" asp-action="Details" asp-route-id="@item.Id"><img src="~/images/@item.ImageUrl" alt="Image placeholder" class="img-fluid"></a>
 						</figure>
 						<div class="block-4-text p-4">
 							<h3><a asp-controller="Product" asp-action="Details" asp-route-id="@item.Id">@item.Name</a></h3>
