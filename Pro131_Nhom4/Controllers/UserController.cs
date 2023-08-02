@@ -40,7 +40,7 @@ namespace Pro131_Nhom4.Controllers
 
 			if (user == null)
 			{
-				// Người dùng không tồn tại, xử lý lỗi tại đây
+				return BadRequest();
 			}
 			// Xóa vai trò "User" (nếu có) và thêm vai trò "Admin" cho người dùng
 			await _userManager.RemoveFromRoleAsync(user, "User");

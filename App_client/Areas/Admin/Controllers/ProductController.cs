@@ -81,16 +81,16 @@ namespace App_client.Areas.Admin.Controllers
         public async Task<IActionResult> Create()//Mở form
         {
 
-            //var allColor = await _services.GetAll<Colors>("https://localhost:7149/api/Color");
+            var allColor = await _services.GetAll<Colors>("https://localhost:7149/api/Color");
             List<Colors> color = new List<Colors>();
-            foreach (var item in color)
+            foreach (var item in allColor)
             {
                 color.Add(item);
             }
             ViewData["color"] = color;
-            //var allSize = await _services.GetAll<Sizes>("https://localhost:7149/api/showsize");
+            var allSize = await _services.GetAll<Sizes>("https://localhost:7149/api/Size/Get-All");
             List<Sizes> size = new List<Sizes>();
-            foreach (var item in size)
+            foreach (var item in allSize)
             {
                 size.Add(item);
             }
@@ -100,9 +100,9 @@ namespace App_client.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Product product, IFormFile imageFile)
         {
+            //product.Status = 0;
+            //product.Likes = 0;
 
-            product.Status = 0;
-            product.Likes = 0;
             if (imageFile != null && imageFile.Length > 0)//Kiểm tra đường dẫn phù hợp
             {
                 //thực hiện sao chép ảnh đó vào wwwroot
