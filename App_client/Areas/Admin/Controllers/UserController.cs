@@ -37,5 +37,11 @@ namespace App_client.Areas.Admin.Controllers
 				return RedirectToAction("Index", "Admin", new { area = "Admin" });
 			}
 		}
+
+		public async Task<IActionResult> GetallUser()
+		{
+            var user = await _services.GetAll<User>("https://localhost:7149/api/User");
+            return View(user);
+        }
 	}
 }
