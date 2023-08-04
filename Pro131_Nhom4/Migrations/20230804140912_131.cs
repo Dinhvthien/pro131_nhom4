@@ -286,12 +286,12 @@ namespace Pro131_Nhom4.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PayMentID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StatusID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     VoucherID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AccountID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BillStatusIdStt = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    PaymentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    BillStatusIdStt = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -308,10 +308,11 @@ namespace Pro131_Nhom4.Migrations
                         principalTable: "BillStatuses",
                         principalColumn: "IdStt");
                     table.ForeignKey(
-                        name: "FK_Bills_Payments_PaymentId",
-                        column: x => x.PaymentId,
+                        name: "FK_Bills_Payments_PayMentID",
+                        column: x => x.PayMentID,
                         principalTable: "Payments",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Bills_Vouchers_VoucherID",
                         column: x => x.VoucherID,
@@ -420,8 +421,8 @@ namespace Pro131_Nhom4.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("654ad899-b858-4b64-b24a-d357279742be"), "fe98b2a4-1ee9-4879-b4f6-97334164a08f", "User", "USER" },
-                    { new Guid("894681bf-2b38-439b-95a9-b1f99cf12c81"), "646ff389-85f7-45e3-98e9-ae47e1a0c289", "Admin", "ADMIN" }
+                    { new Guid("27852a22-3c7a-4acf-b2ac-632e1d957a8c"), "d22c1af4-f687-4332-9d14-9cbe4e7db8c0", "Admin", "ADMIN" },
+                    { new Guid("b108d866-eb13-46e3-b3d2-ecae4fbfe873"), "8dd2a9cf-401e-4753-aa08-3293ee81c9b3", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -429,12 +430,12 @@ namespace Pro131_Nhom4.Migrations
                 columns: new[] { "Id", "Name", "Point" },
                 values: new object[,]
                 {
-                    { new Guid("2837bb5a-8704-47b1-b35c-8790cdf4fce6"), "Vàng", 1000.0 },
-                    { new Guid("3af1e05c-ce81-4cbf-91fe-748dfcb6e1bc"), "Đồng", 100.0 },
-                    { new Guid("6006d978-cc23-43fe-8c21-1a0832ac1ef1"), "Kim Cương", 3000.0 },
-                    { new Guid("7a35b65c-c482-408b-b6b4-7bee2bf7e03e"), "Sắt", 1.0 },
-                    { new Guid("c858951c-0e2c-46fc-887d-6d968c9e6839"), "Bạc", 500.0 },
-                    { new Guid("dc7670b7-4494-49af-932c-f7056f5f4b37"), "Thách đấu", 10000.0 }
+                    { new Guid("02f4cf23-3b1d-49dd-b89c-598185786e79"), "Sắt", 1.0 },
+                    { new Guid("09ec55fd-e65e-413b-b9cd-8548b45fbd07"), "Vàng", 1000.0 },
+                    { new Guid("272181b5-0f96-4f8b-a4a5-546af28e9edf"), "Thách đấu", 10000.0 },
+                    { new Guid("86db1d0d-df49-476d-91a9-ff9a54c1571e"), "Bạc", 500.0 },
+                    { new Guid("c62cd39c-f0ab-4765-984f-25cdc15562e5"), "Đồng", 100.0 },
+                    { new Guid("f4cd0f40-a894-4835-9815-73dfc542718a"), "Kim Cương", 3000.0 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -502,9 +503,9 @@ namespace Pro131_Nhom4.Migrations
                 column: "BillStatusIdStt");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bills_PaymentId",
+                name: "IX_Bills_PayMentID",
                 table: "Bills",
-                column: "PaymentId");
+                column: "PayMentID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bills_VoucherID",

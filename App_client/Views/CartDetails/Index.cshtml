@@ -1,0 +1,74 @@
+﻿@model IEnumerable<App_Shared.ViewModels.CartDetailsView>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Cart</h1>
+
+<a asp-action="Create" asp-controller="Bill" class="btn btn-success" style="margin-left: 10px; font-weight: bold; font-size: 17px;">Payment</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CartDetails.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.Manufacturer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.ImageUrl)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Price)
+                </td>
+                <td>
+                    <form class="input-group mb-3">
+                        <a asp-action="Reduce" asp-route-id="@item.CartDetails.Id" class="btn btn-outline-success" style="margin-left: 10px;">-</a>
+                        @Html.TextBoxFor(modelItem => item.CartDetails.Quantity, new { @class="form-control" })
+                        <a asp-action="Increase" asp-route-id="@item.CartDetails.Id" class="btn btn-outline-success" style="margin-right: 10px;">+</a>
+                    </form>
+                </td>
+                <td>
+                    @if (item.Product.Status == 0)
+                    {
+                        <p>Stocking</p>
+                    }
+                    @if (item.Product.Status == 1)
+                    {
+                        <p>Out of stock</p>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Manufacturer)
+                </td>
+                <td>
+                    <img src="~/images/items/@item.Product.ImageUrl?v=Kl_dqr9NVtnMdsM2MUg4qthUnWZm5T1fCEimBPWDNgM" style="width: 50px;">
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", "CartDetails", new { id=item.CartDetails.Id }, new { @class="btn btn-outline-success", @style="margin-left: 10px;"})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
