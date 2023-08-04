@@ -127,7 +127,7 @@ namespace App_client.Areas.Admin.Controllers
                 color.Add(item);
             }
             ViewData["color"] = color;
-            var allSize = await _services.GetAll<Sizes>("https://localhost:7149/api/showsize");
+            var allSize = await _services.GetAll<Sizes>("https://localhost:7149/api/Size/Get-All");
             List<Sizes> size = new List<Sizes>();
             foreach (var item in allSize)
             {

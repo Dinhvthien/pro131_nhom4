@@ -1,0 +1,110 @@
+﻿@model IEnumerable<Pro131_Nhom4.Data.User>
+
+@{
+	ViewData["Title"] = "GetallUser";
+	Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h3>Danh sách người dùng</h3>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				Name
+			</th>
+			<th>
+				Email
+			</th>
+			<th>
+				Giới tính
+			</th>
+			<th>
+				Số điện thoại
+			</th>
+			<th>
+				Điểm
+			</th>
+			<th>
+			Địa chỉ
+			</th>
+			<th>
+				Trạng thái
+			</th>
+			<th>
+				Vai trò
+			</th>
+			<th>
+				Mức rank
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.UserName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Email)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Gender)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.PhoneNumber)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Point)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Address)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Status)
+				</td>
+				<td>
+					@if (item.RoleId == Guid.Parse("02f4cf23-3b1d-49dd-b89c-598185786e79"))
+					{
+						<span>Admin</span>
+					}
+					else
+					{
+						<span>User</span>
+					}
+				</td>
+				<td>
+					@if (item.RankID == Guid.Parse("fd5587e1-d7b4-4ad5-8c0b-75fecdbbb1a3"))
+					{
+							<span>Bạc</span>
+					}
+					else if (item.RankID == Guid.Parse("c610264c-15be-4022-8065-7f9771e7f268"))
+					{
+							<span>Vàng</span>
+					}
+					else if (item.RankID == Guid.Parse("df34f264-70cb-491f-86d7-a0f6e96d23c4"))
+					{
+							<span>Đồng</span>
+					}
+					else if (item.RankID == Guid.Parse("30651863-f929-4ac0-b185-b34d46842b41"))
+					{
+								<span>Kim Cương</span>
+					}
+					else if (item.RankID == Guid.Parse("b108d866-eb13-46e3-b3d2-ecae4fbfe873"))
+					{
+								<span>Sắt</span>
+					}
+					else
+					{
+								<span>Thách đấu</span>
+					}
+				</td>
+				<td>
+					@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) 
+
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
