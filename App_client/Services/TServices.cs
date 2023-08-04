@@ -63,6 +63,15 @@ namespace App_client.Services
             T model = JsonConvert.DeserializeObject<T>(TResponse);
             return model;
         }
+        public async Task<T> GetById_DungBM_2id<T>(string url, Guid id)
+        {
+
+            HttpClient httpClient = new HttpClient();
+            var response = await httpClient.GetAsync(url + id);
+            string TResponse = await response.Content.ReadAsStringAsync();
+            T model = JsonConvert.DeserializeObject<T>(TResponse);
+            return model;
+        }
 
         public async Task<T> Update_DungBM<T>(string url, T model, Guid id)
         {
@@ -78,6 +87,22 @@ namespace App_client.Services
             HttpClient client = new HttpClient();
             var content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
             var response = await client.GetAsync(urlRemove + id);
+            string result = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+            {
+                return 0;
+            }
+            return 1;
+        }
+        
+
+        public async Task<int> Delete_DungBM_2id(string urlRemove, Guid id1, Guid id2)
+        {
+            HttpClient client = new HttpClient();
+            //var content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            //var response = await client.GetAsync(urlRemove + id1 + id2);
+            var s = ($"{urlRemove}/{id1},{id2}");
+            var response = await client.GetAsync(s); ;
             string result = await response.Content.ReadAsStringAsync();
             if (!response.IsSuccessStatusCode)
             {
