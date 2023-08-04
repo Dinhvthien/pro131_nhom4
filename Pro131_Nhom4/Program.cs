@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
 using Microsoft.IdentityModel.Tokens;
 using Pro131_Nhom4.Data;
 using Pro131_Nhom4.IService;
@@ -8,6 +9,7 @@ using Pro131_Nhom4.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddScoped<IBillService,BillServices>();
 builder.Services.AddScoped<IUserService, UserServices>();
 builder.Services.AddScoped<IColorService, ColorServices>();
@@ -20,6 +22,7 @@ builder.Services.AddScoped<IRegisterService, RegisterServices>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ILoginService, LoginServices>();
 builder.Services.AddScoped<ISizeService, SizeService>();
+builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<ICRUDFavoriteProductService, CRUDFavoriteProductService>();
 builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<Mydb>()/*.AddDefaultTokenProviders()*/; 
