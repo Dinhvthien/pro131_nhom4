@@ -7,15 +7,19 @@ using System.Security.Claims;
 using System.Text;
 using Newtonsoft.Json;
 using Pro131_Nhom4.Data;
+using App_client.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace App_client.Controllers
 {
     public class LoginController : Controller
     {
         private readonly HttpClient _httpClient;
+        private readonly TServices _services;
         public LoginController(HttpClient httpClient)
         {
             _httpClient = httpClient;
+            _services = new TServices();
         }
 
         [HttpGet]
@@ -46,12 +50,19 @@ namespace App_client.Controllers
                 var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
 				identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, jwt.Claims.FirstOrDefault(u => u.Type == ClaimTypes.NameIdentifier).Value));
                  identity.AddClaim(new Claim(ClaimTypes.Role, jwt.Claims.FirstOrDefault(u => u.Type == ClaimTypes.Role).Value));
+
+
+                var username_md = jwt.Claims.FirstOrDefault(u => u.Type == ClaimTypes.NameIdentifier)?.Value;
+                var getallUser = await _services.GetAll<User>("https://localhost:7149/api/User");
+                var userId = getallUser.FirstOrDefault(c => c.UserName == username_md).Id;
+                HttpContext.Session.SetString("IdLogin", userId.ToString());
+
                 var principal = new ClaimsPrincipal(identity);
 
                 await HttpContext.SignInAsync(principal);
                 var role = identity.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Role)?.Value;
                 //var check = User.Identity.IsAuthenticated;
-               // string userRole = jwt.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Role)?.Value;
+               // string userRole = jwt.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Role)?.Value; 
                 if (role == "Admin")
                 {
 					return RedirectToAction("Index", "Admin", new { area = "Admin" });

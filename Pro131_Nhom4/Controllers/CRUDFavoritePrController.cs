@@ -29,14 +29,22 @@ namespace Pro131_Nhom4.Controllers
         }
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateFavoritePR([FromForm] CreateFavoriteProducts createfavoriteproducts)
+        public async Task<IActionResult> CreateFavoritePR(CreateFavoriteProducts createfavoriteproducts)
         {
             await _ICRUDFavoriteProductService.CreateFavoriteProduct(createfavoriteproducts);
             return Ok(createfavoriteproducts);
         }
-        [HttpDelete]
+        [HttpGet]
+        [Route("GetFPById/{idacc}")]
+        public async Task<IActionResult> GetFPById(Guid idacc)
+        {
+            var size = await _ICRUDFavoriteProductService.GetFPById(idacc);
+            return Ok(size);
+        }
+
+        [HttpGet]
         [Route("Delete/{idacc},{idproduct}")]
-        public async Task<IActionResult> DeleteFavoriteProduct([FromRoute] Guid idacc , Guid idproduct)
+        public async Task<IActionResult> DeleteFavoriteProduct( Guid idacc , Guid idproduct)
         {
             var deleteFavoritePR = await _ICRUDFavoriteProductService.DeleteFavoriteProduct(idacc,idproduct);
             if (deleteFavoritePR)

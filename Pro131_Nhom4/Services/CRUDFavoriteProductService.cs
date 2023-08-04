@@ -71,5 +71,30 @@ namespace Pro131_Nhom4.Services
                }).ToListAsync();
             return lst;
         }
+
+        public async Task<ViewFavoriteProduct> GetFPById(Guid idacc)
+        {
+            ViewFavoriteProduct lst = new ViewFavoriteProduct();
+            lst = await
+
+              (from a in _context.FavoriteProducts
+               join b in _context.Products on a.ProductID equals b.Id
+               where a.AccountID == idacc 
+               select new ViewFavoriteProduct()
+               {
+                   AccountID = a.AccountID,
+                   ProductID = a.ProductID,
+                   Description = a.Description,
+                   NameProduct = b.Name,
+                   AvailableQuantityProduct = b.AvailableQuantity,
+                   DescriptionProduct = b.Description,
+                   ImageUrlProduct = b.ImageUrl,
+                   LikesProduct = b.Likes,
+                   ManufacturerProduct = b.Manufacturer,
+                   PriceProduct = b.Price,
+                   StatusProduct = b.Status
+               }).FirstAsync();
+            return lst;
+        }
     }
 }

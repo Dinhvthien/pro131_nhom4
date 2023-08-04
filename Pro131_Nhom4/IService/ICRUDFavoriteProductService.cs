@@ -9,5 +9,6 @@ namespace Pro131_Nhom4.IService
         //public Task<bool> UpdateFavoriteProduct(UpdateFavoriteProducts rq);
         public Task<bool> DeleteFavoriteProduct(Guid idacc , Guid idproduct);
         public Task<List<ViewFavoriteProduct>> GetAllFavoriteProduct();
+        public Task<ViewFavoriteProduct> GetFPById(Guid idacc);
     }
 }

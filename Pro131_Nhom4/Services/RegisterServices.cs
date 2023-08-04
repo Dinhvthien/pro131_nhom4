@@ -67,7 +67,7 @@ namespace Pro131_Nhom4.Services
                 Point = 1,
                 Status = 1,
                 DateOfBirth = Convert.ToDateTime(registerUser.DateOfBirth),
-                Gender =Convert.ToInt32(registerUser.Gender),
+                Gender = Convert.ToInt32(registerUser.Gender),
                 PhoneNumber = registerUser.PhoneNumber,
                 RoleId = Guid.Parse("b108d866-eb13-46e3-b3d2-ecae4fbfe873"),
                 Address = registerUser.Address,
