@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<App_Shared.ViewModels.ViewFavoriteProduct>
-
+@using Microsoft.AspNetCore.Http
 @{
     ViewData["Title"] = "Index";
-}
-
+    var idlogin = Context.Session.GetString("IdLogin");
+ }
 <h1>Index</h1>
 
 <p>
@@ -52,49 +52,53 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AccountID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NameProduct)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PriceProduct)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AvailableQuantityProduct)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrlProduct)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ManufacturerProduct)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StatusProduct)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LikesProduct)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DescriptionProduct)
-            </td>
-            <td>
-                    <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductID">Chi tiet</a>|
-                    @*<a asp-controller="FavoriteProducts" asp-action="Edit" asp-route-id="@item.Id">Sua</a>*@|
-                    <a asp-controller="FavoriteProducts" asp-action="Delete" asp-route-idproduct="@item.ProductID">Xóa</a>|
-                   @* asp-route-idacc="@item.AccountID"
-        *@
+            @if (idlogin == item.AccountID.ToString())
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NameProduct)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PriceProduct)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AvailableQuantityProduct)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ImageUrlProduct)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ManufacturerProduct)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StatusProduct)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LikesProduct)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DescriptionProduct)
+                    </td>
+                    <td>
+                        <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductID">Chi tiet</a>|
+                        @*<a asp-controller="FavoriteProducts" asp-action="Edit" asp-route-id="@item.Id">Sua</a>*@|
+                        <a asp-controller="FavoriteProducts" asp-action="Delete" asp-route-idproduct="@item.ProductID">Xóa</a>|
+                        @* asp-route-idacc="@item.AccountID"
+                *@
 
-            </td>
-        </tr>
+                    </td>
+                </tr>
+            }
+        
 }
     </tbody>
 </table>
