@@ -39,6 +39,17 @@ namespace Pro131_Nhom4.Services
         public async Task<List<BillView>> GetAllBills()
         {
             List<BillView> billViews = new List<BillView>();
+   //         foreach (var item in _context.Bills)
+   //         {
+			//	BillView bv = new BillView
+			//	{
+   //                 bv.Bill = item,
+   //                 bv.Voucher = _context.Vouchers.FirstOrDefault(p => p.Id == item.VoucherID),
+
+			//	};
+			//	billViews.Add(bv);
+			//}
+   //         return          
             billViews = await (
                 from a in _context.Bills
                 join b in _context.Vouchers on a.VoucherID equals b.Id

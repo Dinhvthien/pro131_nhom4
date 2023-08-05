@@ -9,6 +9,7 @@ namespace App_Shared.ViewModels
 {
     public class RegisterUser
     {
+        public Guid id { get; set; }
         [Required(ErrorMessage = "Username cannot be blank")]
         public string? Username { get; set; }
 

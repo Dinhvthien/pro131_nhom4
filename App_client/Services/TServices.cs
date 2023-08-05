@@ -33,7 +33,7 @@ namespace App_client.Services
             // Convert to string content
             var stringContent = new StringContent(valuesJSON, Encoding.UTF8, "application/json");
             // Send request POST to register API
-            await httpClient.PostAsync(apiUrl, stringContent);
+           var resut = await httpClient.PostAsync(apiUrl, stringContent);
             return true;
         }
         public async Task<bool> EditAll<T>(string apiUrl, T values)

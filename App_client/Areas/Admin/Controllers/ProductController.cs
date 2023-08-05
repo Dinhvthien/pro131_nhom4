@@ -102,7 +102,6 @@ namespace App_client.Areas.Admin.Controllers
         {
             //product.Status = 0;
             //product.Likes = 0;
-
             if (imageFile != null && imageFile.Length > 0)//Kiểm tra đường dẫn phù hợp
             {
                 //thực hiện sao chép ảnh đó vào wwwroot

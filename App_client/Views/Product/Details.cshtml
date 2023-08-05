@@ -8,9 +8,9 @@
 	List<string>
 		imageExtensions = new List<string>
 			()
-												   {
+														   {
 		".png", ".jpg", ".jpeg", ".gif", ".tiff", ".pdf"
-												   };
+														   };
 }
 <div class="site-section">
 	<div class="container">
@@ -22,43 +22,46 @@
 				<img src="~/images/@Model.ImageUrl" alt="Image" class="img-fluid">
 			</div>
 			<div class="col-md-6">
+
 				<h2 class="text-black">@Model.Name</h2>
 				<p>@Model.Description</p>
 				<p><strong class="text-primary h4">$@Model.Price</strong></p>
 				<p>Size</p>
-				<form>
-					<div class="mb-1 d-flex">
-						@foreach (var item in size)
-						{
-							<label for="option-sm" class="d-flex mr-3 mb-3">
-								<span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name=""></span> <span class="d-inline-block text-black">@item.Name</span>
-							</label>
-						}
-
-					</div>
+				<form asp-controller="Cart" asp-action="AddtoCart" method="post">
+					<input type="hidden" name="Namespp" value="@Model.Name" />
 					<p>Color</p>
 					<div class="mb-1 d-flex">
 						@foreach (var item in color)
 						{
 							<label for="option-sm" class="d-flex mr-3 mb-3">
-								<span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name="shop-sizes"></span> <span class="d-inline-block text-black">@item.Name</span>
+								<span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="color" name="idcolor" value="@item.Id"></span> <span class="d-inline-block text-black">@item.Name</span>
 							</label>
 						}
 
 					</div>
+					<div class="mb-1 d-flex">
+						@foreach (var item in size)
+						{
+							<label for="option-sm" class="d-flex mr-3 mb-3">
+								<span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="size" name="idsize" value="@item.Id"></span> <span class="d-inline-block text-black">@item.Name</span>
+							</label>
+						}
+
+					</div>
+
 					<div class="mb-5">
 						<div class="input-group mb-3" style="max-width: 120px;">
 							<div class="input-group-prepend">
 								<button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
 							</div>
-							<input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+							<input type="text" class="form-control text-center" name="slsp" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
 							<div class="input-group-append">
 								<button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
 							</div>
 						</div>
 
 					</div>
-					<p><a href="cart.html" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
+					<input type="submit" value="Addtocart"></input>
 				</form>
 
 

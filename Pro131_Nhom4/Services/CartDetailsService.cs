@@ -13,24 +13,24 @@ namespace Pro131_Nhom4.Services
         {
             _context = new Mydb();
         }
-        public async Task<bool> CreateCartDetails(Guid accountId, Guid productId)
+        public async Task<bool> CreateCartDetails(CartDetails cart)
         {
-            var cartDetail = await _context.Cartdetails.FirstOrDefaultAsync(p => p.AccountID == accountId && p.ProductID == productId);
+            var cartDetail = await _context.Cartdetails.FirstOrDefaultAsync(p => p.AccountID == cart.AccountID && p.ProductID == cart.ProductID);
             if (cartDetail == null)
             {
 
                 CartDetails cartDetails = new CartDetails()
                 {
                     Id = Guid.NewGuid(),
-                    Quantity = 1,
-                    ProductID = productId,
-                    AccountID = accountId,
+                    Quantity = cart.Quantity,
+                    ProductID = cart.ProductID,
+                    AccountID = cart.AccountID,
                 };
                 await _context.Cartdetails.AddAsync(cartDetails);
             }
             else
             {
-                cartDetail.Quantity++;
+                cartDetail.Quantity+=cart.Quantity;
                 _context.Cartdetails.Update(cartDetail);
             }
             await _context.SaveChangesAsync();
@@ -53,22 +53,9 @@ namespace Pro131_Nhom4.Services
             }
         }
 
-        public async Task<List<CartDetailsView>> GetAllCartDetails()
+        public async Task<List<CartDetails>> GetAllCartDetails()
         {
-            List<CartDetailsView> cartDetailsViews = new List<CartDetailsView>();
-            cartDetailsViews = await (
-                from a in _context.Cartdetails
-                join b in _context.Products on a.ProductID equals b.Id
-                join c in _context.Carts on a.AccountID equals c.UserID
-                select new CartDetailsView()
-                {
-                    CartDetails = a,
-                    Product = b,
-                    Cart = c,
-                }
-
-                ).ToListAsync();
-            return cartDetailsViews;
+            return await _context.Cartdetails.ToListAsync();
         }
 
         public async Task<List<CartDetailsView>> GetCartDetailsByAccountId(Guid id)

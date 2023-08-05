@@ -28,7 +28,7 @@ namespace Pro131_Nhom4.Controllers
             string json = JsonConvert.SerializeObject(cartdt, settings);
             JToken parsedjson = JToken.Parse(json);
             string formattedJson = parsedjson.ToString(Formatting.Indented);
-            return Ok(formattedJson);
+            return Ok(cartdt);
         }
         [HttpGet("{id:Guid}")]
         public async Task<IActionResult> GetCartDetailsByAccountId([FromRoute] Guid id)
@@ -57,11 +57,11 @@ namespace Pro131_Nhom4.Controllers
             return Ok(formattedJson);
         }
 
-        [HttpPost("{accountId:Guid}/{productId:Guid}")]
-        public async Task<ActionResult<CartDetails>> CreateCartDetails(Guid accountId, Guid productId)
+        [HttpPost]
+        public async Task<ActionResult<CartDetails>> CreateCartDetails(CartDetails cart)
         {
-            await _cartDetailsService.CreateCartDetails(accountId, productId);
-            return Ok();
+            await _cartDetailsService.CreateCartDetails(cart);
+            return Ok(cart);
         }
 
         [HttpPut("Increase/{id}")]
