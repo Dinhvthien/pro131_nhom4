@@ -1,4 +1,5 @@
-﻿using App_Shared.ViewModels;
+﻿using App_Shared.Model;
+using App_Shared.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Pro131_Nhom4.IService;
@@ -10,10 +11,13 @@ namespace Pro131_Nhom4.Controllers
     public class RegisterController : ControllerBase
     {
         private readonly IRegisterService _registerService;
-        public RegisterController(IRegisterService registerService)
+		private readonly ICartService _cartService;
+		public RegisterController(IRegisterService registerService, ICartService cartService)
         {
             _registerService = registerService;
-        }
+			_cartService = cartService;
+
+		}
 
         [HttpPost]
         public async Task<IActionResult> Register(RegisterUser registerUser, string role)

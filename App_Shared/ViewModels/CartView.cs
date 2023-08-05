@@ -11,7 +11,7 @@ namespace App_Shared.ViewModels
 {
     public class CartView
     {
-        public Cart Cart { get; set; }
-        public User User { get; set; }
-    }
+		public Cart Cart { get; set; }
+		public User User { get; set; }
+	}
 }

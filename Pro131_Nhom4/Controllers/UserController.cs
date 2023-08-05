@@ -26,7 +26,7 @@ namespace Pro131_Nhom4.Controllers
 			return Ok(User);
 		}
 
-		[HttpGet("{id:Guid}")]
+			[HttpGet("{id:Guid}")]
 		public async Task<IActionResult> ShowUserbyId(Guid id)
 		{
 			var User = await UserService.GetUserbyId(id);

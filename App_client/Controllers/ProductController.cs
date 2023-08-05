@@ -2,6 +2,8 @@
 using App_Shared.Model;
 using App_Shared.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Xml.Linq;
 
 namespace App_client.Controllers
 {
@@ -20,7 +22,11 @@ namespace App_client.Controllers
                   }
               }*/
             var product = await _services.GetAll<ProductView>("https://localhost:7149/api/showlist");
-            var p = product.GroupBy(p => new { p.Name, p.ColorID }).Select(g => g.First()).ToList();
+            var p = product.GroupBy(p => new { p.Name}).Select(g => g.First()).ToList();
+
+
+
+
             return View(p);
         }
         public async Task<IActionResult> Search(string search)
@@ -35,6 +41,8 @@ namespace App_client.Controllers
 
             var result = await _services.GetAllById<Product>($"https://localhost:7149/api/showlist/{id}");
             var name = await _services.GetAll<ProductView>($"https://localhost:7149/api/showlist/{result.Name}");
+
+            
             List<Colors> color = new List<Colors>();
             List<Sizes> size = new List<Sizes>();
             foreach (var item in name)
@@ -48,6 +56,8 @@ namespace App_client.Controllers
                         break;
                     }
                 }
+
+
                 if (!a)
                     color.Add(item.Color);
                 bool b = false;
@@ -64,6 +74,7 @@ namespace App_client.Controllers
             }
             ViewData["colors"] = color;
             ViewData["sizes"] = size;
+
             return View(result);
         }
     }

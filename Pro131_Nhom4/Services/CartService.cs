@@ -15,11 +15,13 @@ namespace Pro131_Nhom4.Services
         }
         public async Task<bool> CreateCart(Cart address)
         {
-            if (address == null) return false;
+            if (address == null) { return false; } else {
             await _context.Carts.AddAsync(address);
             await _context.SaveChangesAsync();
-            return true;
-        }
+				return true;
+			}
+		}
+			
 
         public async Task<bool> DeleteCart(Guid id)
         {

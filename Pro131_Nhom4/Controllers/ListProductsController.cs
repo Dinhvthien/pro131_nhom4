@@ -9,6 +9,7 @@ namespace Pro131_Nhom4.Controllers
 {
     [Route("api/showlist")]
     [ApiController]
+   
     public class ListProductsController : ControllerBase
     {
         private readonly IProductService _productService;

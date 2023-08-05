@@ -29,6 +29,7 @@ namespace App_client.Controllers
 			return View();
 		}
 		[HttpPost]
+
 		public async Task<IActionResult> Creating(CreateSize createSize)
 		{
 			var result = await _services.CreateAll<CreateSize>("https://localhost:7149/api/Size/CreateSize", createSize);
