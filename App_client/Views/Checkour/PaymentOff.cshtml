@@ -1,0 +1,75 @@
+﻿@using App_Shared.ViewModels;
+@model App_Shared.Model.Bill
+
+@{
+	ViewData["Title"] = "PaymentOff";
+	List<string>
+	imageExtensions = new List<string>
+		()
+																			   {
+		".png", ".jpg", ".jpeg", ".gif", ".tiff", ".pdf"
+																			   };
+}
+<div class="container" style="text-align:center">
+<h3>Xác nhận thanh toán</h3>
+<form asp-controller="Checkour" asp-action="PaymentOff" method="post">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Image</th>
+				<th>Tên sản phẩm</th>
+				<th>Số lượng</th>
+				<th>Giá sản phẩm</th>
+
+			</tr>
+		</thead>
+		<tbody>
+				@foreach (var cartProduct in ViewData["ProductCart"] as List<CartProductViewModel>)
+				{
+					<tr>
+						@{
+							string extension = System.IO.Path.GetExtension(cartProduct.image);
+							string imagePath = $"~/images/{cartProduct.image}";
+						}
+
+						<td>	<img src="@Url.Content(imagePath)" alt="Image" style="width:100px;height:100px" class="img-fluid"></td>
+						<td>@cartProduct.ProductName</td>
+						<td>@cartProduct.Quantity</td>
+						<td>@cartProduct.TotalPrice</td>
+
+					</tr>
+				}
+		</tbody>
+	</table>
+	<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label class="control-label">Tổng tiền</label>
+					<input name="price" value="@ViewData["TotalAmount"]" readonly class="form-control" hidden />
+					<span>@ViewData["TotalAmount"]</span>
+			</div>
+			<div class="form-group">
+				<label  class="control-label"> địa chỉ nhận hàng</label>
+				<input asp-for="Address" class="form-control" />
+				<span asp-validation-for="Address" class="text-danger"></span>
+			</div>
+				<div class="form-group">
+					<label class="control-label">Nhập mã voucher</label>
+					<input name="voucher" class="form-control" />
+				</div>
+			<div class="form-group">
+				<input type="submit" value="Xác nhận thanh toán" class="btn btn-primary" />
+			</div>
+		</div>
+	</div>
+</form>
+
+<div>
+	<a asp-action="Index">Back to List</a>
+</div>
+
+
+</div>

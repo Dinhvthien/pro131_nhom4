@@ -37,21 +37,10 @@ namespace Pro131_Nhom4.Services
             }
         }
 
-        public async Task<List<BillDetailsView>> GetAllBillDetails()
+        public async Task<List<BillDetails>> GetAllBillDetails()
         {
 
-            List<BillDetailsView> billDetailsViews = new List<BillDetailsView>();
-            billDetailsViews = await (
-                from a in _context.Billdetails
-                join b in _context.Products on a.ProductID equals b.Id
-                join c in _context.Bills on a.BillID equals c.Id
-                select new BillDetailsView()
-                {
-                    BillDetails = a,
-                    Products = b,
-                    Bill = c
-                }).ToListAsync();
-            return billDetailsViews;
+            return await _context.Billdetails.ToListAsync(); 
         }
 
         public async Task<List<BillDetailsView>> GetBillDetailsByBillId(Guid id)

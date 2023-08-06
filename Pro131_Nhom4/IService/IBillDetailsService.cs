@@ -9,6 +9,6 @@ namespace Pro131_Nhom4.IService
         public Task<bool> UpdateBillDetails(BillDetailsView address);
         public Task<bool> DeleteBillDetails(Guid id);
         public Task<List<BillDetailsView>> GetBillDetailsByBillId(Guid id);
-        public Task<List<BillDetailsView>> GetAllBillDetails();
+        public Task<List<BillDetails>> GetAllBillDetails();
     }
 }

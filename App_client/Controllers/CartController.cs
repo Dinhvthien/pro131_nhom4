@@ -16,10 +16,10 @@ namespace App_client.Controllers
 		{
 			_httpClient = httpClient;
 		}
-		public async Task<ActionResult> AddtoCart([FromForm] string Namespp,Guid idsize , Guid idcolor,int slsp)
+		public async Task<ActionResult> AddtoCart([FromForm] string Namespp, Guid idsize, Guid idcolor, int slsp)
 		{
 			var identity = HttpContext.User.Identity as ClaimsIdentity;
-			
+
 			if (identity != null)
 			{
 				var userIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
@@ -31,7 +31,7 @@ namespace App_client.Controllers
 					var userId = getallUser.FirstOrDefault(c => c.UserName == userName).Id;
 
 					var getallCart = await _services.GetAllById<Cart>($"https://localhost:7149/api/cart/{userId}");
-				
+
 					if (getallCart == null)
 					{
 						Cart cart = new Cart();
@@ -41,10 +41,10 @@ namespace App_client.Controllers
 						if (result)
 						{
 							var product = await _services.GetAll<Product>("https://localhost:7149/api/showlist");
-							var getidsp =  product.FirstOrDefault(c=>c.Name == Namespp && c.SizeID == idsize&& c.ColorID== idcolor).Id;
-							if(getidsp == Guid.Parse("00000000-0000-0000-0000-000000000000"))
+							var getidsp = product.FirstOrDefault(c => c.Name == Namespp && c.SizeID == idsize && c.ColorID == idcolor).Id;
+							if (getidsp == Guid.Parse("00000000-0000-0000-0000-000000000000"))
 							{
-                                return View();
+								return View();
 							}
 							else
 							{
@@ -58,39 +58,36 @@ namespace App_client.Controllers
 
 								return RedirectToAction("Index", "Cart");
 							}
-				
+
 						}
 					}
 					else
 					{
-                        var product = await _services.GetAll<Product>("https://localhost:7149/api/showlist");
-                        var getidsp = product.FirstOrDefault(c => c.Name == Namespp && c.SizeID == idsize && c.ColorID == idcolor).Id;
-                        if (getidsp == Guid.Parse("00000000-0000-0000-0000-000000000000"))
-                        {
-							return View();
+						var product = await _services.GetAll<Product>("https://localhost:7149/api/showlist");
+						var getidsp = product.FirstOrDefault(c => c.Name == Namespp && c.SizeID == idsize && c.ColorID == idcolor).Id;
+						if (getidsp == Guid.Parse("00000000-0000-0000-0000-000000000000"))
+						{
+							return RedirectToAction("Index", "Cart");
 						}
-                        CartDetails cartDetails = new CartDetails
+						CartDetails cartDetails = new CartDetails
 						{
 							Id = Guid.NewGuid(),
 							AccountID = userId,
 							ProductID = getidsp,
-							Quantity = slsp	
+							Quantity = slsp
 						};
 						var cartResponse = await _httpClient.PostAsJsonAsync("https://localhost:7149/api/cartdt", cartDetails);
 						if (cartResponse.IsSuccessStatusCode)
 						{
 							return RedirectToAction("Index", "Cart");
 						}
-						return RedirectToAction("Index", "Home");
 					}
-
 				}
-				return RedirectToAction("Index", "Home");
-
+				return RedirectToAction("Login", "Login");
 			}
 			else
 			{
-				return RedirectToAction("Index", "Home");
+				return RedirectToAction("Login", "Login");
 			}
 		}
 		public async Task<IActionResult> Index()
@@ -108,18 +105,20 @@ namespace App_client.Controllers
 					var userId = getallUser.FirstOrDefault(c => c.UserName == userName).Id;
 					var result = await _services.GetAll<CartDetails>("https://localhost:7149/api/cartdt");
 					var getallcartbyuser = result.FindAll(c => c.AccountID == userId).ToList();
-                    var productIds = getallcartbyuser.Select(c => c.ProductID).ToList();
-                    var productList = new List<Product>();
+					var productIds = getallcartbyuser.Select(c => c.ProductID).ToList();
+					var productList = new List<Product>();
 
-                    foreach (var productId in productIds)
-                    {
-                        var product = await _services.GetAllById<Product>($"https://localhost:7149/api/showlist/{productId}");
-                        productList.Add(product);
-                    }
+					foreach (var productId in productIds)
+					{
+						var product = await _services.GetAllById<Product>($"https://localhost:7149/api/showlist/{productId}");
+						productList.Add(product);
+					}
+					var countsp = getallcartbyuser.Count();
 
-                    ViewData["productList"] = productList;
-                    return View(getallcartbyuser);
-                }
+					ViewData["productList"] = productList;
+					HttpContext.Session.SetInt32("countspcart", countsp);
+					return View(getallcartbyuser);
+				}
 				return RedirectToAction("Index", "home");
 
 			}
@@ -129,31 +128,6 @@ namespace App_client.Controllers
 			}
 		 ;
 
-		}
-		public async Task<IActionResult> Search(string search)
-		{
-			var identity = HttpContext.User.Identity as ClaimsIdentity;
-
-			if (identity != null)
-			{
-				var userIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
-				if (userIdClaim != null)
-				{
-					var userName = userIdClaim.Value;
-					// Sử dụng userId
-					var getallUser = await _services.GetAll<User>("https://localhost:7149/api/User");
-					var userId = getallUser.FirstOrDefault(c => c.UserName == userName).Id;
-					var result = await _services.GetAllById<User>($"https://localhost:7149/api/User/{userId}");
-					return View(result);
-				}
-				return RedirectToAction("Index", "Admin", new { area = "Admin" });
-
-			}
-			else
-			{
-				return RedirectToAction("Index", "Admin", new { area = "Admin" });
-			}
-			return View(await _services.GetAll<BillView>($"https://localhost:7256/cart{search}"));
 		}
 		[HttpGet]
 		public async Task<IActionResult> Details(Guid id)
@@ -173,7 +147,6 @@ namespace App_client.Controllers
 					return View(result);
 				}
 				return RedirectToAction("Index", "Admin", new { area = "Admin" });
-
 			}
 			else
 			{
@@ -181,34 +154,7 @@ namespace App_client.Controllers
 			}
 			return View(await _services.GetAllById<BillView>($"https://localhost:7256/cart/{id}"));
 		}
-		//[HttpPost]
 
-		//public async Task<IActionResult> Create(Cart cart)
-		//{
-		//	var identity = HttpContext.User.Identity as ClaimsIdentity;
-
-		//	if (identity != null)
-		//	{
-		//		var userIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
-		//		if (userIdClaim != null)
-		//		{
-		//			var userName = userIdClaim.Value;
-		//			// Sử dụng userId
-		//			var getallUser = await _services.GetAll<User>("https://localhost:7149/api/User");
-		//			var userId = getallUser.FirstOrDefault(c => c.UserName == userName).Id;
-		//			var result = await _services.GetAllById<User>($"https://localhost:7149/api/User/{userId}");
-		//			return View(result);
-		//		}
-		//		return RedirectToAction("Index", "Admin", new { area = "Admin" });
-
-		//	}
-		//	else
-		//	{
-		//		return RedirectToAction("Index", "Admin", new { area = "Admin" });
-		//	}
-		//	await _services.CreateAll("https://localhost:7149/cart", cart);
-		//	return RedirectToAction("Index");
-		//}
 		[HttpGet]
 		[HttpPost]
 		public async Task<IActionResult> Delete(Guid id)
@@ -216,59 +162,7 @@ namespace App_client.Controllers
 			var result = await _services.DeleteAll<CartDetails>($"https://localhost:7149/api/cartdt/{id}");
 			return RedirectToAction("Index");
 		}
-		//[HttpPost]
-		//[HttpGet]
-		//public async Task<IActionResult> Edit(Guid id)
-		//{
-		//	var identity = HttpContext.User.Identity as ClaimsIdentity;
 
-		//	if (identity != null)
-		//	{
-		//		var userIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
-		//		if (userIdClaim != null)
-		//		{
-		//			var userName = userIdClaim.Value;
-		//			// Sử dụng userId
-		//			var getallUser = await _services.GetAll<User>("https://localhost:7149/api/User");
-		//			var userId = getallUser.FirstOrDefault(c => c.UserName == userName).Id;
-		//			var result = await _services.GetAllById<User>($"https://localhost:7149/api/User/{userId}");
-		//			return View(result);
-		//		}
-		//		return RedirectToAction("Index", "Admin", new { area = "Admin" });
 
-		//	}
-		//	else
-		//	{
-		//		return RedirectToAction("Index", "Admin", new { area = "Admin" });
-		//	}
-		//	var bill = await _services.GetAllById<Cart>($"https://localhost:7149/cart/{id}");
-		//	return View(bill);
-		//}
-		//public async Task<IActionResult> Edit(Cart cart)
-		//{
-		//	var identity = HttpContext.User.Identity as ClaimsIdentity;
-
-		//	if (identity != null)
-		//	{
-		//		var userIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
-		//		if (userIdClaim != null)
-		//		{
-		//			var userName = userIdClaim.Value;
-		//			// Sử dụng userId
-		//			var getallUser = await _services.GetAll<User>("https://localhost:7149/api/User");
-		//			var userId = getallUser.FirstOrDefault(c => c.UserName == userName).Id;
-		//			var result = await _services.GetAllById<User>($"https://localhost:7149/api/User/{userId}");
-		//			return View(result);
-		//		}
-		//		return RedirectToAction("Index", "Admin", new { area = "Admin" });
-
-		//	}
-		//	else
-		//	{
-		//		return RedirectToAction("Index", "Admin", new { area = "Admin" });
-		//	}
-		//	await _services.EditAll($"https://localhost:7149/api/{cart.UserID}", cart);
-		//	return RedirectToAction("Index");
-		}
 	}
-
+}

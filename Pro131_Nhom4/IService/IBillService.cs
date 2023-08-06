@@ -10,6 +10,6 @@ namespace Pro131_Nhom4.IService
         public Task<bool> DeleteBill(Guid id);
         public Task<BillView> GetBillById(Guid id);
         public Task<List<BillView>> GetBillByAccountId(Guid id);
-        public Task<List<BillView>> GetAllBills();
+        public Task<List<Bill>> GetAllBills();
     }
 }

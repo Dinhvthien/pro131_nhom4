@@ -10,7 +10,7 @@ namespace Pro131_Nhom4.IService
         public Task<bool> Reduce(Guid id);
         public Task<bool> DeleteCartDetails(Guid id);
         public Task<CartDetailsView> GetCartDetailsById(Guid accountId, Guid productId);
-        public Task<List<CartDetailsView>> GetCartDetailsByAccountId(Guid id);
+        public Task<List<CartDetails>> GetCartDetailsByAccountId(Guid id);
         public Task<List<CartDetails>> GetAllCartDetails();
     }
 }

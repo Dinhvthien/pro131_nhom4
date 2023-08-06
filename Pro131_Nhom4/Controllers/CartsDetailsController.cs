@@ -28,7 +28,7 @@ namespace Pro131_Nhom4.Controllers
             string json = JsonConvert.SerializeObject(cartdt, settings);
             JToken parsedjson = JToken.Parse(json);
             string formattedJson = parsedjson.ToString(Formatting.Indented);
-            return Ok(cartdt);
+            return Ok(formattedJson);
         }
         [HttpGet("{id:Guid}")]
         public async Task<IActionResult> GetCartDetailsByAccountId([FromRoute] Guid id)

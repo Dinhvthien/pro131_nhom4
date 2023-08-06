@@ -26,7 +26,7 @@
 				<h2 class="text-black">@Model.Name</h2>
 				<p>@Model.Description</p>
 				<p><strong class="text-primary h4">$@Model.Price</strong></p>
-				<p>Size</p>
+			
 				<form asp-controller="Cart" asp-action="AddtoCart" method="post">
 					<input type="hidden" name="Namespp" value="@Model.Name" />
 					<p>Color</p>
@@ -39,6 +39,7 @@
 						}
 
 					</div>
+					<p>Size</p>
 					<div class="mb-1 d-flex">
 						@foreach (var item in size)
 						{

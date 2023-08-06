@@ -1,0 +1,53 @@
+﻿@model IEnumerable<App_Shared.Model.Bill>
+
+@{
+	ViewData["Title"] = "billUser";
+}
+
+<h1>billUser</h1>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.CreateDate)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Price)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.StatusID)
+			</th>
+
+			<th>
+				@Html.DisplayNameFor(model => model.Address)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.CreateDate)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Price)
+				</td>
+
+
+				<td>
+					@Html.DisplayFor(modelItem => item.StatusID)
+				</td>
+
+				<td>
+					@Html.DisplayFor(modelItem => item.Address)
+				</td>
+
+				<td>
+					@Html.ActionLink("Details", "billdetail" , "Checkour", new { id=item.Id })
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

@@ -58,24 +58,12 @@ namespace Pro131_Nhom4.Services
             return await _context.Cartdetails.ToListAsync();
         }
 
-        public async Task<List<CartDetailsView>> GetCartDetailsByAccountId(Guid id)
+        public async Task<List<CartDetails>> GetCartDetailsByAccountId(Guid id)
         {
-            List<CartDetailsView> cartDetailsViews = new List<CartDetailsView>();
-            cartDetailsViews = await (
-                from a in _context.Cartdetails
-                join b in _context.Products on a.ProductID equals b.Id
-                join c in _context.Carts on a.AccountID equals c.UserID
-                where a.AccountID == id
-                select new CartDetailsView()
-                {
-                    CartDetails = a,
-                    Product = b,
-                    Cart = c,
-                }
-
-                ).ToListAsync();
-            return cartDetailsViews;
-        }
+            var a = await _context.Cartdetails.ToListAsync();
+            var cartdtbyaccid = a.FindAll(c=>c.AccountID==id);
+            return cartdtbyaccid;
+		}
 
         public async Task<CartDetailsView> GetCartDetailsById(Guid accountId, Guid productId)
         {

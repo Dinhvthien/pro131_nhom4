@@ -36,36 +36,10 @@ namespace Pro131_Nhom4.Services
             }
         }
 
-        public async Task<List<BillView>> GetAllBills()
+        public async Task<List<Bill>> GetAllBills()
         {
-            List<BillView> billViews = new List<BillView>();
-   //         foreach (var item in _context.Bills)
-   //         {
-			//	BillView bv = new BillView
-			//	{
-   //                 bv.Bill = item,
-   //                 bv.Voucher = _context.Vouchers.FirstOrDefault(p => p.Id == item.VoucherID),
-
-			//	};
-			//	billViews.Add(bv);
-			//}
-   //         return          
-            billViews = await (
-                from a in _context.Bills
-                join b in _context.Vouchers on a.VoucherID equals b.Id
-                join c in _context.Users on a.AccountID equals c.Id
-                join d in _context.Payments on a.PayMentID equals d.Id
-                join e in _context.BillStatuses on a.StatusID equals e.IdStt
-
-                select new BillView()
-                {
-                    Bill = a,
-                    Voucher = b,
-                    User = c,
-                    Payment = d,
-                    BillStatus = e,
-                }).ToListAsync();
-            return billViews;
+            var a = await _context.Bills.ToListAsync();
+            return a;
         }
 
         public async Task<List<BillView>> GetBillByAccountId(Guid id)

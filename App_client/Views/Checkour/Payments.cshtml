@@ -1,0 +1,19 @@
+﻿<div class="row justify-content-center">
+    <div class="col-md-12 text-center mb-4" style="margin-top:40px"><h4>Mời bạn chọn hình thức thanh toán</h4></div>
+    <div class="col-3"></div>
+    <div class="col-md-6 text-center mb-4">
+        <form method="post" asp-controller="Checkour" asp-action="Payments">
+            <input type="hidden" name="pm" value="true" />
+            <button type="submit" class="btn btn-primary btn-block" style="height: 100px;">Thanh toán khi nhận hàng</button>
+        </form>
+    </div>
+    <div class="col-3"></div>
+    <div class="col-3"></div>
+    <div class="col-md-6 text-center">
+        <form method="post" asp-controller="Checkour" asp-action="Payments">
+            <input type="hidden" name="pm" value="false" />
+            <button type="submit" class="btn btn-primary btn-block" style="height: 100px;">Online</button>
+        </form>
+    </div>
+    <div class="col-3"></div>
+</div>

@@ -1,8 +1,12 @@
 ﻿@{
 	var roleid = ViewBag.RoleId;
 }
+
+@{
+	//int countsp = HttpContext.Session.GetInt32("countspcart") ?? 0;
+}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en">	
 <head>
 	<title>Shoppers &mdash; Colorlib e-Commerce Template</title>
 	<meta charset="utf-8">
@@ -52,7 +56,9 @@
                                                 <span class="icon icon-shopping_cart"></span>
                                                 <span class="count">2</span>
                                             </a>
-                                        </li>      
+                                        </li>
+										<li><a asp-controller="Checkour" asp-action="billUser"><span>Bill</span></a></li>
+
 									</ul>
 								</div>
 							</div>

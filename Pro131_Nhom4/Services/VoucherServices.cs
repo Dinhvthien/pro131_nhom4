@@ -49,7 +49,7 @@ namespace Pro131_Nhom4.Services
 
         public async Task<List<Voucher>> GetVoucherByName(string name)
         {
-            return await _context.Vouchers.AsQueryable().Where(p => p.VoucherName.ToLower().Contains(name.ToLower())).ToListAsync();
+            return await _context.Vouchers.Where(p => p.VoucherName.ToLower().Contains(name.ToLower())).ToListAsync();
         }
 
         public async Task<bool> UpdateVoucher(Voucher address)
