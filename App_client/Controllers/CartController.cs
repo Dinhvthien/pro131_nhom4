@@ -2,6 +2,7 @@
 using App_Shared.Model;
 using App_Shared.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Pro131_Nhom4.Data;
 using System.Net.Http;
 using System.Security.Claims;
@@ -31,31 +32,55 @@ namespace App_client.Controllers
 					var userId = getallUser.FirstOrDefault(c => c.UserName == userName).Id;
 
 					var getallCart = await _services.GetAllById<Cart>($"https://localhost:7149/api/cart/{userId}");
-
-					if (getallCart == null)
+					var product = await _services.GetAll<Product>("https://localhost:7149/api/showlist");
+					var getidsp = product.FirstOrDefault(c => c.Name == Namespp && c.SizeID == idsize && c.ColorID == idcolor);
+					if (getidsp.AvailableQuantity >= slsp)
 					{
-						Cart cart = new Cart();
-						cart.UserID = userId;
-						cart.Description = "Nguoi dung dep trai";
-						var result = await _services.CreateAll<Cart>("https://localhost:7149/api/cart", cart);
-						if (result)
+						if (getallCart == null)
 						{
-							var product = await _services.GetAll<Product>("https://localhost:7149/api/showlist");
-							var getidsp = product.FirstOrDefault(c => c.Name == Namespp && c.SizeID == idsize && c.ColorID == idcolor).Id;
-							if (getidsp == Guid.Parse("00000000-0000-0000-0000-000000000000"))
+							Cart cart = new Cart();
+							cart.UserID = userId;
+							cart.Description = "Nguoi dung dep trai";
+							var result = await _services.CreateAll<Cart>("https://localhost:7149/api/cart", cart);
+							if (result)
 							{
-								return View();
+
+								if (getidsp.Id == Guid.Parse("00000000-0000-0000-0000-000000000000"))
+								{
+									return View();
+								}
+								else
+								{
+									CartDetails cartDetails = new CartDetails();
+									cartDetails.Id = Guid.NewGuid();
+									cartDetails.AccountID = userId;
+									cartDetails.ProductID = getidsp.Id;
+									cartDetails.Quantity = slsp;
+									await _services.CreateAll<CartDetails>("https://localhost:7149/api/cartdt", cartDetails);
+
+
+									return RedirectToAction("Index", "Cart");
+								}
+
 							}
-							else
+						}
+						else
+						{
+
+							if (getidsp.Id == Guid.Parse("00000000-0000-0000-0000-000000000000"))
 							{
-								CartDetails cartDetails = new CartDetails();
-								cartDetails.Id = Guid.NewGuid();
-								cartDetails.AccountID = userId;
-								cartDetails.ProductID = getidsp;
-								cartDetails.Quantity = slsp;
-								await _services.CreateAll<CartDetails>("https://localhost:7149/api/cartdt", cartDetails);
-
-
+								return RedirectToAction("Index", "Cart");
+							}
+							CartDetails cartDetails = new CartDetails
+							{
+								Id = Guid.NewGuid(),
+								AccountID = userId,
+								ProductID = getidsp.Id,
+								Quantity = slsp
+							};
+							var cartResponse = await _httpClient.PostAsJsonAsync("https://localhost:7149/api/cartdt", cartDetails);
+							if (cartResponse.IsSuccessStatusCode)
+							{
 								return RedirectToAction("Index", "Cart");
 							}
 
@@ -63,25 +88,9 @@ namespace App_client.Controllers
 					}
 					else
 					{
-						var product = await _services.GetAll<Product>("https://localhost:7149/api/showlist");
-						var getidsp = product.FirstOrDefault(c => c.Name == Namespp && c.SizeID == idsize && c.ColorID == idcolor).Id;
-						if (getidsp == Guid.Parse("00000000-0000-0000-0000-000000000000"))
-						{
-							return RedirectToAction("Index", "Cart");
-						}
-						CartDetails cartDetails = new CartDetails
-						{
-							Id = Guid.NewGuid(),
-							AccountID = userId,
-							ProductID = getidsp,
-							Quantity = slsp
-						};
-						var cartResponse = await _httpClient.PostAsJsonAsync("https://localhost:7149/api/cartdt", cartDetails);
-						if (cartResponse.IsSuccessStatusCode)
-						{
-							return RedirectToAction("Index", "Cart");
-						}
-					}
+						//hine thi thong bao so luong sp khong du 
+						return RedirectToAction("Details", "Product", new { id = getidsp.Id });
+					}				
 				}
 				return RedirectToAction("Login", "Login");
 			}
@@ -126,7 +135,7 @@ namespace App_client.Controllers
 			{
 				return RedirectToAction("Index", "home");
 			}
-		 ;
+		 
 
 		}
 		[HttpGet]
