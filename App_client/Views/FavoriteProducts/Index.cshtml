@@ -3,49 +3,62 @@
 @{
     ViewData["Title"] = "Index";
     var idlogin = Context.Session.GetString("IdLogin");
+    List<string>
+        imageExtensions = new List<string>
+            ()
+                                                                   {
+        ".png", ".jpg", ".jpeg", ".gif", ".tiff", ".pdf"
+                                                                   };
  }
-<h1>Index</h1>
+ <style>
+    .imgmd{
+        width:50px;
+        height:50px;
+    }
+</style>
+<h1 style="text-align:center">Sản Phẩm Yêu Thích</h1>
 
-<p>
+<@*p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>*@
+
 <table class="table">
     <thead>
         <tr>
-            <th>
+           @* <th>
                 AccID
 
             </th>
             <th>
                 proID
 
+            </th>*@
+            <th>
+               Mô tả
             </th>
             <th>
-               Des
+                Tên Sản Phẩm
             </th>
             <th>
-                Name
+                Giá Bán
             </th>
             <th>
-                Price
+                Số Lượng
             </th>
             <th>
-                AvailableQuantity
+                Ảnh
             </th>
             <th>
-                LinkIMG
+                NSX
             </th>
             <th>
-                Manufacturer
-            </th>
-            <th>
-                Status
+                Trạng Thái
             </th>
             <th>
                 Likes
             </th>
             <th>
-                DescriptionProduct
+                Mô tả SP
             </th>
             <th></th>
         </tr>
@@ -55,12 +68,12 @@
             @if (idlogin == item.AccountID.ToString())
             {
                 <tr>
-                    <td>
+                    @*<td>
                         @Html.DisplayFor(modelItem => item.AccountID)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.ProductID)
-                    </td>
+                    </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
@@ -74,7 +87,10 @@
                         @Html.DisplayFor(modelItem => item.AvailableQuantityProduct)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ImageUrlProduct)
+                        @{
+                            string extension = System.IO.Path.GetExtension(item.ImageUrlProduct);
+                        }
+                           <img src="~/images/@item.ImageUrlProduct" alt="Image" class="imgmd" >
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.ManufacturerProduct)

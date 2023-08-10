@@ -6,6 +6,9 @@
 	//int countsp = HttpContext.Session.GetInt32("countspcart") ?? 0;
 }
 <!DOCTYPE html>
+	<link rel="stylesheet" href="~/css/magnific-popup.css">
+	<link rel="stylesheet" href="~/css/jquery-ui.css">
+	<link rel="stylesheet" href="~/css/owl.carousel.min.css">
 <html lang="en">	
 <head>
 	<title>Shoppers &mdash; Colorlib e-Commerce Template</title>
@@ -15,9 +18,6 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
 	<link rel="stylesheet" href="~/fonts/icomoon/style.css">
 	<link rel="stylesheet" href="~/css/bootstrap.min.css">
-	<link rel="stylesheet" href="~/css/magnific-popup.css">
-	<link rel="stylesheet" href="~/css/jquery-ui.css">
-	<link rel="stylesheet" href="~/css/owl.carousel.min.css">
 	<link rel="stylesheet" href="~/css/owl.theme.default.min.css">
 	<link rel="stylesheet" href="~/css/aos.css">
 	<link rel="stylesheet" href="~/css/style.css">
@@ -102,7 +102,7 @@
 						<li><a  asp-controller="Cartdetails" asp-action="Index" >Nam</a></li>
 						<li><a href="#">Trẻ con</a></li>
 						<li><a href="#">Nữ</a></li>
-						<li><a href="contact.html">Sản phẩm yêu thích</a></li>
+						<li><a asp-controller="FavoriteProducts" asp-action="Index">Sản phẩm yêu thích</a></li>
 						<li><a href="contact.html">Sản phẩm giảm giá</a></li>
 					</ul>
 				</div>
@@ -110,12 +110,7 @@
 		</header>
 		<div>
 			<ul class="site-menu js-clone-nav d-none d-md-block">
-				<li class="has-children">
-					<a asp-controller="Size" asp-action="Index">test ALL Size</a>
-				</li>
-				<li class="has-children">
-					<a asp-controller="FavoriteProducts" asp-action="Index">Test all FavoriteProducts</a>
-				</li>				
+							
 			</ul>
 		</div>
 		<div>

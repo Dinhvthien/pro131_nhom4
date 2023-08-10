@@ -1,0 +1,63 @@
+﻿@model IEnumerable<App_Shared.ViewModels.ViewSize>
+
+@{
+    ViewData["Title"] = "Index";
+    var XoaThatBai = ViewData["XoaThatBai"] as string;
+    var XoaThanhCong = ViewData["XoaThanhCong"] as string;
+}
+
+<h3>Danh sách Size</h3>
+
+<p>
+    <a asp-action="Create">Tạo mới Size</a>
+</p>
+
+@if (XoaThatBai != null)
+{
+    <p>@XoaThatBai</p>
+}
+@if (XoaThanhCong != null)
+{
+    <p>@XoaThanhCong</p>
+}
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>*@
+                <th>
+                   Size
+                </th>
+                <th>
+                    Trạng thái
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        <a asp-area="Admin" asp-controller="CRUDSize" asp-action="Details" asp-route-id="@item.Id">Chi Tiết </a>|
+                        <a asp-area="Admin" asp-controller="CRUDSize" asp-action="Edit" asp-route-id="@item.Id">Sửa </a>|
+                        <a asp-area="Admin" asp-controller="CRUDSize" asp-action="Delete" asp-route-id="@item.Id">Xóa </a>|
+                        
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
