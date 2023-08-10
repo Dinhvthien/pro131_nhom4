@@ -27,11 +27,12 @@ namespace App_client.Controllers
 		{
 			return View();
 		}
-		[HttpPost]
-		public async Task<IActionResult> Creating(CreateFavoriteProducts rq)
+		public async Task<IActionResult> Creating(CreateFavoriteProducts rq, Guid id)
 		{
             var GetIdLogin = HttpContext.Session.GetString("IdLogin");
             rq.AccountID = Guid.Parse(GetIdLogin);
+            rq.ProductID = id;
+            rq.Description = "Yêu thích";
             var result = await _services.CreateAll<CreateFavoriteProducts>("https://localhost:7149/api/CRUDFavoritePr/Create", rq);
 			if (result)
 			{
@@ -40,6 +41,8 @@ namespace App_client.Controllers
 			return View();
 		}
 
+
+
         public async Task<IActionResult> Delete(Guid idproduct)
         {
             var GetIdLogin = HttpContext.Session.GetString("IdLogin");
@@ -47,7 +50,7 @@ namespace App_client.Controllers
             if (a == 0)
             {
                 ViewData["XoaThatBai"] = "Xóa thất bại";
-                return View("Index");
+                return RedirectToAction("Index");
             }
             else
             {
