@@ -106,6 +106,33 @@ namespace Pro131_Nhom4.Migrations
                     b.HasKey("IdStt");
 
                     b.ToTable("BillStatuses");
+
+                    b.HasData(
+                        new
+                        {
+                            IdStt = new Guid("968e5ad7-7c80-4ee7-8421-b5ba48e931ca"),
+                            Name = "Chờ xác nhận"
+                        },
+                        new
+                        {
+                            IdStt = new Guid("62492de7-e53b-495f-8b36-238fef858392"),
+                            Name = "Chờ lấy hàng"
+                        },
+                        new
+                        {
+                            IdStt = new Guid("d3f25cac-232f-4a48-baaa-17e897c8b2b8"),
+                            Name = "Đang giao hàng"
+                        },
+                        new
+                        {
+                            IdStt = new Guid("d7f9bbae-36ca-4dc5-aff3-8a0e52567e25"),
+                            Name = "Giao hàng thành công"
+                        },
+                        new
+                        {
+                            IdStt = new Guid("a62f61f4-4ef3-4afe-badd-55e0856f0f67"),
+                            Name = "Giao hàng thất bại"
+                        });
                 });
 
             modelBuilder.Entity("App_Shared.Model.Cart", b =>
@@ -277,31 +304,31 @@ namespace Pro131_Nhom4.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c62cd39c-f0ab-4765-984f-25cdc15562e5"),
+                            Id = new Guid("a1cc176f-780d-4c51-a6b1-581c622a7e0a"),
                             Name = "Đồng",
                             Point = 100.0
                         },
                         new
                         {
-                            Id = new Guid("86db1d0d-df49-476d-91a9-ff9a54c1571e"),
+                            Id = new Guid("9dc43899-a1a8-4993-bdce-8348539796da"),
                             Name = "Bạc",
                             Point = 500.0
                         },
                         new
                         {
-                            Id = new Guid("09ec55fd-e65e-413b-b9cd-8548b45fbd07"),
+                            Id = new Guid("6c742186-4291-4950-b5e5-2ffb8b84ba09"),
                             Name = "Vàng",
                             Point = 1000.0
                         },
                         new
                         {
-                            Id = new Guid("f4cd0f40-a894-4835-9815-73dfc542718a"),
+                            Id = new Guid("20758a88-a5f3-4b43-bd52-ec1f4484f78b"),
                             Name = "Kim Cương",
                             Point = 3000.0
                         },
                         new
                         {
-                            Id = new Guid("272181b5-0f96-4f8b-a4a5-546af28e9edf"),
+                            Id = new Guid("2477b14e-9a1e-40f9-94d8-bba140a3c4e0"),
                             Name = "Thách đấu",
                             Point = 10000.0
                         });
@@ -485,15 +512,15 @@ namespace Pro131_Nhom4.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("27852a22-3c7a-4acf-b2ac-632e1d957a8c"),
-                            ConcurrencyStamp = "d22c1af4-f687-4332-9d14-9cbe4e7db8c0",
+                            Id = new Guid("3a464889-758d-49e8-b3df-5c7af78883b6"),
+                            ConcurrencyStamp = "3c56699a-d955-486d-b3dc-7dbe1c62a3d7",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("b108d866-eb13-46e3-b3d2-ecae4fbfe873"),
-                            ConcurrencyStamp = "8dd2a9cf-401e-4753-aa08-3293ee81c9b3",
+                            ConcurrencyStamp = "8baeeb6f-4777-4d2a-926b-8a94960396cd",
                             Name = "User",
                             NormalizedName = "USER"
                         });

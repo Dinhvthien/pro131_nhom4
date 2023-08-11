@@ -81,7 +81,7 @@ namespace App_client.Controllers
 		[HttpPost]
 		public async Task<IActionResult> PaymentOff(Bill bill, string voucher, int price)
 		{
-			Guid idbill;
+			Guid idbill ;
 			var identity = HttpContext.User.Identity as ClaimsIdentity;
 			if (identity != null)
 			{
@@ -89,14 +89,16 @@ namespace App_client.Controllers
 				var userIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
 				if (userIdClaim != null)
 				{
+					var userName = userIdClaim.Value;
+					// Sử dụng userId
+					var getallUser = await _services.GetAll<User>("https://localhost:7149/api/User");
+					Guid userId = getallUser.FirstOrDefault(c => c.UserName == userName).Id;
 					if (voucher== "" || voucher == null)
 					{
-						var userName = userIdClaim.Value;
-						// Sử dụng userId
-						var getallUser = await _services.GetAll<User>("https://localhost:7149/api/User");
-						Guid userId = getallUser.FirstOrDefault(c => c.UserName == userName).Id;
-						bill.VoucherID = Guid.Parse("155c571b-b199-4544-f43c-08db95d4ff4f");
-						bill.PayMentID = Guid.Parse("d58f71eb-1444-47c5-8928-e0ae0b0d5991");
+
+						bill.Id = idbill = Guid.NewGuid();
+						bill.VoucherID = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66af36");
+						bill.PayMentID = Guid.Parse("fca021a9-4c60-4692-bdc4-f1ddb0cf55b1");
 						bill.AccountID = userId;
 						bill.StatusID = Guid.Parse("968e5ad7-7c80-4ee7-8421-b5ba48e931ca");
 						if (bill.Address == "" || bill.Address == null)
@@ -104,9 +106,10 @@ namespace App_client.Controllers
 							_notyfService.Error("bạn cần phải nhập địa chỉ");
 							return RedirectToAction("PaymentOff", "Checkour");
 						}
+					
 						var createBill = await _services.CreateAll<Bill>("https://localhost:7149/api/bill", bill);
 					
-						if (createBill == true)
+						if (createBill = true)
 						{
 							_notyfService.Success("Thanh toán thành công");
 							List<CartDetails> getallcardt = await _services.GetAll<CartDetails>("https://localhost:7149/api/cartdt");
@@ -119,7 +122,7 @@ namespace App_client.Controllers
 								var billdetai = new BillDetails
 								{
 									Id = Guid.NewGuid(),
-									BillID = idbill = Guid.NewGuid(),
+									BillID = idbill,
 									ProductID = item.ProductID,
 									Quantity = item.Quantity,
 									Prices = productInfo.Price
@@ -146,7 +149,6 @@ namespace App_client.Controllers
 					}///////////____________________________________________________?????????????
 					else
 					{
-						var userName = userIdClaim.Value;
 						// Sử dụng userId
 						var getallVoucher = await _services.GetAll<Voucher>("https://localhost:7149/api/voucher");
 						var getvoucherbyname = getallVoucher.FirstOrDefault(c => c.VoucherName == voucher);
@@ -168,12 +170,9 @@ namespace App_client.Controllers
 
 
 						}
-
-						var getallUser = await _services.GetAll<User>("https://localhost:7149/api/User");
-						Guid userId = getallUser.FirstOrDefault(c => c.UserName == userName).Id;
 						idbill = bill.Id = Guid.NewGuid();
 						bill.VoucherID = getvoucherbynameid;
-						bill.PayMentID = Guid.Parse("d58f71eb-1444-47c5-8928-e0ae0b0d5991");
+						bill.PayMentID = Guid.Parse("fca021a9-4c60-4692-bdc4-f1ddb0cf55b1");
 						bill.AccountID = userId;
 						bill.StatusID = Guid.Parse("968e5ad7-7c80-4ee7-8421-b5ba48e931ca");
 						bill.Price = price - giavoucher;

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Pro131_Nhom4.Migrations
 {
-    public partial class _131 : Migration
+    public partial class hoclaitiep : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -421,8 +421,20 @@ namespace Pro131_Nhom4.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("27852a22-3c7a-4acf-b2ac-632e1d957a8c"), "d22c1af4-f687-4332-9d14-9cbe4e7db8c0", "Admin", "ADMIN" },
-                    { new Guid("b108d866-eb13-46e3-b3d2-ecae4fbfe873"), "8dd2a9cf-401e-4753-aa08-3293ee81c9b3", "User", "USER" }
+                    { new Guid("3a464889-758d-49e8-b3df-5c7af78883b6"), "3c56699a-d955-486d-b3dc-7dbe1c62a3d7", "Admin", "ADMIN" },
+                    { new Guid("b108d866-eb13-46e3-b3d2-ecae4fbfe873"), "8baeeb6f-4777-4d2a-926b-8a94960396cd", "User", "USER" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "BillStatuses",
+                columns: new[] { "IdStt", "Name" },
+                values: new object[,]
+                {
+                    { new Guid("62492de7-e53b-495f-8b36-238fef858392"), "Chờ lấy hàng" },
+                    { new Guid("968e5ad7-7c80-4ee7-8421-b5ba48e931ca"), "Chờ xác nhận" },
+                    { new Guid("a62f61f4-4ef3-4afe-badd-55e0856f0f67"), "Giao hàng thất bại" },
+                    { new Guid("d3f25cac-232f-4a48-baaa-17e897c8b2b8"), "Đang giao hàng" },
+                    { new Guid("d7f9bbae-36ca-4dc5-aff3-8a0e52567e25"), "Giao hàng thành công" }
                 });
 
             migrationBuilder.InsertData(
@@ -431,11 +443,11 @@ namespace Pro131_Nhom4.Migrations
                 values: new object[,]
                 {
                     { new Guid("02f4cf23-3b1d-49dd-b89c-598185786e79"), "Sắt", 1.0 },
-                    { new Guid("09ec55fd-e65e-413b-b9cd-8548b45fbd07"), "Vàng", 1000.0 },
-                    { new Guid("272181b5-0f96-4f8b-a4a5-546af28e9edf"), "Thách đấu", 10000.0 },
-                    { new Guid("86db1d0d-df49-476d-91a9-ff9a54c1571e"), "Bạc", 500.0 },
-                    { new Guid("c62cd39c-f0ab-4765-984f-25cdc15562e5"), "Đồng", 100.0 },
-                    { new Guid("f4cd0f40-a894-4835-9815-73dfc542718a"), "Kim Cương", 3000.0 }
+                    { new Guid("20758a88-a5f3-4b43-bd52-ec1f4484f78b"), "Kim Cương", 3000.0 },
+                    { new Guid("2477b14e-9a1e-40f9-94d8-bba140a3c4e0"), "Thách đấu", 10000.0 },
+                    { new Guid("6c742186-4291-4950-b5e5-2ffb8b84ba09"), "Vàng", 1000.0 },
+                    { new Guid("9dc43899-a1a8-4993-bdce-8348539796da"), "Bạc", 500.0 },
+                    { new Guid("a1cc176f-780d-4c51-a6b1-581c622a7e0a"), "Đồng", 100.0 }
                 });
 
             migrationBuilder.CreateIndex(
