@@ -38,6 +38,10 @@ namespace App_client.Controllers
 					{
 						if (getallCart == null)
 						{
+							if(slsp<=0)
+							{
+								return RedirectToAction("Details", "Product", new { id = getidsp.Id });
+							}
 							Cart cart = new Cart();
 							cart.UserID = userId;
 							cart.Description = "Nguoi dung dep trai";
@@ -66,10 +70,15 @@ namespace App_client.Controllers
 						}
 						else
 						{
+	
 
 							if (getidsp.Id == Guid.Parse("00000000-0000-0000-0000-000000000000"))
 							{
 								return RedirectToAction("Index", "Cart");
+							}
+							if (slsp <= 0)
+							{
+								return RedirectToAction("Details", "Product", new { id = getidsp.Id });
 							}
 							CartDetails cartDetails = new CartDetails
 							{
