@@ -20,7 +20,7 @@ namespace App_client.Controllers
 			_httpClient = httpClient;
 			_notyfService = notyfService;
 		}
-		public async Task<ActionResult> AddtoCart([FromForm] string Namespp, Guid idsize, Guid idcolor, int slsp)
+		public async Task<ActionResult> AddtoCart([FromForm] Guid idsp, string Namespp, Guid idsize, Guid idcolor, int slsp)
 		{
 			var identity = HttpContext.User.Identity as ClaimsIdentity;
 
@@ -37,6 +37,12 @@ namespace App_client.Controllers
 					var getallCart = await _services.GetAllById<Cart>($"https://localhost:7149/api/cart/{userId}");
 					var product = await _services.GetAll<Product>("https://localhost:7149/api/showlist");
 					var getidsp = product.FirstOrDefault(c => c.Name == Namespp && c.SizeID == idsize && c.ColorID == idcolor);
+					if (getidsp == null)
+					{
+						_notyfService.Error("Số lượng sản phẩm không đủ");
+						return RedirectToAction("Details", "Product", new { id = idsp });
+
+					}
 					if (getidsp.AvailableQuantity >= slsp)
 					{
 						if (getallCart == null)
@@ -44,7 +50,8 @@ namespace App_client.Controllers
 							
 							if (slsp<=0)
 							{
-								return RedirectToAction("Details", "Product", new { id = getidsp.Id });
+								_notyfService.Error("Số lượng sản phẩm không đủ");
+								return RedirectToAction("Details", "Product", new { id = idsp });
 							}
 							Cart cart = new Cart();
 							cart.UserID = userId;
@@ -79,11 +86,13 @@ namespace App_client.Controllers
 
 							if (getidsp.Id == Guid.Parse("00000000-0000-0000-0000-000000000000"))
 							{
+								_notyfService.Error("Số lượng sản phẩm không đủ");
 								return RedirectToAction("Index", "Cart");
 							}
 							if (slsp <= 0)
 							{
-								return RedirectToAction("Details", "Product", new { id = getidsp.Id });
+								_notyfService.Error("Số lượng sản phẩm không đủ");
+								return RedirectToAction("Details", "Product", new { id = idsp });
 							}
 							CartDetails cartDetails = new CartDetails
 							{
@@ -91,7 +100,7 @@ namespace App_client.Controllers
 								AccountID = userId,
 								ProductID = getidsp.Id,
 								Quantity = slsp
-							}; _notyfService.Success("Thêm vao giỏ hàng thành công");
+							}; _notyfService.Success("Thêm vao giỏ hàngs thành công");
 							var cartResponse = await _httpClient.PostAsJsonAsync("https://localhost:7149/api/cartdt", cartDetails);
 							if (cartResponse.IsSuccessStatusCode)
 							{
@@ -103,7 +112,8 @@ namespace App_client.Controllers
 					else
 					{
 						//hine thi thong bao so luong sp khong du 
-						return RedirectToAction("Details", "Product", new { id = getidsp.Id });
+						_notyfService.Error("Số lượng sản phẩm không đủ");
+						return RedirectToAction("Details", "Product", new { id = idsp});
 					}				
 				}
 				return RedirectToAction("Login", "Login");

@@ -29,6 +29,7 @@
 			
 				<form asp-controller="Cart" asp-action="AddtoCart" method="post">
 					<input type="hidden" name="Namespp" value="@Model.Name" />
+					<input type="hidden" name="idsp" value="@Model.Id" />
 					<p>Color</p>
 					<div class="mb-1 d-flex">
 						@foreach (var item in color)
