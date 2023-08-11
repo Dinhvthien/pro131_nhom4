@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<App_Shared.Model.Bill>
+@using App_Shared.Model
 
 @{
     ViewData["Title"] = "Index";
+    var voucher = (ViewData["voucher"] as List<Voucher>);
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 <h3>Danh sách hóa đơn</h3>
@@ -9,22 +11,25 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                Giá
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreateDate)
+                Ngày tạo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StatusID)
+                Trạng thái thanh toán
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VoucherID)
+                Trạng Thái
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
+                Mã Voucher
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AccountID)
+                Địa Chỉ
+            </th>
+            <th>
+                Tên người dùng
             </th>
             <th></th>
         </tr>
@@ -39,19 +44,19 @@
                 @Html.DisplayFor(modelItem => item.CreateDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PayMentID)
+                @Html.DisplayFor(modelItem => item.Payment.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StatusID)
+                @Html.DisplayFor(modelItem => item.BillStatus.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.VoucherID)
+                @Html.DisplayFor(modelItem => item.Voucher.VoucherName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AccountID)
+                @Html.DisplayFor(modelItem => item.Account.PhoneNumber)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
