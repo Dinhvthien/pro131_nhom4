@@ -1,6 +1,7 @@
 ﻿using App_client.Services;
 using App_Shared.Model;
 using App_Shared.ViewModels;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Pro131_Nhom4.Data;
@@ -13,9 +14,11 @@ namespace App_client.Controllers
 	{
 		TServices _services = new TServices();
 		private readonly HttpClient _httpClient;
-		public CartController(HttpClient httpClient)
+		public INotyfService _notyfService { get; }
+		public CartController(HttpClient httpClient, INotyfService notyfService)
 		{
 			_httpClient = httpClient;
+			_notyfService = notyfService;
 		}
 		public async Task<ActionResult> AddtoCart([FromForm] string Namespp, Guid idsize, Guid idcolor, int slsp)
 		{
@@ -38,7 +41,8 @@ namespace App_client.Controllers
 					{
 						if (getallCart == null)
 						{
-							if(slsp<=0)
+							
+							if (slsp<=0)
 							{
 								return RedirectToAction("Details", "Product", new { id = getidsp.Id });
 							}
@@ -46,6 +50,7 @@ namespace App_client.Controllers
 							cart.UserID = userId;
 							cart.Description = "Nguoi dung dep trai";
 							var result = await _services.CreateAll<Cart>("https://localhost:7149/api/cart", cart);
+							_notyfService.Success("Thêm vao giỏ hàng thành công");
 							if (result)
 							{
 
@@ -61,7 +66,7 @@ namespace App_client.Controllers
 									cartDetails.ProductID = getidsp.Id;
 									cartDetails.Quantity = slsp;
 									await _services.CreateAll<CartDetails>("https://localhost:7149/api/cartdt", cartDetails);
-
+									_notyfService.Success("Thêm vao giỏ hàng thành công");
 
 									return RedirectToAction("Index", "Cart");
 								}
@@ -86,7 +91,7 @@ namespace App_client.Controllers
 								AccountID = userId,
 								ProductID = getidsp.Id,
 								Quantity = slsp
-							};
+							}; _notyfService.Success("Thêm vao giỏ hàng thành công");
 							var cartResponse = await _httpClient.PostAsJsonAsync("https://localhost:7149/api/cartdt", cartDetails);
 							if (cartResponse.IsSuccessStatusCode)
 							{

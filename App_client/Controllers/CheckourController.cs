@@ -1,6 +1,7 @@
 ﻿using App_client.Services;
 using App_Shared.Model;
 using App_Shared.ViewModels;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Pro131_Nhom4.Data;
@@ -14,24 +15,13 @@ namespace App_client.Controllers
 	{
 		TServices _services = new TServices();
 		HttpClient _httpClient;
-		public CheckourController(HttpClient httpClient)
+		public INotyfService _notyfService { get; }
+		public CheckourController(HttpClient httpClient, INotyfService notyfService)
 		{
 			_httpClient = httpClient;
-		
-		}
-		//public Guid Id { get; set; }
-		//public double Price { get; set; }
-		//public DateTime CreateDate { get; set; }
-		//[ForeignKey("PayMentID")]
-		//public Guid PayMentID { get; set; }
-		//[ForeignKey("StatusID")]
-		//public Guid StatusID { get; set; }
-		//[ForeignKey("VoucherID")]
-		//public Guid? VoucherID { get; set; }
-		//public string Address { get; set; }
-		//[ForeignKey("AccountID")]
-		//public Guid AccountID { get; set; }
+			_notyfService = notyfService;
 
+		}
 		public async Task<IActionResult> PaymentOff()
 		{
 			var identity = HttpContext.User.Identity as ClaimsIdentity;
@@ -99,7 +89,7 @@ namespace App_client.Controllers
 				var userIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
 				if (userIdClaim != null)
 				{
-					if (voucher == "")
+					if (voucher== "" || voucher == null)
 					{
 						var userName = userIdClaim.Value;
 						// Sử dụng userId
@@ -109,10 +99,16 @@ namespace App_client.Controllers
 						bill.PayMentID = Guid.Parse("d58f71eb-1444-47c5-8928-e0ae0b0d5991");
 						bill.AccountID = userId;
 						bill.StatusID = Guid.Parse("968e5ad7-7c80-4ee7-8421-b5ba48e931ca");
+						if (bill.Address == "" || bill.Address == null)
+						{
+							_notyfService.Error("bạn cần phải nhập địa chỉ");
+							return RedirectToAction("PaymentOff", "Checkour");
+						}
 						var createBill = await _services.CreateAll<Bill>("https://localhost:7149/api/bill", bill);
-
+					
 						if (createBill == true)
 						{
+							_notyfService.Success("Thanh toán thành công");
 							List<CartDetails> getallcardt = await _services.GetAll<CartDetails>("https://localhost:7149/api/cartdt");
 							var getcartbyid = getallcardt.Where(c => c.AccountID == userId);
 							List<BillDetails> billDetails = new List<BillDetails>();
@@ -139,6 +135,7 @@ namespace App_client.Controllers
 							foreach (var billItem in billDetails)
 							{
 								var createBilldetail = await _services.CreateAll<BillDetails>("https://localhost:7149/api/billdt", billItem);
+							
 							}
 							return RedirectToAction("billUser", "Checkour");
 						}
@@ -165,7 +162,11 @@ namespace App_client.Controllers
 						else
 						{
 							giavoucher = 0;
+							_notyfService.Error("voucher của bạn không tồn tại ");
+							return RedirectToAction("PaymentOff", "Checkour");
 							getvoucherbynameid = Guid.Parse("155c571b-b199-4544-f43c-08db95d4ff4f");
+
+
 						}
 
 						var getallUser = await _services.GetAll<User>("https://localhost:7149/api/User");
@@ -179,6 +180,7 @@ namespace App_client.Controllers
 						bill.CreateDate = DateTime.Now;
 						if (bill.Address == "" || bill.Address == null)
 						{
+							_notyfService.Error("bạn cần phải nhập địa chỉ");
 							return RedirectToAction("PaymentOff", "Checkour");
 						}
 						List<CartDetails> getallcardt = await _services.GetAll<CartDetails>("https://localhost:7149/api/cartdt");
@@ -203,7 +205,7 @@ namespace App_client.Controllers
 						var createBill = await _services.CreateAll<Bill>("https://localhost:7149/api/bill", bill);
 						if (createBill == true)
 						{
-
+							_notyfService.Success("Thanh toán thành công");
 							foreach (var item in getcartbyid)
 							{
 								var productInfo = productList.FirstOrDefault(p => p.Id == item.ProductID);
@@ -231,6 +233,7 @@ namespace App_client.Controllers
 						}
 						else
 						{
+							_notyfService.Error("Thanh toán không thành công");
 							return RedirectToAction("PaymentOff", "Checkour");
 						}
 					}
@@ -246,6 +249,11 @@ namespace App_client.Controllers
 			}
 		}
 
+
+
+
+
+
 		public async Task<IActionResult> billUser()
 		{
 			var identity = HttpContext.User.Identity as ClaimsIdentity;
@@ -254,7 +262,7 @@ namespace App_client.Controllers
 
 				var userIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
 				if (userIdClaim != null)
-				{
+				{	
 					var userName = userIdClaim.Value;
 					// Sử dụng userId
 					var getallUser = await _services.GetAll<User>("https://localhost:7149/api/User");
@@ -278,9 +286,11 @@ namespace App_client.Controllers
 		}
 		public async Task<IActionResult> billdetail(Guid id)
 		{
+			List<Product> productList = await _services.GetAll<Product>("https://localhost:7149/api/showlist");
 
 			var getallbilldetail = await _services.GetAll<BillDetails>("https://localhost:7149/api/billdt");
 			var getbildetail = getallbilldetail.FindAll(c => c.BillID == id);
+			ViewData["billdetail"] = productList;
 			return View(getbildetail);
 		}
 

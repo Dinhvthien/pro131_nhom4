@@ -54,7 +54,7 @@
                                         <li>
                                             <a asp-controller="Cart" asp-action="Index" class="site-cart">
                                                 <span class="icon icon-shopping_cart"></span>
-                                                <span class="count">2</span>
+												
                                             </a>
                                         </li>
 										<li><a asp-controller="Checkour" asp-action="billUser"><span>Bill</span></a></li>
@@ -192,6 +192,7 @@
 	<script src="~/js/jquery.magnific-popup.min.js"></script>
 	<script src="~/js/aos.js"></script>
 	<script src="~/js/main.js"></script>
+	@await Component.InvokeAsync("Notyf")
 	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

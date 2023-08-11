@@ -3,51 +3,78 @@
 @{
 	ViewData["Title"] = "billUser";
 }
+<div class="container text-center">
 
-<h1>billUser</h1>
-<table class="table">
-	<thead>
-		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.CreateDate)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Price)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.StatusID)
-			</th>
-
-			<th>
-				@Html.DisplayNameFor(model => model.Address)
-			</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in Model)
-		{
+	<h1>Hóa đơn của bạn</h1>
+	<table class="table">
+		<thead>
 			<tr>
-				<td>
-					@Html.DisplayFor(modelItem => item.CreateDate)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Price)
-				</td>
+				<th>
+					Ngày tạo hóa đơn 
+				</th>
+				<th>
+					Giá tiền
+				</th>
+				<th>
+					trạng thái
+				</th>
 
-
-				<td>
-					@Html.DisplayFor(modelItem => item.StatusID)
-				</td>
-
-				<td>
-					@Html.DisplayFor(modelItem => item.Address)
-				</td>
-
-				<td>
-					@Html.ActionLink("Details", "billdetail" , "Checkour", new { id=item.Id })
-				</td>
+				<th>
+					Địa chỉ nhận hàng
+				</th>
+				<th></th>
 			</tr>
-		}
-	</tbody>
-</table>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.CreateDate)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Price)
+					</td>
+
+
+					
+						@if (item.StatusID == Guid.Parse("968e5ad7-7c80-4ee7-8421-b5ba48e931ca"))
+						{
+						<td>Chờ xác nhận</td>
+					}
+					else if (item.StatusID == Guid.Parse("62492de7-e53b-495f-8b36-238fef858392"))
+					{
+						<td>Chờ lấy hàng</td>
+
+					}
+					else if (item.StatusID == Guid.Parse("d3f25cac-232f-4a48-baaa-17e897c8b2b8"))
+					{
+						<td>Đang giao hàng</td>
+
+					}
+					else if (item.StatusID == Guid.Parse("d7f9bbae-36ca-4dc5-aff3-8a0e52567e25"))
+					{
+						<td>Giao hàng thành công</td>
+
+					}
+					else if (item.StatusID == Guid.Parse("a62f61f4-4ef3-4afe-badd-55e0856f0f67"))
+					{
+						<td>Giao hàng thất bại</td>
+					}
+					else
+					{
+						<td>có lỗi xẩy ra</td>
+					}
+					<td>
+						@Html.DisplayFor(modelItem => item.Address)
+					</td>
+
+					<td>
+						@Html.ActionLink("Danh sách sản phẩm", "billdetail" , "Checkour", new { id=item.Id })
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+
+</div>

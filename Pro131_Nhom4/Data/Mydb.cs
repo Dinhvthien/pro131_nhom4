@@ -66,6 +66,17 @@ namespace Pro131_Nhom4.Data
                     new Rank() { Name = "Kim Cương", Point = 3000, Id = Guid.NewGuid() },
                     new Rank() { Name = "Thách đấu", Point = 10000, Id = Guid.NewGuid() }
                     );
+            builder.Entity<BillStatus>().HasData(
+                    new BillStatus() { IdStt = Guid.Parse("968e5ad7-7c80-4ee7-8421-b5ba48e931ca"),Name="Chờ xác nhận" },
+
+					new BillStatus() { IdStt = Guid.Parse("62492de7-e53b-495f-8b36-238fef858392"), Name = "Chờ lấy hàng" },
+
+					new BillStatus() { IdStt = Guid.Parse("d3f25cac-232f-4a48-baaa-17e897c8b2b8"), Name = "Đang giao hàng" },
+
+					new BillStatus() { IdStt = Guid.Parse("d7f9bbae-36ca-4dc5-aff3-8a0e52567e25"), Name = "Giao hàng thành công" },
+
+					new BillStatus() { IdStt = Guid.Parse("a62f61f4-4ef3-4afe-badd-55e0856f0f67"), Name = "Giao hàng thất bại" }
+				);
         }
    
     }

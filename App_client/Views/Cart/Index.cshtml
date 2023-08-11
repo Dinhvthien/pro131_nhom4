@@ -78,6 +78,17 @@
 
 	</table>
 	<div>
-		<a asp-controller="Checkour" asp-action="Payments" class="btn btn-primary float-right">Thanh toan</a>
+		@{
+			var productCount = ViewData["productList"] as List<Product>;
+			if (productCount == null || productCount.Count == 0)
+			{
+				<h1></h1>
+			}
+			else
+			{
+				<a asp-controller="Checkour" asp-action="PaymentOff" class="btn btn-primary float-right">Thanh toan</a>
+			}
+
+		}
 	</div>
 </div>
