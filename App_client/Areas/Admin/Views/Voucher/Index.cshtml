@@ -9,23 +9,23 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+           @* <th>
                 @Html.DisplayNameFor(model => model.Id)
+            </th>*@
+            <th>
+                Tên voucher
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VoucherName)
+                Phần trăm giảm
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PercenDiscount)
+                Ngày bắt đầu
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TimeStart)
+                Ngày kết thúc
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TimeEnd)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
+                Trạng thái
             </th>
             <th></th>
         </tr>
@@ -33,9 +33,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Id)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.VoucherName)
             </td>
@@ -52,9 +52,9 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id  }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
             </td>
         </tr>
 }

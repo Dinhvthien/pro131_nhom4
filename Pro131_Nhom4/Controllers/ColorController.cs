@@ -24,33 +24,33 @@ namespace Pro131_Nhom4.Controllers
         }
 
         [HttpGet("{id:Guid}")]
-        public async Task<IActionResult> GetColorById([FromRoute] Guid id)
+        public async Task<IActionResult> GetColorById( Guid id)
         {
             var color = await _ColorService.GetColorById(id);
             return Ok(color);
         }
 
         [HttpGet("{name}")]
-        public async Task<IActionResult> GetColorByName([FromRoute] string name)
+        public async Task<IActionResult> GetColorByName( string name)
         {
             var size = await _ColorService.GetColorByName(name);
             return Ok(size);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSize([FromForm] CreateColor color)
+        public async Task<IActionResult> CreateSize( CreateColor color)
         {
             await _ColorService.CreateColor(color);
             return Ok(color);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateSize([FromForm] UpdateColor color)
+        public async Task<IActionResult> UpdateSize(UpdateColor color)
         {
             await _ColorService.UpdateColor(color);
             return Ok(color);
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSize([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteSize( Guid id)
         {
             var size = await _ColorService.DeleteColor(id);
             if (size)

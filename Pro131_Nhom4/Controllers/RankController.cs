@@ -23,14 +23,14 @@ namespace Pro131_Nhom4.Controllers
             return Ok(rank);
         }
         [HttpGet("{id:Guid}")]
-        public async Task<IActionResult> GetRankById([FromRoute] Guid id)
+        public async Task<IActionResult> GetRankById( Guid id)
         {
             var product = await _rankService.GetRankById (id);
             return Ok(product);
         }
 
         [HttpGet("{name}")]
-        public async Task<IActionResult> GetProductByName([FromRoute] string name)
+        public async Task<IActionResult> GetProductByName( string name)
         {
             var product = await _rankService.GetRankByName(name);
             return Ok(product);
@@ -48,7 +48,7 @@ namespace Pro131_Nhom4.Controllers
             return Ok(updateRank);
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRank([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteRank( Guid id)
         {
             await _rankService.DeleteRank(id);
             return Ok();
