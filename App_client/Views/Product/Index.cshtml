@@ -10,6 +10,14 @@
 		".png", ".jpg", ".jpeg", ".gif", ".tiff", ".pdf"
 							   };
 }
+<select class="form-select" aria-label="Default select example">
+	<option selected>tìm kiếm theo giá</option>
+	<option value="Tang"><a asp-action="Tang">Tăng dần</a></option>
+	<option value="Giam"><a asp-action="Giam">Giảm dần</a> </option>
+</select>
+<a asp-action="Index" asp-route-name="Tang">Tăng dần</a>
+<a asp-action="Index" asp-route-name="Giam">Giảm dần</a>
+
 
 <div class="container">
 	<div class="row mb-5 mt-5">

@@ -3,14 +3,14 @@ using App_Shared.Model;
 using App_Shared.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Xml.Linq;
+
 
 namespace App_client.Controllers
 {
     public class ProductController : Controller
     {
         TServices _services = new TServices();
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string name)
         {
             /*  var user = SessionServices.GetAccountFromSession(HttpContext.Session, "User");
               if (user.Status != 404)
@@ -22,6 +22,7 @@ namespace App_client.Controllers
                   }
               }*/
             var product = await _services.GetAll<ProductView>("https://localhost:7149/api/showlist");
+
             var p = product.GroupBy(p => new { p.Name}).Select(g => g.First()).ToList();
 
 
@@ -29,9 +30,20 @@ namespace App_client.Controllers
 
             return View(p);
         }
+        public async Task<IActionResult> Tang()
+        {
+            var product = await _services.GetAll<ProductView>("https://localhost:7149/api/showlist");
+            var p = product.OrderBy(p => p.Price ).Select(p =>p.Price).ToList();
+            return View(p);
+        }
+        public async Task<IActionResult> Giam()
+        {
+            var product = await _services.GetAll<ProductView>("https://localhost:7149/api/showlist");
+            var p = product.OrderByDescending(p => p.Price).Select(p => p.Price).ToList();
+            return View(p);
+        }
         public async Task<IActionResult> Search(string search)
         {
-            var user = SessionServices.GetAccountFromSession(HttpContext.Session, "User");
     
             return View("Index", await _services.GetAll<ProductView>($"https://localhost:7149/api/showlist/{search}"));
         }
