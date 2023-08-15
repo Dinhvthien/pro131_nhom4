@@ -1,0 +1,64 @@
+﻿@using App_Shared.Model;
+@model App_Shared.Model.Bill
+
+@{
+	ViewData["Title"] = "Edit";
+	var billstatus = ViewData["billstatus"] as List<BillStatus>;
+}
+
+<h1>Edit</h1>
+
+<h4>Bill</h4>
+<hr />
+<div class="row">
+	<div class="col-md-4">
+		<form asp-area="Admin" asp-controller="Bill" asp-action="Edit">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+			<input asp-for="Id" hidden class="form-control" />
+
+
+			<input asp-for="Price" hidden class="form-control" />
+
+
+			<input asp-for="CreateDate" hidden class="form-control" />
+
+
+			<input asp-for="PayMentID" hidden class="form-control" />
+
+			<div class="form-group">
+				<label asp-for="StatusID" class="control-label"></label>
+				<select asp-for="StatusID" class="form-control">
+					<option value="">-- Chọn trạng thái --</option>
+					@foreach (var status in billstatus)		
+
+						{
+						<option value="@status.IdStt">@status.Name</option>
+						}
+					</select>
+					<span asp-validation-for="StatusID" class="text-danger"></span>
+				</div>
+				<input asp-for="VoucherID" hidden class="form-control" />
+
+
+				<input asp-for="Address" hidden class="form-control" />
+
+
+				<input asp-for="AccountID" hidden class="form-control" />
+
+				<div class="form-group">
+					<input type="submit" value="Save" class="btn btn-primary" />
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div>
+		<a asp-action="Index">Back to List</a>
+	</div>
+
+	@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	}

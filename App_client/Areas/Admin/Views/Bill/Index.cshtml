@@ -2,74 +2,91 @@
 @using App_Shared.Model
 
 @{
-    ViewData["Title"] = "Index";
-    var voucher = (ViewData["voucher"] as List<Voucher>);
-    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+	ViewData["Title"] = "Index";
+	var voucher = (ViewData["voucher"] as List<Voucher>);
+	//ViewData["voucher"] = vouchers;
+	// ViewData["Account"] = account;
+	// ViewData["billstatus"] = billstatus;
+	var billStatus = ViewData["billstatus"] as List<BillStatus>;
+	var account = (ViewData["Account"] as List<Pro131_Nhom4.Data.User>);
+	Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 <h3>Danh sách hóa đơn</h3>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                Giá
-            </th>
-            <th>
-                Ngày tạo
-            </th>
-            <th>
-                Trạng thái thanh toán
-            </th>
-            <th>
-                Trạng Thái
-            </th>
-            <th>
-                Mã Voucher
-            </th>
-            <th>
-                Địa Chỉ
-            </th>
-            <th>
-                Tên người dùng
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PayMentID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BillStatus.Name)
-            </td>
-            <td>
-                @foreach (var a in voucher)
-                {
-                        @if(a.Id == item.VoucherID)
-                        {
-                            @a.VoucherName
-                        }
-                    }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Account.PhoneNumber)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
+	<thead>
+		<tr>
+			<th>
+				Tên người dùng
+			</th>
+			<th>
+				Địa Chỉ
+			</th>
+			<th>
+				Giá
+			</th>
+			<th>
+				Ngày tạo
+			</th>
+			<th>
+				Trạng Thái
+			</th>
+			<th>
+				Mã Voucher
+			</th>
+
+
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+
+				<td>
+					@foreach (var a in account)
+					{
+						@if (a.Id == item.AccountID)
+						{
+							@a.UserName
+						}
+					}
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Address)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Price)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.CreateDate)
+				</td>
+				<td>
+					@foreach (var a in billStatus)
+					{
+						@if (a.IdStt == item.StatusID)
+						{
+							@a.Name
+						}
+					}
+				</td>
+				<td>
+					@foreach (var a in voucher)
+					{
+						@if (a.Id == item.VoucherID)
+						{
+							@a.VoucherName
+						}
+					}
+				</td>
+
+				<td>
+				@Html.ActionLink("Edit", "Edit", new { area = "Admin", controller = "Bill", id = item.Id })
+
+					@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+					@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>

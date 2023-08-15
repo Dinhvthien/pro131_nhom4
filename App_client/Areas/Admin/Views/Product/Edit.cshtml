@@ -4,8 +4,14 @@
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
-    var color = (ViewData["color"] as List<Colors>);
+    //var color = (ViewData["color"] as List<Colors>);
     var size = (ViewData["size"] as List<Sizes>);
+    List<string>
+        imageExtensions = new List<string>
+            ()
+                           {
+        ".png", ".jpg", ".jpeg", ".gif", ".tiff", ".pdf"
+                           };
 }
 
 <h1>Edit</h1>
@@ -14,7 +20,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-area="Admin" asp-controller="Product" asp-action="Edit" method="post">
+        <form asp-area="Admin" asp-controller="Product" asp-action="Edit" enctype="multipart/form-data" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
        
             <div class="form-group">
@@ -33,8 +39,19 @@
                 <span asp-validation-for="AvailableQuantity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control" />
+               					@{
+						string extension = System.IO.Path.GetExtension(Model.ImageUrl);
+					}
+					@if (imageExtensions.Contains(extension.Trim()))
+					{
+						<img src="~/images/@Model.ImageUrl"style="width:100px; height:100px">
+					}
+					else
+					{
+						<img src="~/images/logo.png" height="200px">
+					}
+                <input asp-for="ImageUrl" class="form-control" value="@Model.ImageUrl"  hidden/>
+                <input type="file" name="imageFile" class="form-control" accept="image/*" value="@Model.ImageUrl" />
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -57,17 +74,7 @@
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label class="control-label">Chọn màu cho sản phẩm</label>
-                <select asp-for="ColorID" class="form-control">
-                    <option value="">Select a color</option>
-                    @foreach (var item in color)
-                    {
-                        <option value="@item.Id">@item.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="ColorID" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label class="control-label">Chọn kich cỡ cho sản phẩm</label>
                 <select asp-for="SizeID" class="form-control">

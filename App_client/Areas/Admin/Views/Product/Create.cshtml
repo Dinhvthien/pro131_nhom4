@@ -3,7 +3,7 @@
 
 @{
 	ViewData["Title"] = "Create";
-	var color = (ViewData["color"] as List<Colors>);
+	//var color = (ViewData["color"] as List<Colors>);
 	var size = (ViewData["size"] as List<Sizes>);
 	Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
@@ -54,7 +54,7 @@
 				<input asp-for="Description" class="form-control" />
 				<span asp-validation-for="Description" class="text-danger"></span>
 			</div>
-			<div class="form-group">
+@*			<div class="form-group">
 				<label  class="control-label">Chọn màu cho sản phẩm</label>
 				<select asp-for="ColorID" class="form-control">
 					<option value="">Select a color</option>
@@ -64,7 +64,7 @@
 					}
 				</select>
 				<span asp-validation-for="ColorID" class="text-danger"></span>
-			</div>
+			</div>*@
 			<div class="form-group">
 				<label class="control-label">Chọn kich cỡ cho sản phẩm</label>
 				<select asp-for="SizeID" class="form-control">

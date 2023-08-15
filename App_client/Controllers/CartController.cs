@@ -20,7 +20,7 @@ namespace App_client.Controllers
 			_httpClient = httpClient;
 			_notyfService = notyfService;
 		}
-		public async Task<ActionResult> AddtoCart([FromForm] Guid idsp, string Namespp, Guid idsize, Guid idcolor, int slsp)
+		public async Task<ActionResult> AddtoCart([FromForm] Guid idsp, string Namespp, Guid idsize, int slsp)
 		{
 			var identity = HttpContext.User.Identity as ClaimsIdentity;
 
@@ -36,7 +36,7 @@ namespace App_client.Controllers
 
 					var getallCart = await _services.GetAllById<Cart>($"https://localhost:7149/api/cart/{userId}");
 					var product = await _services.GetAll<Product>("https://localhost:7149/api/showlist");
-					var getidsp = product.FirstOrDefault(c => c.Name == Namespp && c.SizeID == idsize && c.ColorID == idcolor);
+					var getidsp = product.FirstOrDefault(c => c.Name == Namespp && c.SizeID == idsize);
 					if (getidsp == null)
 					{
 						_notyfService.Error("Số lượng sản phẩm không đủ");
@@ -57,7 +57,7 @@ namespace App_client.Controllers
 							cart.UserID = userId;
 							cart.Description = "Nguoi dung dep trai";
 							var result = await _services.CreateAll<Cart>("https://localhost:7149/api/cart", cart);
-							_notyfService.Success("Thêm vao giỏ hàng thành công");
+					
 							if (result)
 							{
 

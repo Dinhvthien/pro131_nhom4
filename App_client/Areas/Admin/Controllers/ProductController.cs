@@ -21,8 +21,8 @@ namespace App_client.Areas.Admin.Controllers
                   }
               }*/
             var product = await _services.GetAll<ProductView>("https://localhost:7149/api/showlist");
-            var p = product.GroupBy(p => new { p.Name, p.ColorID }).Select(g => g.First()).ToList();
-            return View(p);
+            
+            return View(product);
         }
         public async Task<IActionResult> Search(string search)
         {
@@ -81,13 +81,13 @@ namespace App_client.Areas.Admin.Controllers
         public async Task<IActionResult> Create()//Mở form
         {
 
-            var allColor = await _services.GetAll<Colors>("https://localhost:7149/api/Color");
-            List<Colors> color = new List<Colors>();
-            foreach (var item in allColor)
-            {
-                color.Add(item);
-            }
-            ViewData["color"] = color;
+            //var allColor = await _services.GetAll<Colors>("https://localhost:7149/api/Color");
+            //List<Colors> color = new List<Colors>();
+            //foreach (var item in allColor)
+            //{
+            //    color.Add(item);
+            //}
+            //ViewData["color"] = color;
             var allSize = await _services.GetAll<Sizes>("https://localhost:7149/api/Size/Get-All");
             List<Sizes> size = new List<Sizes>();
             foreach (var item in allSize)
@@ -102,6 +102,7 @@ namespace App_client.Areas.Admin.Controllers
         {
             //product.Status = 0;
             //product.Likes = 0;
+            product.ColorID = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66aee6");
             if (imageFile != null && imageFile.Length > 0)//Kiểm tra đường dẫn phù hợp
             {
                 //thực hiện sao chép ảnh đó vào wwwroot
@@ -112,20 +113,13 @@ namespace App_client.Areas.Admin.Controllers
                                                     //gán lại giá trị link ảnh (lúc này đã nằm trong root cho thuộc tính ImageUrl)
                 product.ImageUrl = imageFile.FileName;
             }
+
             await _services.CreateAll("https://localhost:7149/api/showlist", product);
             return RedirectToAction("Index");
         }
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)//Mở form
         {
-
-            var allColor = await _services.GetAll<Colors>("https://localhost:7149/api/Color");
-            List<Colors> color = new List<Colors>();
-            foreach (var item in allColor)
-            {
-                color.Add(item);
-            }
-            ViewData["color"] = color;
             var allSize = await _services.GetAll<Sizes>("https://localhost:7149/api/Size/Get-All");
             List<Sizes> size = new List<Sizes>();
             foreach (var item in allSize)
@@ -138,7 +132,7 @@ namespace App_client.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Edit(ProductView product, IFormFile imageFile)
         {
-
+            product.ColorID = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66aee6");
             if (imageFile != null && imageFile.Length > 0)//Kiểm tra đường dẫn phù hợp
             {
                 //thực hiện sao chép ảnh đó vào wwwroot

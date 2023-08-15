@@ -3,7 +3,7 @@
 
 @{
 	ViewData["Title"] = "Details";
-	var color = (ViewData["colors"] as List<Colors>);
+	//var color = (ViewData["colors"] as List<Colors>);
 	var size = (ViewData["sizes"] as List<Sizes>);
 	List<string>
 		imageExtensions = new List<string>
@@ -30,16 +30,7 @@
 				<form asp-controller="Cart" asp-action="AddtoCart" method="post">
 					<input type="hidden" name="Namespp" value="@Model.Name" />
 					<input type="hidden" name="idsp" value="@Model.Id" />
-					<p>Color</p>
-					<div class="mb-1 d-flex">
-						@foreach (var item in color)
-						{
-							<label for="option-sm" class="d-flex mr-3 mb-3">
-								<span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="color" name="idcolor" value="@item.Id"></span> <span class="d-inline-block text-black">@item.Name</span>
-							</label>
-						}
-
-					</div>
+					
 					<p>Size</p>
 					<div class="mb-1 d-flex">
 						@foreach (var item in size)

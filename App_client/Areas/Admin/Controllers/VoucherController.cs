@@ -11,6 +11,7 @@ namespace App_client.Areas.Admin.Controllers
 		public async Task<IActionResult> Index()
 		{
 			var voucher = await _services.GetAll<Voucher>("https://localhost:7149/api/voucher");
+
 			return View(voucher);
 		}
 	}

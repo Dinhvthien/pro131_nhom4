@@ -23,7 +23,7 @@ namespace Pro131_Nhom4.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-P8UA93V\\SQLEXPRESS;Initial Catalog=13111;Integrated Security=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-VVKT5NE\\SQLEXPRESS;Initial Catalog=13111;Integrated Security=True;TrustServerCertificate=True;");
         }
 
         public DbSet<User> Users { get; set; }
@@ -76,6 +76,9 @@ namespace Pro131_Nhom4.Data
 					new BillStatus() { IdStt = Guid.Parse("d7f9bbae-36ca-4dc5-aff3-8a0e52567e25"), Name = "Giao hàng thành công" },
 
 					new BillStatus() { IdStt = Guid.Parse("a62f61f4-4ef3-4afe-badd-55e0856f0f67"), Name = "Giao hàng thất bại" }
+				);
+            builder.Entity<Colors>().HasData(
+                new Colors() { Id = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66aee6") ,Name="đỏ",Status = 1}
 				);
         }
    

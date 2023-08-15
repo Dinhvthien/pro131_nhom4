@@ -34,13 +34,13 @@ namespace App_client.Controllers
         {
             var product = await _services.GetAll<ProductView>("https://localhost:7149/api/showlist");
             var p = product.OrderBy(p => p.Price ).Select(p =>p.Price).ToList();
-            return View(p);
+            return View("Index", p);
         }
         public async Task<IActionResult> Giam()
         {
             var product = await _services.GetAll<ProductView>("https://localhost:7149/api/showlist");
             var p = product.OrderByDescending(p => p.Price).Select(p => p.Price).ToList();
-            return View(p);
+            return View("Index", p);
         }
         public async Task<IActionResult> Search(string search)
         {
@@ -53,25 +53,10 @@ namespace App_client.Controllers
 
             var result = await _services.GetAllById<Product>($"https://localhost:7149/api/showlist/{id}");
             var name = await _services.GetAll<ProductView>($"https://localhost:7149/api/showlist/{result.Name}");
-
-            
-            List<Colors> color = new List<Colors>();
             List<Sizes> size = new List<Sizes>();
             foreach (var item in name)
             {
-                bool a = false;
-                foreach (var items in color)
-                {
-                    if (items.Id == item.ColorID)
-                    {
-                        a = true;
-                        break;
-                    }
-                }
 
-
-                if (!a)
-                    color.Add(item.Color);
                 bool b = false;
                 foreach (var items in size)
                 {
@@ -84,7 +69,7 @@ namespace App_client.Controllers
                 if (!b)
                     size.Add(item.Size);
             }
-            ViewData["colors"] = color;
+            //ViewData["colors"] = color;
             ViewData["sizes"] = size;
 
             return View(result);
