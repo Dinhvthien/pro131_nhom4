@@ -11,6 +11,7 @@ namespace App_Shared.Model
     {
         [Key]
         public Guid Id { get; set; }
+        [RegularExpression(@"\d*[0-9]\d*", ErrorMessage = "The field Name only has input number")]
         public string Name { get; set; }
         public int Status { get; set; }
         public virtual ICollection<Product>? Products { get; set; }

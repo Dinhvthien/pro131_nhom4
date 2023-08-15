@@ -13,7 +13,9 @@ namespace App_Shared.Model
     {
         [Key]
         public Guid Id { get; set; }
+        [RegularExpression(@"\d*[aA-zZ]\d*", ErrorMessage = "The field Name only has input number")]
         public string Name { get; set; }
+        [RegularExpression(@"\d*[0-9]\d*", ErrorMessage = "The field Point only has input number")]
         public double Point { get; set; }
         public virtual ICollection<User>? User { get; set; }
     }

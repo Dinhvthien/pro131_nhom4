@@ -44,13 +44,19 @@
                 @Html.DisplayFor(modelItem => item.CreateDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Payment.Name)
+                @Html.DisplayFor(modelItem => item.PayMentID)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BillStatus.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Voucher.VoucherName)
+                @foreach (var a in voucher)
+                {
+                        @if(a.Id == item.VoucherID)
+                        {
+                            @a.VoucherName
+                        }
+                    }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Address)
