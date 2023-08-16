@@ -9,8 +9,14 @@ namespace App_client.Areas.Admin.Controllers
 	[Area("Admin")]
 	public class BillController : Controller
 	{
-		TServices _services = new TServices();
-		public async Task<IActionResult> Index()
+        private readonly HttpClient _httpClient;
+
+        TServices _services = new TServices();
+        public BillController(HttpClient httpClient)
+        {
+            _httpClient= httpClient;
+        }
+        public async Task<IActionResult> Index()
 		{
 			var vouchers = await _services.GetAll<Voucher>("https://localhost:7149/api/voucher");
 			//var sttnill = await _services.GetAll<BillStatus>("");
@@ -36,7 +42,7 @@ namespace App_client.Areas.Admin.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Edit(Bill bill)
 		{
-			var result =  await _services.EditAll($"https://localhost:7149/api/showlist/{bill.Id}", bill);
+			var result =  await _httpClient.PutAsJsonAsync($"https://localhost:7149/api/bill/{bill.Id}", bill);
 			return RedirectToAction("Index","Bill","Admin");
 		}
 	}

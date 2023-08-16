@@ -1,0 +1,64 @@
+﻿@using App_Shared.Model;
+@using App_Shared.ViewModels;
+@model IEnumerable<App_Shared.Model.FavoriteProducts>
+
+@{
+    ViewData["Title"] = "topsp";
+    var product = ViewData["product"] as List<Product>;
+	var favoriteProducts = ViewData["yeuthich"] as List<ViewFavoriteProduct>;
+}
+
+
+<div class="container">
+    <div class="row">
+        @foreach (var detail in product)
+        {
+            var productinlistfavorite = favoriteProducts.FirstOrDefault(c => c.ProductID == detail.Id);
+
+            <div class="col-sm-4 col-lg-3 mb-3" data-aos="fade-up">
+                <div class="block-4 text-center border">
+                    <figure class="block-4-image">
+                        @{
+                            string extension = System.IO.Path.GetExtension(detail.ImageUrl);
+                        }
+                        <a asp-controller="Product" asp-action="Details" asp-route-id="@detail.Id">
+                            <img src="~/images/@detail.ImageUrl" style="width:253px" height="200px" alt="Image placeholder">
+                        </a>
+                    </figure>
+                    <div class="block-4-text p-4">
+                        @if (User.IsInRole("User"))
+                        {
+                            @if (productinlistfavorite == null)
+                            {
+                                <a asp-controller="FavoriteProducts" asp-action="Creating" asp-route-id="@detail.Id">
+                                    <span class="icon icon-heart-o"></span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-controller="FavoriteProducts" asp-action="Delete" asp-route-id="@detail.Id">
+                                    <span class="heart">&#10084;</span>
+                                </a>
+                            }
+                        }
+                        else
+                        {
+
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
+                        <h3><a asp-controller="Product" asp-action="Details" asp-route-id="@detail.Id">@detail.Name</a></h3>
+                        <p class="mb-0">@detail.Description</p>
+                        <p class="text-primary font-weight-bold">$@detail.Price</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

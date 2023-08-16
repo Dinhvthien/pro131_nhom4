@@ -44,7 +44,7 @@ namespace App_client.Services
             // Convert to string content
             var stringContent = new StringContent(valuesJSON, Encoding.UTF8, "application/json");
             // Send request POST to register API
-            await httpClient.PutAsync(apiUrl, stringContent);
+           var result =  await httpClient.PutAsync(apiUrl, stringContent);
             return true;
         }
         public async Task<bool> DeleteAll<T>(string apiUrl)

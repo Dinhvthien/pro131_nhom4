@@ -35,7 +35,7 @@ namespace Pro131_Nhom4.Controllers
 			return Ok(User);
 		}
 
-		[HttpPost]
+		[HttpPost("id")]
 		public async Task<IActionResult> ChangeUserRole(string userId)
 		{
 			var user = await _userManager.FindByIdAsync(userId);

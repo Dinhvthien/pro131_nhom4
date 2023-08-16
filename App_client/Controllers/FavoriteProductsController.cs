@@ -30,6 +30,38 @@ namespace App_client.Controllers
             return View(result);
         }
 
+		public async Task<IActionResult> topsp() {
+			var identity = HttpContext.User.Identity as ClaimsIdentity;
+			var userIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
+			if (userIdClaim == null)
+			{
+                return RedirectToAction("Index", "home");
+            }
+			else
+			{
+				var userName = userIdClaim.Value;
+				var getallUser = await _services.GetAll<User>("https://localhost:7149/api/User");
+				var userId = getallUser.FirstOrDefault(c => c.UserName == userName).Id;
+				var results = await _services.GetAll<ViewFavoriteProduct>("https://localhost:7149/api/CRUDFavoritePr/GetAll");
+				var productfavorite = results.FindAll(c => c.AccountID == userId);
+				ViewData["yeuthich"] = productfavorite;
+
+
+				var result = await _services.GetAll<FavoriteProducts>("https://localhost:7149/api/CRUDFavoritePr/GetAll");
+				var resutss = result.GroupBy(p => new { p.ProductID }).Select(g => g.First()).ToList();
+
+
+				var productList = await _services.GetAll<Product>("https://localhost:7149/api/showlist");
+				var filteredProducts = productList.Where(p => resutss.Any(r => r.ProductID == p.Id)).ToList();
+
+				ViewData["product"] = filteredProducts;
+				return View(result);
+			}
+
+		}
+
+
+
 		public IActionResult Create()
 		{
 			return View();

@@ -12,7 +12,14 @@ namespace App_client.Areas.Admin.Controllers
 	public class UserController : Controller
 	{
 		TServices _services = new TServices();
-		public async Task<IActionResult> Index()
+        private readonly HttpClient _httpClient;
+
+  
+        public UserController(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
+        public async Task<IActionResult> Index()
 		{
 			
 			var identity = HttpContext.User.Identity as ClaimsIdentity;
@@ -42,6 +49,13 @@ namespace App_client.Areas.Admin.Controllers
 		{
             var user = await _services.GetAll<User>("https://localhost:7149/api/User");
             return View(user);
+        }
+
+
+		public async Task<IActionResult> updateRole(Guid id)
+		{
+			var update = await _httpClient.PostAsync($"https://localhost:7149/api/User/id?userId={id}", null);
+            return RedirectToAction("GetallUser", "User", new { area = "Admin" });
         }
 	}
 }

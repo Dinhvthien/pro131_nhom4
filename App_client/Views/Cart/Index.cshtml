@@ -31,7 +31,9 @@
 				<th>
 					Giá
 				</th>
-
+				<th>
+					Mô tả sản phẩm
+				</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -45,6 +47,7 @@
 						var productName = product?.FirstOrDefault(p => p.Id == item.ProductID)?.Name;
 						var price = product?.FirstOrDefault(p => p.Id == item.ProductID)?.Price;
 						var image = product?.FirstOrDefault(p => p.Id == item.ProductID)?.ImageUrl;
+						var Description = product?.FirstOrDefault(p => p.Id == item.ProductID)?.Description;
 
 					}
 
@@ -62,9 +65,9 @@
 						@Html.DisplayFor(modelItem => item.Quantity)
 					</td>
 					<td>@price</td>
-
+					<td>@Description</td>
 					<td>
-						@Html.ActionLink("Chi tiết sản phẩm", "Details","Product", new { id=item.ProductID  })
+					
 						@Html.ActionLink("Xóa", "Delete","Cart", new {id=item.Id })
 					</td>
 				</tr>
