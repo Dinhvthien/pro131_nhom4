@@ -56,11 +56,15 @@
 					</div>
 					@if (User.IsInRole("User"))
 					{
-						<input type="submit" value="Addtocart"></input>
+						<input class="btn btn-success" type="submit" value="Addtocart"></input>
+					}
+					else if(User.IsInRole("Admin"))
+					{
+
 					}
 					else
 					{
-						
+						<a class="btn btn-success" asp-controller="Login" asp-action="Login">Addtocart</a>
 					}
 				</form>
 

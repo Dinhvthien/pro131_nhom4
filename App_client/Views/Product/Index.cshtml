@@ -42,22 +42,35 @@
 								<a asp-controller="Product" asp-action="Details" asp-route-id="@item.Id"><img src="~/images/@item.ImageUrl" style="width:253px" height="200px" alt="Image placeholder"></a>
 							</figure>
 							<div class="block-4-text p-4">
-								@{
+								@if (User.IsInRole("User"))
+								{
+																	
 									var productinlistfavorite = favoriteProducts.FirstOrDefault(c => c.ProductID == item.Id);
+									if (productinlistfavorite == null)
+									{
+										<a asp-controller="FavoriteProducts" asp-action="Creating" asp-route-id="@item.Id"><span class="icon icon-heart-o"></span></a>
+									}	else
+									{
+										<a asp-controller="FavoriteProducts" asp-action="Delete" asp-route-id="@item.Id"><span class="heart">&#10084;</span></a>
+									}
+
+								}
+								else
+								{
 									
 								}
 								@if (User.IsInRole("Admin"))
 								{
-									
+
 								}
-								else if(productinlistfavorite == null)
-									{
-										<a asp-controller="FavoriteProducts" asp-action="Creating" asp-route-id="@item.Id"><span class="icon icon-heart-o"></span></a>
-									}
-									else
-									{
-										<a asp-controller="FavoriteProducts" asp-action="Delete" asp-route-id="@item.Id"><span class="heart">&#10084;</span></a>
-									}
+								else
+								{
+
+								}
+
+								
+								 
+								
 								<h3><a asp-controller="Product" asp-action="Details" asp-route-id="@item.Id">@item.Name</a></h3>
 								<p class="mb-0">@item.Description</p>
 								<p class="text-primary font-weight-bold">$@item.Price</p>
