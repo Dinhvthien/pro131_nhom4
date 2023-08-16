@@ -100,14 +100,14 @@ namespace Pro131_Nhom4.Services
             return billViews.FirstOrDefault(p => p.Bill.Id == id);
         }
 
-        public async Task<bool> UpdateBill(BillView address)
+        public async Task<bool> UpdateBill(Bill address)
         {
             try
             {
-                var up = _context.Bills.Find(address.Bill.Id);
-                up.Price = address.Bill.Price;
-                up.CreateDate = address.Bill.CreateDate;
-                up.StatusID = address.Bill.StatusID;
+                var up = _context.Bills.Find(address.Id);
+            /*    up.Price = address.Price;
+                up.CreateDate = address.CreateDate;*/
+                up.StatusID = address.StatusID;
                 //up.Voucher = address.Bill.Voucher;
                 _context.Bills.Update(up);
                 await _context.SaveChangesAsync();

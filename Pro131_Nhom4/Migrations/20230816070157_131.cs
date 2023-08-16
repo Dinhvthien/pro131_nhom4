@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Pro131_Nhom4.Migrations
 {
-    public partial class _1311 : Migration
+    public partial class _131 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -421,8 +421,8 @@ namespace Pro131_Nhom4.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("44ed061a-326a-4aae-847b-5f0c754bc287"), "ba8141a9-ac9e-4aab-b588-c4343be04c27", "Admin", "ADMIN" },
-                    { new Guid("b108d866-eb13-46e3-b3d2-ecae4fbfe873"), "1a0c9558-d97b-4ee6-af62-e4ac13c54e4b", "User", "USER" }
+                    { new Guid("2c362b30-a306-4fb2-9780-fb8915b9941b"), "fcc9dab3-dcd5-48b2-8d4b-191fdf08bb9e", "Admin", "ADMIN" },
+                    { new Guid("b108d866-eb13-46e3-b3d2-ecae4fbfe873"), "ead6202b-6917-4cb6-b911-26cad6e5bfc3", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -438,16 +438,21 @@ namespace Pro131_Nhom4.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Colors",
+                columns: new[] { "Id", "Name", "Status" },
+                values: new object[] { new Guid("3fa85f64-5717-4562-b3fc-2c963f66aee6"), "đỏ", 1 });
+
+            migrationBuilder.InsertData(
                 table: "Ranks",
                 columns: new[] { "Id", "Name", "Point" },
                 values: new object[,]
                 {
                     { new Guid("02f4cf23-3b1d-49dd-b89c-598185786e79"), "Sắt", 1.0 },
-                    { new Guid("5bcdf33a-b7f0-4634-8f63-b0182fb98a18"), "Thách đấu", 10000.0 },
-                    { new Guid("617b2126-952f-4f1a-af33-a353eeb38bb2"), "Kim Cương", 3000.0 },
-                    { new Guid("c581b3ce-45d4-4e53-9624-aa3fdcea3a8d"), "Bạc", 500.0 },
-                    { new Guid("fa46fd15-abff-4fee-91a1-d58b0f2d39b3"), "Vàng", 1000.0 },
-                    { new Guid("ff8f90fd-4763-4633-a694-c9cd89f1d8aa"), "Đồng", 100.0 }
+                    { new Guid("16bbd7fe-37fb-48b7-8ca8-b53177e78148"), "Bạc", 500.0 },
+                    { new Guid("65b78e12-fa83-4810-be8d-ec9a0eca329c"), "Đồng", 100.0 },
+                    { new Guid("771fa0f9-1a3f-4ebe-b8ef-1fd7f0084802"), "Vàng", 1000.0 },
+                    { new Guid("cb39bcec-abab-4508-8f1a-d33da5437c3d"), "Kim Cương", 3000.0 },
+                    { new Guid("d67458d1-2f42-456b-aa25-d8f9ad3b668a"), "Thách đấu", 10000.0 }
                 });
 
             migrationBuilder.CreateIndex(

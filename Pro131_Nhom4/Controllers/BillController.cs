@@ -56,10 +56,10 @@ namespace Pro131_Nhom4.Controllers
             return Ok();
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult<BillView>> Update(BillView billView)
+        public async Task<ActionResult<Bill>> Update(Bill bill)
         {
-            await _billService.UpdateBill(billView);
-            return Ok(billView);
+            await _billService.UpdateBill(bill);
+            return Ok(bill);
         }
 
 
