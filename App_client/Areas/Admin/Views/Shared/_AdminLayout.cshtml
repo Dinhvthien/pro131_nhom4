@@ -5,7 +5,9 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Star Admin2 </title>
+	<title>
+		Shoppers
+	</title>
 	<!-- plugins:css --><link href="~/vendors/css/vendor.bundle.base.css" rel="stylesheet" />
 	<link rel="stylesheet" href="~/vendors/feather/feather.css">
 	<link rel="stylesheet" href="~/vendors/mdi/css/materialdesignicons.min.css">
@@ -143,8 +145,8 @@
 								<img class="img-md rounded-circle" src="~/images/faces/face8.jpg" alt="Profile image">
 								<p class="mb-1 mt-3 font-weight-semibold">Allen Moreno</p>
 								<p class="fw-light text-muted mb-0">allenmoreno@gmail.com</p>
-							</div>
-							<a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile <span class="badge badge-pill badge-danger">1</span></a>
+							</div>	@*<li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="User" asp-action="Index">Sản phẩm</a></li>*@
+							<a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile <span class="badge badge-pill badge-danger">1</span></a>
 							<a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i> Messages</a>
 							<a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2"></i> Activity</a>
 							<a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i> FAQ</a>
@@ -352,7 +354,7 @@
 								<li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Voucher" asp-action="Index">Voucher</a></li>
 								<li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="User" asp-action="GetallUser">Người dùng</a></li>
 								<li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Rank" asp-action="Index">Cấp độ</a></li>
-								<li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="User" asp-action="Index">Sản phẩm</a></li>
+							
 								<li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="CRUDSize" asp-action="AllSize">Size</a></li>
 								<li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Color" asp-action="GetAll">Color</a></li>
 							</ul>

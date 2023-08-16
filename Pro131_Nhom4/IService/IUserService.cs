@@ -7,7 +7,7 @@ namespace Pro131_Nhom4.IService
 	{
 		public Task<User> GetUserbyId(Guid id);
 		public Task<List<User>> GetAllUser();
-	
-		public Task<string> UpdateRoleUserAsync(UserRoles p);
+        public Task<bool> Updateuser(User user);
+        public Task<string> UpdateRoleUserAsync(UserRoles p);
 	}
 }

@@ -1,8 +1,10 @@
-﻿using App_Shared.ViewModels;
+﻿using App_Shared.Model;
+using App_Shared.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Pro131_Nhom4.Data;
 using Pro131_Nhom4.IService;
+using System.Net;
 
 namespace Pro131_Nhom4.Services
 {
@@ -49,6 +51,21 @@ namespace Pro131_Nhom4.Services
 			}
 		}
 
-		
-	}
+
+        public async Task<bool> Updateuser(User user)
+        {
+            try
+			{
+                 _context.Users.Update(user);
+                await _context.SaveChangesAsync();
+                return true;
+
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+    }
 }

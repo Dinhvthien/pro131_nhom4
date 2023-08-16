@@ -54,7 +54,14 @@
 						</div>
 
 					</div>
-					<input type="submit" value="Addtocart"></input>
+					@if (User.IsInRole("User"))
+					{
+						<input type="submit" value="Addtocart"></input>
+					}
+					else
+					{
+						
+					}
 				</form>
 
 

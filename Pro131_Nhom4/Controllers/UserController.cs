@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using App_client.Services;
+using App_Shared.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Pro131_Nhom4.Data;
@@ -49,5 +51,13 @@ namespace Pro131_Nhom4.Controllers
 			// Xử lý thành công, chẳng hạn chuyển hướng người dùng đến trang quản trị
 			return Ok();
 		}
-	}
+
+		[HttpPut]
+        [HttpPut]
+        public async Task<ActionResult<CartView>> UpdateUSer(User user)
+        {
+            await UserService.Updateuser(user);
+            return Ok(user);
+        }
+    }
 }

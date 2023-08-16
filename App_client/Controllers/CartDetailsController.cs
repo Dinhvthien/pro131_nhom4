@@ -26,12 +26,12 @@ namespace App_client.Controllers
                     var result = await _services.GetAll<CartDetailsView>($"https://localhost:7149/cart/{userId}");
                     return View(result);
                 }
-                return RedirectToAction("Index", "Admin", new { area = "Admin" });
+                return RedirectToAction("Index", "Product");
 
             }
             else
             {
-                return RedirectToAction("Index", "Admin", new { area = "Admin" });
+               return RedirectToAction("Index", "Product");
             }
            ;
 

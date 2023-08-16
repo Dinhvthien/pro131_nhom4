@@ -3,7 +3,8 @@ using App_Shared.Model;
 using App_Shared.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
+using Pro131_Nhom4.Data;
+using System.Security.Claims;
 
 namespace App_client.Controllers
 {
@@ -12,22 +13,16 @@ namespace App_client.Controllers
         TServices _services = new TServices();
         public async Task<IActionResult> Index(string name)
         {
-            /*  var user = SessionServices.GetAccountFromSession(HttpContext.Session, "User");
-              if (user.Status != 404)
-              {
-                  ViewBag.RoleId = user.RoleId;
-                  if (user.RoleId == Guid.Parse("9d76eb12-8c3c-4dcf-a389-4a807ecf0a31"))
-                  {
-                      return View(await _services.GetAll<ProductView>("https://localhost:7256/api/showlist"));
-                  }
-              }*/
-            var product = await _services.GetAll<ProductView>("https://localhost:7149/api/showlist");
-
-            var p = product.GroupBy(p => new { p.Name}).Select(g => g.First()).ToList();
-
-
-
-
+			var identity = HttpContext.User.Identity as ClaimsIdentity;
+			var userIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
+			var userName = userIdClaim.Value;
+			var getallUser = await _services.GetAll<User>("https://localhost:7149/api/User");
+			var userId = getallUser.FirstOrDefault(c => c.UserName == userName).Id;
+			var result = await _services.GetAll<ViewFavoriteProduct>("https://localhost:7149/api/CRUDFavoritePr/GetAll");
+			var productfavorite = result.FindAll(c => c.AccountID == userId);
+			var product = await _services.GetAll<ProductView>("https://localhost:7149/api/showlist");
+            ViewData["yeuthich"] = productfavorite;
+			var p = product.GroupBy(p => new { p.Name}).Select(g => g.First()).ToList();
             return View(p);
         }
         public async Task<IActionResult> Tang()

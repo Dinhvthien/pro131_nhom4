@@ -92,28 +92,32 @@ namespace App_client.Controllers
 					var userName = userIdClaim.Value;
 					// Sử dụng userId
 					var getallUser = await _services.GetAll<User>("https://localhost:7149/api/User");
-					Guid userId = getallUser.FirstOrDefault(c => c.UserName == userName).Id;
+					var userId = getallUser.FirstOrDefault(c => c.UserName == userName);
 					if (voucher== "" || voucher == null)
 					{
 
 						bill.Id = idbill = Guid.NewGuid();
 						bill.VoucherID = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66af36");
 						bill.PayMentID = Guid.Parse("fca021a9-4c60-4692-bdc4-f1ddb0cf55b1");
-						bill.AccountID = userId;
+						bill.AccountID = userId.Id;
+						bill.CreateDate= DateTime.Now;
 						bill.StatusID = Guid.Parse("968e5ad7-7c80-4ee7-8421-b5ba48e931ca");
 						if (bill.Address == "" || bill.Address == null)
 						{
 							_notyfService.Error("bạn cần phải nhập địa chỉ");
 							return RedirectToAction("PaymentOff", "Checkour");
 						}
-					
+						
 						var createBill = await _services.CreateAll<Bill>("https://localhost:7149/api/bill", bill);
-					
-						if (createBill = true)
+						userId.Point += 100;
+
+
+                        var edit = await _services.EditAll<User>("https://localhost:7149/api/User", userId);
+                        if (createBill = true)
 						{
 							_notyfService.Success("Thanh toán thành công");
 							List<CartDetails> getallcardt = await _services.GetAll<CartDetails>("https://localhost:7149/api/cartdt");
-							var getcartbyid = getallcardt.Where(c => c.AccountID == userId);
+							var getcartbyid = getallcardt.Where(c => c.AccountID == userId.Id);
 							List<BillDetails> billDetails = new List<BillDetails>();
 							List<Product> productList = await _services.GetAll<Product>("https://localhost:7149/api/showlist");
 							foreach (var item in getcartbyid)
@@ -173,7 +177,7 @@ namespace App_client.Controllers
 						idbill = bill.Id = Guid.NewGuid();
 						bill.VoucherID = getvoucherbynameid;
 						bill.PayMentID = Guid.Parse("fca021a9-4c60-4692-bdc4-f1ddb0cf55b1");
-						bill.AccountID = userId;
+						bill.AccountID = userId.Id;
 						bill.StatusID = Guid.Parse("968e5ad7-7c80-4ee7-8421-b5ba48e931ca");
 						bill.Price = price - giavoucher;
 						bill.CreateDate = DateTime.Now;
@@ -183,7 +187,7 @@ namespace App_client.Controllers
 							return RedirectToAction("PaymentOff", "Checkour");
 						}
 						List<CartDetails> getallcardt = await _services.GetAll<CartDetails>("https://localhost:7149/api/cartdt");
-						var getcartbyid = getallcardt.Where(c => c.AccountID == userId);
+						var getcartbyid = getallcardt.Where(c => c.AccountID == userId.Id);
 
 						List<BillDetails> billDetails = new List<BillDetails>();
 						List<Product> productList = await _services.GetAll<Product>("https://localhost:7149/api/showlist");
@@ -202,7 +206,11 @@ namespace App_client.Controllers
 							}
 						}
 						var createBill = await _services.CreateAll<Bill>("https://localhost:7149/api/bill", bill);
-						if (createBill == true)
+                        userId.Point += 100;
+
+
+                        var edit = await _services.EditAll<User>("https://localhost:7149/api/User", userId);
+                        if (createBill == true)
 						{
 							_notyfService.Success("Thanh toán thành công");
 							foreach (var item in getcartbyid)

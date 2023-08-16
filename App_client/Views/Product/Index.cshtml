@@ -1,4 +1,6 @@
-﻿@model IEnumerable<App_Shared.ViewModels.ProductView>
+﻿@using App_Shared.Model;
+@using App_Shared.ViewModels;
+@model IEnumerable<App_Shared.ViewModels.ProductView>
 
 @{
 	ViewData["Title"] = "Index";
@@ -6,23 +8,24 @@
 	List<string>
 			imageExtensions = new List<string>
 				()
-									   {
+											   {
 		".png", ".jpg", ".jpeg", ".gif", ".tiff", ".pdf"
-									   };
-									   }
+											   };
+	var favoriteProducts = ViewData["yeuthich"] as List<ViewFavoriteProduct>;
+}
 
 <div class="container">
 
-<div>
-	<select class="form-select" aria-label="Default select example">
-		<option selected>tìm kiếm theo giá</option>
-		<option value="Tang"><a asp-action="Tang">Tăng dần</a></option>
-		<option value="Giam"><a asp-action="Giam">Giảm dần</a> </option>
-	</select>
-	<a asp-controller="Product" asp-action="Tang" asp-route-name="Tang">Tăng dần</a>
+	<div>
+		<select class="form-select" aria-label="Default select example">
+			<option selected>tìm kiếm theo giá</option>
+			<option value="Tang"><a asp-action="Tang">Tăng dần</a></option>
+			<option value="Giam"><a asp-action="Giam">Giảm dần</a> </option>
+		</select>
+		<a asp-controller="Product" asp-action="Tang" asp-route-name="Tang">Tăng dần</a>
 		<a asp-controller="Product" asp-action="Giam" asp-route-name="Giam">Giảm dần</a>
 
-</div>
+	</div>
 	<div class="row mb-5 mt-5">
 		<div class="col-md-12 order-2">
 			<div class="row mb-5">
@@ -39,6 +42,22 @@
 								<a asp-controller="Product" asp-action="Details" asp-route-id="@item.Id"><img src="~/images/@item.ImageUrl" style="width:253px" height="200px" alt="Image placeholder"></a>
 							</figure>
 							<div class="block-4-text p-4">
+								@{
+									var productinlistfavorite = favoriteProducts.FirstOrDefault(c => c.ProductID == item.Id);
+									
+								}
+								@if (User.IsInRole("Admin"))
+								{
+									
+								}
+								else if(productinlistfavorite == null)
+									{
+										<a asp-controller="FavoriteProducts" asp-action="Creating" asp-route-id="@item.Id"><span class="icon icon-heart-o"></span></a>
+									}
+									else
+									{
+										<a asp-controller="FavoriteProducts" asp-action="Delete" asp-route-id="@item.Id"><span class="heart">&#10084;</span></a>
+									}
 								<h3><a asp-controller="Product" asp-action="Details" asp-route-id="@item.Id">@item.Name</a></h3>
 								<p class="mb-0">@item.Description</p>
 								<p class="text-primary font-weight-bold">$@item.Price</p>

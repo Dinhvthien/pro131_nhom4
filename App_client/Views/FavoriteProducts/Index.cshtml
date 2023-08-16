@@ -16,105 +16,62 @@
         height:50px;
     }
 </style>
-<h1 style="text-align:center">Sản Phẩm Yêu Thích</h1>
-
-<@*p>
-    <a asp-action="Create">Create New</a>
-</p>*@
-
-<table class="table">
-    <thead>
-        <tr>
-           @* <th>
-                AccID
-
-            </th>
-            <th>
-                proID
-
-            </th>*@
-            <th>
-               Mô tả
-            </th>
-            <th>
-                Tên Sản Phẩm
-            </th>
-            <th>
-                Giá Bán
-            </th>
-            <th>
-                Số Lượng
-            </th>
-            <th>
-                Ảnh
-            </th>
-            <th>
-                NSX
-            </th>
-            <th>
-                Trạng Thái
-            </th>
-            <th>
-                Likes
-            </th>
-            <th>
-                Mô tả SP
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-            @if (idlogin == item.AccountID.ToString())
+<div class="container">
+    <h1 style="text-align:center">Sản Phẩm Yêu Thích</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Tên Sản Phẩm
+                </th>
+                <th>
+                    Giá Bán
+                </th>
+                <th>
+                    Ảnh
+                </th>
+                <th>
+                    NSX
+                </th>
+                <th>
+                    Mô tả SP
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
             {
-                <tr>
-                    @*<td>
-                        @Html.DisplayFor(modelItem => item.AccountID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProductID)
-                    </td>*@
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NameProduct)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PriceProduct)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AvailableQuantityProduct)
-                    </td>
-                    <td>
-                        @{
-                            string extension = System.IO.Path.GetExtension(item.ImageUrlProduct);
-                        }
-                           <img src="~/images/@item.ImageUrlProduct" alt="Image" class="imgmd" >
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ManufacturerProduct)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StatusProduct)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LikesProduct)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DescriptionProduct)
-                    </td>
-                    <td>
-                        <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductID">Chi tiet</a>|
-                        @*<a asp-controller="FavoriteProducts" asp-action="Edit" asp-route-id="@item.Id">Sua</a>*@|
-                        <a asp-controller="FavoriteProducts" asp-action="Delete" asp-route-idproduct="@item.ProductID">Xóa</a>|
-                        @* asp-route-idacc="@item.AccountID"
-                *@
+                @if (idlogin == item.AccountID.ToString())
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NameProduct)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PriceProduct)
+                        </td>
 
-                    </td>
-                </tr>
+                        <td>
+                            @{
+                                string extension = System.IO.Path.GetExtension(item.ImageUrlProduct);
+                            }
+                            <img src="~/images/@item.ImageUrlProduct" alt="Image" class="imgmd">
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ManufacturerProduct)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DescriptionProduct)
+                        </td>
+                        <td>
+                            <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductID">Chi tiet</a>
+                            <a asp-controller="FavoriteProducts" asp-action="Delete" asp-route-idproduct="@item.ProductID">Xóa</a>
+                        </td>
+                    </tr>
+                }
+
             }
-        
-}
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>

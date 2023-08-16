@@ -29,7 +29,7 @@ namespace App_client.Areas.Admin.Controllers
 					var result = await _services.GetAllById<User>($"https://localhost:7149/api/User/{userId}");
 					return View(result);
 				}
-				return RedirectToAction("Index", "Admin", new { area = "Admin" });
+				return RedirectToAction("Index", "Admin");
 
 			}
 			else
