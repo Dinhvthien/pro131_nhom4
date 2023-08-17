@@ -43,18 +43,7 @@
 			<th>
 				Trạng thái
 			</th>
-			<th>
-				Số lượng yêu thích
-			</th>
-			<th>
-				Mô tả
-			</th>
-			@*  <th>
-			@Html.DisplayNameFor(model => model.ColorID)
-			</th>
-			<th>
-			@Html.DisplayNameFor(model => model.SizeID)
-			</th>*@
+
 			<th></th>
 		</tr>
 	</thead>
@@ -91,18 +80,6 @@
 				<td>
 					@Html.DisplayFor(modelItem => item.Status)
 				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Likes)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Description)
-				</td>
-				@*     <td>
-			@Html.DisplayFor(modelItem => item.ColorID)
-			</td>
-			<td>
-			@Html.DisplayFor(modelItem => item.SizeID)
-			</td>*@
 				<td>
 					@Html.ActionLink("Sửa", "Edit","Product", new {  id=item.Id }) |
 					@Html.ActionLink("Details", "Details","Product", new {  id=item.Id }) |

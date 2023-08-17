@@ -109,20 +109,25 @@ namespace App_client.Controllers
 						}
 						
 						var createBill = await _services.CreateAll<Bill>("https://localhost:7149/api/bill", bill);
-						userId.Point += 100;
-
-
-                        var edit = await _services.EditAll<User>("https://localhost:7149/api/User", userId);
+		
                         if (createBill = true)
 						{
+
+
+							userId.Point += 100;
+
+
+						//////////////////////////	var edit = await _services.EditAll<User>("https://localhost:7149/api/User", userId);
 							_notyfService.Success("Thanh toán thành công");
 							List<CartDetails> getallcardt = await _services.GetAll<CartDetails>("https://localhost:7149/api/cartdt");
 							var getcartbyid = getallcardt.Where(c => c.AccountID == userId.Id);
 							List<BillDetails> billDetails = new List<BillDetails>();
 							List<Product> productList = await _services.GetAll<Product>("https://localhost:7149/api/showlist");
+
 							foreach (var item in getcartbyid)
 							{
-								var productInfo = productList.FirstOrDefault(p => p.Id == item.ProductID);
+								var productInfo = productList.FirstOrDefault(c => c.Id == item.ProductID);
+
 								var billdetai = new BillDetails
 								{
 									Id = Guid.NewGuid(),
@@ -131,13 +136,12 @@ namespace App_client.Controllers
 									Quantity = item.Quantity,
 									Prices = productInfo.Price
 								};
+							
+
+								await _httpClient.PutAsJsonAsync<Product>($"https://localhost:7149/api/showlist/test/{item.ProductID}/{item.Quantity}",null);
 								billDetails.Add(billdetai);
-								if (item.ProductID != null)
-								{
-									productInfo.AvailableQuantity -= item.Quantity;
-									_services.EditAll($"https://localhost:7149/api/showlist/{item.ProductID}", productInfo);
-								}
 								await _services.DeleteAll<CartDetails>($"https://localhost:7149/api/cartdt/{item.Id}"); // delete item in car
+
 							}
 							foreach (var billItem in billDetails)
 							{
@@ -170,7 +174,7 @@ namespace App_client.Controllers
 							giavoucher = 0;
 							_notyfService.Error("voucher của bạn không tồn tại ");
 							return RedirectToAction("PaymentOff", "Checkour");
-							getvoucherbynameid = Guid.Parse("155c571b-b199-4544-f43c-08db95d4ff4f");
+							
 
 
 						}
@@ -209,7 +213,7 @@ namespace App_client.Controllers
                         userId.Point += 100;
 
 
-                        var edit = await _services.EditAll<User>("https://localhost:7149/api/User", userId);
+             /////////////////////////          // var edit = await _services.EditAll<User>("https://localhost:7149/api/User", userId);
                         if (createBill == true)
 						{
 							_notyfService.Success("Thanh toán thành công");
@@ -225,11 +229,10 @@ namespace App_client.Controllers
 									Prices = productInfo.Price
 								};
 								billDetails.Add(billdetai);
-								if (item.ProductID != null)
-								{
-									productInfo.AvailableQuantity -= item.Quantity;
-									_services.EditAll($"https://localhost:7149/api/showlist/{item.ProductID}", productInfo);
-								}
+
+
+
+								await _httpClient.PutAsJsonAsync<Product>($"https://localhost:7149/api/showlist/test/{item.ProductID}/{item.Quantity}", null);
 								await _services.DeleteAll<CartDetails>($"https://localhost:7149/api/cartdt/{item.Id}"); // delete item in car
 							}
 							foreach (var billItem in billDetails)
@@ -326,20 +329,18 @@ namespace App_client.Controllers
 					List<BillDetails> danhSachChiTietHoaDon = new List<BillDetails>();
 					List<Product> danhSachSanPham = await _services.GetAll<Product>("https://localhost:7149/api/showlist");
 
-					bool tatCaSoLuongHopLe = true; // Cờ để xác định nếu tất cả số lượng đều hợp lệ
+					bool tatCaSoLuongHopLe = true; 
 
 					foreach (var item in gioHangTheoID)
 					{
 						var thongTinSanPham = danhSachSanPham.FirstOrDefault(p => p.Id == item.ProductID);
 
-						// Kiểm tra nếu số lượng hàng trong giỏ vượt quá số lượng sản phẩm có sẵn
+					
 						if (thongTinSanPham == null || item.Quantity > thongTinSanPham.AvailableQuantity)
 						{
-							tatCaSoLuongHopLe = false; // Đặt cờ thành false
-							break; // Thoát khỏi vòng lặp, không cần kiểm tra tiếp
+							tatCaSoLuongHopLe = false; 
+							break;
 						}
-
-						// ... (phần còn lại của vòng lặp, thêm BillDetails, cập nhật thongTinSanPham, vv.)
 					}
 
 					if (tatCaSoLuongHopLe)

@@ -82,9 +82,9 @@ namespace App_client.Controllers
             var result = await _services.CreateAll<CreateFavoriteProducts>("https://localhost:7149/api/CRUDFavoritePr/Create", rq);
 			if (result)
 			{
-				return RedirectToAction("Index");
+				return RedirectToAction("Index", "Product");
 			}
-			return View();
+			return RedirectToAction("Index", "home");
 		}
 
 
@@ -96,13 +96,13 @@ namespace App_client.Controllers
             if (a == 0)
             {
                 ViewData["XoaThatBai"] = "Xóa thất bại";
-                return RedirectToAction("Index");
-            }
+				return RedirectToAction("Index", "Product");
+			}
             else
             {
                 ViewData["XoaThanhCong"] = "Xóa tHành công";
-                return RedirectToAction("Index");
-            }
+				return RedirectToAction("Index", "Product");
+			}
 
         }
         

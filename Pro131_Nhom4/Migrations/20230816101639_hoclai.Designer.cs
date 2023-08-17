@@ -12,8 +12,8 @@ using Pro131_Nhom4.Data;
 namespace Pro131_Nhom4.Migrations
 {
     [DbContext(typeof(Mydb))]
-    [Migration("20230816070157_131")]
-    partial class _131
+    [Migration("20230816101639_hoclai")]
+    partial class hoclai
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -314,31 +314,31 @@ namespace Pro131_Nhom4.Migrations
                         },
                         new
                         {
-                            Id = new Guid("65b78e12-fa83-4810-be8d-ec9a0eca329c"),
+                            Id = new Guid("f4e4ea7c-abeb-46ee-a9ba-98d8da41ecc4"),
                             Name = "Đồng",
                             Point = 100.0
                         },
                         new
                         {
-                            Id = new Guid("16bbd7fe-37fb-48b7-8ca8-b53177e78148"),
+                            Id = new Guid("ac1c8733-a9f3-419c-aa1c-dc71c9349fa4"),
                             Name = "Bạc",
                             Point = 500.0
                         },
                         new
                         {
-                            Id = new Guid("771fa0f9-1a3f-4ebe-b8ef-1fd7f0084802"),
+                            Id = new Guid("65b9948b-b19a-4a54-b1e6-6861d49523e5"),
                             Name = "Vàng",
                             Point = 1000.0
                         },
                         new
                         {
-                            Id = new Guid("cb39bcec-abab-4508-8f1a-d33da5437c3d"),
+                            Id = new Guid("2cd55061-f2d3-4eed-b17d-b8ee2135eaa6"),
                             Name = "Kim Cương",
                             Point = 3000.0
                         },
                         new
                         {
-                            Id = new Guid("d67458d1-2f42-456b-aa25-d8f9ad3b668a"),
+                            Id = new Guid("9aaa6212-28e4-4924-b978-00786e8202c3"),
                             Name = "Thách đấu",
                             Point = 10000.0
                         });
@@ -522,15 +522,15 @@ namespace Pro131_Nhom4.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2c362b30-a306-4fb2-9780-fb8915b9941b"),
-                            ConcurrencyStamp = "fcc9dab3-dcd5-48b2-8d4b-191fdf08bb9e",
+                            Id = new Guid("05e83ba4-fad1-459d-b259-68ddfb58d3cd"),
+                            ConcurrencyStamp = "90e11795-0073-4891-a982-864741ab86b3",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("b108d866-eb13-46e3-b3d2-ecae4fbfe873"),
-                            ConcurrencyStamp = "ead6202b-6917-4cb6-b911-26cad6e5bfc3",
+                            ConcurrencyStamp = "1fc3da55-8410-4fe5-bf8d-73aa738e736c",
                             Name = "User",
                             NormalizedName = "USER"
                         });

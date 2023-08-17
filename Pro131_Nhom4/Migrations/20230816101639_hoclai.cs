@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Pro131_Nhom4.Migrations
 {
-    public partial class _131 : Migration
+    public partial class hoclai : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -421,8 +421,8 @@ namespace Pro131_Nhom4.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("2c362b30-a306-4fb2-9780-fb8915b9941b"), "fcc9dab3-dcd5-48b2-8d4b-191fdf08bb9e", "Admin", "ADMIN" },
-                    { new Guid("b108d866-eb13-46e3-b3d2-ecae4fbfe873"), "ead6202b-6917-4cb6-b911-26cad6e5bfc3", "User", "USER" }
+                    { new Guid("05e83ba4-fad1-459d-b259-68ddfb58d3cd"), "90e11795-0073-4891-a982-864741ab86b3", "Admin", "ADMIN" },
+                    { new Guid("b108d866-eb13-46e3-b3d2-ecae4fbfe873"), "1fc3da55-8410-4fe5-bf8d-73aa738e736c", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -448,11 +448,11 @@ namespace Pro131_Nhom4.Migrations
                 values: new object[,]
                 {
                     { new Guid("02f4cf23-3b1d-49dd-b89c-598185786e79"), "Sắt", 1.0 },
-                    { new Guid("16bbd7fe-37fb-48b7-8ca8-b53177e78148"), "Bạc", 500.0 },
-                    { new Guid("65b78e12-fa83-4810-be8d-ec9a0eca329c"), "Đồng", 100.0 },
-                    { new Guid("771fa0f9-1a3f-4ebe-b8ef-1fd7f0084802"), "Vàng", 1000.0 },
-                    { new Guid("cb39bcec-abab-4508-8f1a-d33da5437c3d"), "Kim Cương", 3000.0 },
-                    { new Guid("d67458d1-2f42-456b-aa25-d8f9ad3b668a"), "Thách đấu", 10000.0 }
+                    { new Guid("2cd55061-f2d3-4eed-b17d-b8ee2135eaa6"), "Kim Cương", 3000.0 },
+                    { new Guid("65b9948b-b19a-4a54-b1e6-6861d49523e5"), "Vàng", 1000.0 },
+                    { new Guid("9aaa6212-28e4-4924-b978-00786e8202c3"), "Thách đấu", 10000.0 },
+                    { new Guid("ac1c8733-a9f3-419c-aa1c-dc71c9349fa4"), "Bạc", 500.0 },
+                    { new Guid("f4e4ea7c-abeb-46ee-a9ba-98d8da41ecc4"), "Đồng", 100.0 }
                 });
 
             migrationBuilder.CreateIndex(

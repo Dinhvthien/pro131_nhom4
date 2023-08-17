@@ -11,15 +11,6 @@ namespace App_client.Areas.Admin.Controllers
         TServices _services = new TServices();
         public async Task<IActionResult> Index()
         {
-            /*  var user = SessionServices.GetAccountFromSession(HttpContext.Session, "User");
-              if (user.Status != 404)
-              {
-                  ViewBag.RoleId = user.RoleId;
-                  if (user.RoleId == Guid.Parse("9d76eb12-8c3c-4dcf-a389-4a807ecf0a31"))
-                  {
-                      return View(await _services.GetAll<ProductView>("https://localhost:7256/api/showlist"));
-                  }
-              }*/
             var product = await _services.GetAll<ProductView>("https://localhost:7149/api/showlist");
             
             return View(product);

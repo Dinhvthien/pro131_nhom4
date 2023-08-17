@@ -10,7 +10,6 @@ using System.Security.Principal;
 
 namespace Pro131_Nhom4.Data
 {
-
     public class Mydb : IdentityDbContext<User,Role,Guid>
     {
         public Mydb(DbContextOptions<Mydb> options) : base(options)
@@ -23,7 +22,7 @@ namespace Pro131_Nhom4.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-VVKT5NE\\SQLEXPRESS;Initial Catalog=13111;Integrated Security=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-VVKT5NE\\SQLEXPRESS;Initial Catalog=131111;Integrated Security=True;TrustServerCertificate=True;");
         }
 
         public DbSet<User> Users { get; set; }

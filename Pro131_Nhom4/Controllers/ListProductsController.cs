@@ -62,7 +62,16 @@ namespace Pro131_Nhom4.Controllers
             await _productService.UpdateProduct(product);
             return Ok(product);
         }
-        [HttpDelete("{id}")]
+		[HttpPut("test/{id}/{slsp}")]
+
+		public async Task<ActionResult<Product>> UpdateProduct2(Guid id, int slsp)
+		{
+
+			await _productService.UpdateProduct2(id,slsp);
+			return Ok();
+		}
+
+		[HttpDelete("{id}")]
         public async Task<ActionResult<Product>> DeleteProduct([FromRoute] Guid id)
         {
             await _productService.DeleteProduct(id);

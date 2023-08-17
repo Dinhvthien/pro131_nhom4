@@ -169,6 +169,21 @@ namespace Pro131_Nhom4.Services
                 return false;
             }
         }
-    
-}
+
+		public async Task<bool> UpdateProduct2(Guid id, int slsp)
+		{
+			try
+			{
+				var product = _context.Products.Find(id);
+                product.AvailableQuantity -= slsp;
+				_context.Products.Update(product);
+				await _context.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
+		}
+	}
 }

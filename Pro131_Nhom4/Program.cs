@@ -25,6 +25,9 @@ builder.Services.AddScoped<ILoginService, LoginServices>();
 builder.Services.AddScoped<ISizeService, SizeService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<ICRUDFavoriteProductService, CRUDFavoriteProductService>();
+builder.Services.AddCors(c => c.AddPolicy("corspocy",
+	build => build.WithOrigins("*").AllowAnyMethod().AllowAnyHeader())
+);
 builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<Mydb>()/*.AddDefaultTokenProviders()*/; 
 builder.Services.AddAuthentication(options =>
@@ -66,7 +69,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("corspocy");
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

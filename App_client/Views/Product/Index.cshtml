@@ -15,17 +15,6 @@
 }
 
 <div class="container">
-
-	<div>
-		<select class="form-select" aria-label="Default select example">
-			<option selected>tìm kiếm theo giá</option>
-			<option value="Tang"><a asp-action="Tang">Tăng dần</a></option>
-			<option value="Giam"><a asp-action="Giam">Giảm dần</a> </option>
-		</select>
-		<a asp-controller="Product" asp-action="Tang" asp-route-name="Tang">Tăng dần</a>
-		<a asp-controller="Product" asp-action="Giam" asp-route-name="Giam">Giảm dần</a>
-
-	</div>
 	<div class="row mb-5 mt-5">
 		<div class="col-md-12 order-2">
 			<div class="row mb-5">
@@ -61,19 +50,16 @@
 								}
 								@if (User.IsInRole("Admin"))
 								{
-
+										
 								}
 								else
 								{
 
 								}
-
-								
-								 
-								
 								<h3><a asp-controller="Product" asp-action="Details" asp-route-id="@item.Id">@item.Name</a></h3>
 								<p class="mb-0">@item.Description</p>
 								<p class="text-primary font-weight-bold">$@item.Price</p>
+								
 							</div>
 						</div>
 					</div>

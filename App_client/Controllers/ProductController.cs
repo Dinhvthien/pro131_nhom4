@@ -47,9 +47,27 @@ namespace App_client.Controllers
             return View("Index", p);
         }
         public async Task<IActionResult> Search(string search)
-        {
-    
-            return View("Index", await _services.GetAll<ProductView>($"https://localhost:7149/api/showlist/{search}"));
+		{
+			var identity = HttpContext.User.Identity as ClaimsIdentity;
+			var userIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+            {
+                var product = await _services.GetAll<ProductView>("https://localhost:7149/api/showlist");
+                var p = product.GroupBy(p => new { p.Name }).Select(g => g.First()).ToList();
+				return View("Index",p);
+			}
+            else
+            {
+                var userName = userIdClaim.Value;
+                var getallUser = await _services.GetAll<User>("https://localhost:7149/api/User");
+                var userId = getallUser.FirstOrDefault(c => c.UserName == userName).Id;
+                var result = await _services.GetAll<ViewFavoriteProduct>("https://localhost:7149/api/CRUDFavoritePr/GetAll");
+                var productfavorite = result.FindAll(c => c.AccountID == userId);
+                var product = await _services.GetAll<ProductView>($"https://localhost:7149/api/showlist/{search}");
+                ViewData["yeuthich"] = productfavorite;
+                var p = product.GroupBy(p => new { p.Name }).Select(g => g.First()).ToList();
+                return View("Index", p);
+            }
         }
         public async Task<IActionResult> Details(Guid id)
         {
